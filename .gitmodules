@@ -1,0 +1,3 @@
+[submodule ".config/eww"]
+	path = .config/eww
+	url = https://github.com/HypoxiE/eww-configs
