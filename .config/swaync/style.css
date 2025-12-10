@@ -1,0 +1,101 @@
+/* ======== ОБЩИЕ НАСТРОЙКИ ОКНА УВЕДОМЛЕНИЙ ======== */
+
+window.notification-window {
+    margin-top: 60px;       /* сдвиг вниз */
+    margin-right: 20px;     /* отступ справа */
+    margin-left: 20px;      /* если стоит position=top-center, будет центр */
+    border-radius: 12px;
+    background: transparent;
+}
+
+/* Если уведомления центрируются (если position=top-center), раскомментируй:
+window.notification-window {
+    margin-left: auto;
+    margin-right: auto;
+}
+*/
+
+/* ======== СТИЛЬ ОДНОГО УВЕДОМЛЕНИЯ ======== */
+
+.notification {
+    background: #1e1e1e;
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-bottom: 8px;
+    border: 1px solid #333;
+    color: #ddd;
+}
+
+/* ======== ЗАГОЛОВОК ======== */
+
+.notification .title {
+    font-weight: bold;
+    font-size: 1.02rem;
+    color: #ffffff;
+    margin-bottom: 4px;
+}
+
+/* ======== ТЕКСТ ======== */
+
+.notification .body {
+    font-size: 0.95rem;
+    color: #cccccc;
+}
+
+/* ======== КНОПКИ ДЕЙСТВИЙ ======== */
+
+.notification .actions button {
+    background: #2e2e2e;
+    border-radius: 8px;
+    padding: 6px 10px;
+    margin-top: 6px;
+    color: #ddd;
+    border: 1px solid #444;
+}
+
+.notification .actions button:hover {
+    background: #3a3a3a;
+}
+
+/* ======== ИКОНКА ======== */
+
+.notification image.icon {
+    margin-right: 8px;
+    border-radius: 4px;
+}
+
+/* ======== СКРОЛЛ ПАНЕЛИ В ЦЕНТРЕ УВЕДОМЛЕНИЙ ======== */
+
+scrollbar {
+    background: transparent;
+}
+
+scrollbar slider {
+    background: #555;
+    border-radius: 4px;
+}
+
+/* ======== ПАНЕЛЬ (Control Center) ======== */
+
+window.control-center {
+    background: #151515;
+    border-radius: 16px;
+    padding: 16px;
+    margin: 12px;
+}
+
+/* Карточки в Control Center */
+.cc-notification {
+    background: #1d1d1d;
+    border-radius: 10px;
+    padding: 10px;
+    margin-bottom: 8px;
+    border: 1px solid #333;
+}
+
+/* ======== УДАЛЕНИЕ ТЕНЕЙ (если мешают) ======== */
+
+window,
+* {
+    box-shadow: none;
+}

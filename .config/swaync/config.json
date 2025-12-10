@@ -1,0 +1,11 @@
+{
+  "position": "top-right",
+  "notification-edges": ["top", "right"],
+  "notification-margin": 60,
+  "notification-gap": 8,
+  "layer": "overlay",
+  "keyboard-shortcuts": false,
+ "margin": 60,
+  "timeout": 5000,
+  "ignore-wayland-output": false
+}

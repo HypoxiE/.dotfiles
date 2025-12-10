@@ -1,0 +1,135 @@
+{
+    "workbench.secondarySideBar.defaultVisibility": "hidden",
+    "workbench.editor.enablePreview": false,
+
+    "workbench.startupEditor": "none",
+    "editor.comments.insertSpace": false,
+    "editor.tabSize": 4,
+    "editor.insertSpaces": false,
+    //"[json]": {
+    //    "editor.tabSize": 4,
+    //    "editor.insertSpaces": false,
+    //    "editor.quickSuggestions": {
+    //        "strings": true
+    //    },
+    //    "editor.suggest.insertMode": "replace"
+    //},
+    "[yaml]": {
+        "editor.insertSpaces": true,
+        "editor.tabSize": 2,
+        "editor.autoIndent": "advanced",
+        "diffEditor.ignoreTrimWhitespace": false,
+        "editor.defaultColorDecorators": "never",
+        "editor.quickSuggestions": {
+            "strings": "on"
+        }
+    },
+    "chat.commandCenter.enabled": false,
+    "editor.unicodeHighlight.allowedLocales": {
+        "ru": true,
+        "cs": true
+    },
+    "liveServer.settings.donotShowInfoMsg": true,
+    "git.enableSmartCommit": true,
+    "editor.unicodeHighlight.allowedCharacters": {
+        "е": true
+    },
+    "editor.unicodeHighlight.includeComments": false,
+    "editor.unicodeHighlight.nonBasicASCII": false,
+    "extensions.ignoreRecommendations": true,
+    "debug.onTaskErrors": "debugAnyway",
+    "python.createEnvironment.trigger": "off",
+    "python.analysis.typeCheckingMode": "basic",
+    "git.confirmSync": false,
+    "telemetry.telemetryLevel": "off",
+    "git.autofetch": true,
+
+
+    //latex
+    "latex-workshop.latex.tools": [
+        {
+            "name": "latexmk",
+            "command": "latexmk",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "-pdf",
+                "-outdir=%OUTDIR%",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "xelatex",
+            "command": "xelatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "pdflatex",
+            "command": "pdflatex",
+            "args": [
+                "-synctex=1",
+                "-interaction=nonstopmode",
+                "-file-line-error",
+                "%DOC%"
+            ],
+            "env": {}
+        },
+        {
+            "name": "bibtex",
+            "command": "bibtex",
+            "args": [
+                "%DOCFILE%"
+            ],
+            "env": {}
+        }
+    ],
+    "latex-workshop.latex.recipes": [
+        {
+            "name": "pdfLaTeX",
+            "tools": [
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "latexmk 🔃",
+            "tools": [
+                "latexmk"
+            ]
+            },
+        {
+            "name": "xelatex",
+            "tools": [
+                "xelatex"
+            ]
+        },
+        {
+            "name": "pdflatex ➞ bibtex ➞ pdflatex`×2",
+            "tools": [
+                "pdflatex",
+                "bibtex",
+                "pdflatex",
+                "pdflatex"
+            ]
+        },
+        {
+            "name": "xelatex ➞ bibtex ➞ xelatex`×2",
+            "tools": [
+                "xelatex",
+                "bibtex",
+                "xelatex",
+                "xelatex"
+            ]
+        }
+    ],
+
+    "latex-workshop.latex.recipe.default": "xelatex"
+
+}
