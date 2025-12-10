@@ -1,1 +1,6 @@
 colors.*
+.venv
+__pycache__
+*.pyc
+
+brightness_save
