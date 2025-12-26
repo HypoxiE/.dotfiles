@@ -5,16 +5,16 @@
 { config, lib, pkgs, ... }:
 
 {
-  imports =
-    [ # Include the results of the hardware scan.
-      ./hardware-configuration.nix
-      <home-manager/nixos>
-    ];
+  #imports =
+  #  [ # Include the results of the hardware scan.
+  #    ./hardware-configuration.nix
+  #    #<home-manager/nixos>
+  #  ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
   nixpkgs.config.allowUnfree = true;
 
-  home-manager.useGlobalPkgs = true;
-  home-manager.useUserPackages = true;
+  #home-manager.useGlobalPkgs = true;
+  #home-manager.useUserPackages = true;
 
   #home-manager.users.hypoxie = import /home/hypoxie/.config/nixos/home/hypoxie.nix;
 

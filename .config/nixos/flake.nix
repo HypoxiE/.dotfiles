@@ -3,28 +3,23 @@
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-
-    home-manager = {
-      url = "github:nix-community/home-manager";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
-
+    home-manager.url = "github:nix-community/home-manager";
     nur.url = "github:nix-community/NUR";
   };
 
   outputs = { self, nixpkgs, home-manager, nur, ... }:
+
   let
     system = "x86_64-linux";
-  in {
-    nixosConfigurations.myhost = nixpkgs.lib.nixosSystem {
+    pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay ]; };
+  in
+  {
+    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
       inherit system;
+
       modules = [
-        ({ pkgs, ... }: {
-          nixpkgs.overlays = [ nur.overlay ];
-        })
-
-        ./hosts/laptop.nix
-
+        ./hosts/hardware-configuration.nix   # hardware-configuration.nix первым!
+        ./hosts/laptop.nix                    # остальные настройки
         home-manager.nixosModules.home-manager
         {
           home-manager.useGlobalPkgs = true;

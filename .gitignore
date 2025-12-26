@@ -5,3 +5,6 @@ __pycache__
 *.pyc
 
 brightness_save
+Code/*
+!Code/User/settings.json
+!Code/User/keybindings.json
