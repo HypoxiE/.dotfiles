@@ -4,7 +4,7 @@ let
   spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-  nixpkgs.config.allowUnfree = true;
+  #nixpkgs.config.allowUnfree = true;
 
   home.username = "hypoxie";
   home.homeDirectory = "/home/hypoxie";
@@ -17,10 +17,14 @@ in
   #  user.email = "kosmaer42@gmail.com";
   #};
 
-  #programs.spicetify = {
-  #  enable = true;
-  #  theme = spicePkgs.themes.catppuccin;
-  #};
+  programs.spicetify = {
+    enable = true;
+    #theme = spicePkgs.themes.catppuccin;
+    enabledExtensions = with spicePkgs.extensions; [
+      adblock
+      hidePodcasts
+    ];
+  };
 
   programs.firefox = {
     enable = true;
@@ -115,12 +119,14 @@ in
     unzip
     calc
     qmk
+    usbutils
     #google-chrome
 
     ayugram-desktop
     legcord
     #spicePkgs.spicetify-cli
     #firefox
+    vivaldi
     steam
 
     #games

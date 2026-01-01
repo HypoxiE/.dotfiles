@@ -1,36 +1,3 @@
-#{
-#  description = "NixOS + Home Manager flake";
-
-#  inputs = {
-#    nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
-#    home-manager.url = "github:nix-community/home-manager";
-#    nur.url = "github:nix-community/NUR";
-#    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
-#  };
-
-#  outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, ... }:
-
-#  let
-#    system = "x86_64-linux";
-#    pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay ]; };
-#  in
-#  {
-#    nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-#      inherit system;
-
-#      modules = [
-#        ./hosts/hardware-configuration.nix
-#        ./hosts/laptop.nix
-#        home-manager.nixosModules.home-manager
-
-#        {
-#          home-manager.users.hypoxie = import ./home/hypoxie.nix;
-#        }
-#      ];
-#    };
-#  };
-#}
-
 
 {
   description = "NixOS + Home Manager flake";
@@ -50,28 +17,38 @@
   let
     system = "x86_64-linux";
     username = "hypoxie";
-    pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay ]; };
+    pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay  spicetify-nix.overlays.default ]; };
   in
   {
     # NixOS конфигурация
     nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-      inherit system;
+      #inherit system;
       modules = [
+        #({ ... }: {
+        #  nixpkgs.overlays = [
+        #    nur.overlay
+        #    #spicetify-nix.overlays.default
+        #  ];
+        #})
         ./hosts/hardware-configuration.nix
         ./hosts/laptop.nix
         home-manager.nixosModules.home-manager
-        { home-manager.users.hypoxie = import ./home/hypoxie.nix; }
+        #{ home-manager.users.hypoxie = import ./home/hypoxie.nix; }
+        {
+          home-manager.useGlobalPkgs = true;
+          home-manager.useUserPackages = true;
+
+          home-manager.sharedModules = [
+            spicetify-nix.homeManagerModules.default
+          ];
+
+          home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
+            inherit config pkgs;
+            # Передаем spicetify-nix как аргумент
+            spicetify-nix = spicetify-nix;
+          };
+        }
       ];
-    };
-
-    # Отдельная конфигурация Home Manager
-    homeConfigurations.${username} = home-manager.lib.homeManagerConfiguration {
-      pkgs = import nixpkgs { inherit system; };
-      modules = [ ./home/hypoxie.nix ];
-
-      #extraSpecialArgs = {
-      #  spicetify-nix = spicetify-nix;
-      #};
     };
   };
 }
