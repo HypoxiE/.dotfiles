@@ -90,10 +90,7 @@
   users.users.hypoxie = {
     isNormalUser = true;
     home = "/home/hypoxie";
-    extraGroups = [ "wheel" "video" "input" "networkmanager" ]; # Enable ‘sudo’ for the user.
-    # packages = with pkgs; [
-    #   tree
-    # ];
+    extraGroups = [ "wheel" "video" "input" "networkmanager" ];
     password = "12345678";
   };
 
@@ -113,10 +110,18 @@
       options = [ "noatime" "umask=0077" ];
     };
   };
-  swapDevices = [ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; } ];
+  #swapDevices = [ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; } ];
 
-  programs.firefox.enable = true;
+  services.udev.extraRules = ''
+    SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="0860", MODE="0666"
+  '';
+
+
   programs.hyprland.enable = true;
+  programs.steam.enable = true;
+  programs.xwayland.enable = true;
+  #programs.zoxide.enable = true;
+  #programs.home-manager.enable = true;
 
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
@@ -127,20 +132,30 @@
     gnumake
     wl-clipboard
     adwaita-icon-theme
+    pulseaudio # регулировка звука
+    brightnessctl ddcutil # яркость
 
     vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     tree
-    iwd
-    wget
+    htop
+    iwd # wifi
+    wget # для web запросов
     gtk3 # Необходимо для запуска gui приложений
     wev # Для получения кейкодов клавиш
     neofetch
     git
-    zoxide
+    zoxide fzf # для поиска
     xray
     # for screenshots
     grim
     slurp
+
+    hyprland
+    hyprlock hyprpicker eww swww
+    wayland wayland-protocols
+    kitty
+    wofi
+    swaynotificationcenter
 
     go
     python3
@@ -148,59 +163,8 @@
 
     stow
     clipse
-
-    hyprland
-    hyprpicker
-    eww
-    swww
-    wayland
-    wayland-protocols
-    kitty
-    wofi
-
-    ayugram-desktop
-    #spicetify
-    firefox
-    steam
-
-    (vscode-with-extensions.override {
-      vscodeExtensions = with vscode-extensions; [
-        bbenoist.nix
-      ] ++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-        {
-          name = "save-as-root";
-          publisher = "yy0931";
-          version = "1.12.0";
-          sha256 = "fGYqT7emOL14p3LfAaR4CaxUkTYHbopIOc25TC248r4=";
-        }
-        {
-          name = "vscode-latex";
-          publisher = "mathematic";
-          version = "1.3.0";
-          sha256 = "/mbMpel9JHmSh0GN/wIbFi/0voaQBxGn0SueZlUFZUc=";
-        }
-        {
-          name = "yuck";
-          publisher = "eww-yuck";
-          version = "0.0.3";
-          sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
-        }
-      ];
-    })
   ];
   fonts.packages = with pkgs; [
-    #noto-fonts
-    #noto-fonts-cjk-sans
-    #noto-fonts-color-emoji
-    #liberation_ttf
-    #fira-code
-    #fira-code-symbols
-    #mplus-outline-fonts.githubRelease
-    #dina-font
-    #proggyfonts
-
-
-    #material-icons
     material-symbols
   ];
 
@@ -220,17 +184,38 @@
   };
 
   programs.bash = {
-    enable = true;
+    #enable = true;
     shellAliases = {
       scol = "python3 /home/hypoxie/scripts/set_themes/main.py";
       wset = "/home/hypoxie/scripts/set_wallpapers/main.py";
+      nohup = "nohup 2>&1 > ~/logs/nohup.out";
+      py = "python3";
 
-      rebuild="sudo nixos-rebuild switch --flake ~/.config/nixos#laptop";
+      rebuild="sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop";
+      rebuilds="sudo nixos-rebuild switch --flake ~/.config/nixos#laptop && shutdown +0";
       rebuildr="sudo nixos-rebuild switch --flake ~/.config/nixos#laptop && reboot";
+
+      keybordsettings="nix shell nixpkgs#chromium -c chromium --user-data-dir=/tmp/chromium-via";
     };
 
     shellInit = ''
       eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
+      
+      function files {
+          local dir
+          if [ -n "$1" ]; then
+              dir=$(zoxide query -l "$1" | fzf --height 40% --reverse)
+          else
+              dir=$(zoxide query -l | fzf --height 40% --reverse)
+          fi
+          
+          if [ -n "$dir" ] && [ -d "$dir" ]; then
+              cd "$dir"
+          fi
+      }
+      open() {
+        xdg-open "$@" & disown
+      }
     '';
   };
 

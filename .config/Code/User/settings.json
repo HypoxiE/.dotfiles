@@ -1,4 +1,5 @@
 {
+    
     "workbench.secondarySideBar.defaultVisibility": "hidden",
     "workbench.editor.enablePreview": false,
 
@@ -24,7 +25,11 @@
             "strings": "on"
         }
     },
+    "chat.disableAIFeatures": true,
+    "chat.agent.enabled": false,
+    "workbench.enableExperiments": false,
     "chat.commandCenter.enabled": false,
+    "editor.inlineSuggest.enabled": false,
     "editor.unicodeHighlight.allowedLocales": {
         "ru": true,
         "cs": true
@@ -131,6 +136,6 @@
     ],
 
     "latex-workshop.latex.recipe.default": "xelatex",
-    "git.openRepositoryInParentFolders": "never"
+    "git.openRepositoryInParentFolders": "never",
 
 }
