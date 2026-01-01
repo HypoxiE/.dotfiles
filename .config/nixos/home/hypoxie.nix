@@ -11,11 +11,11 @@ in
 
   home.stateVersion = "25.11";
 
-  #programs.git.settings = {
-  #  enable = true;
-  #  user.name = "HypoxiE";
-  #  user.email = "kosmaer42@gmail.com";
-  #};
+  programs.git.settings = {
+    enable = true;
+    user.name = "HypoxiE";
+    user.email = "kosmaer42@gmail.com";
+  };
 
   programs.spicetify = {
     enable = true;
@@ -115,22 +115,26 @@ in
   
   home.packages = with pkgs; [
     chafa
-    ncdu # Анализ диска
+    ncdu # disk analiser
     unzip
     calc
-    qmk
-    usbutils
-    #google-chrome
 
+    #communication
     ayugram-desktop
     legcord
-    #spicePkgs.spicetify-cli
-    #firefox
-    vivaldi
-    steam
 
     #games
+    steam
     prismlauncher
+
+    #keyboard
+    qmk
+    usbutils
+    via
+    keychron-udev-rules
+
+    #programming
+    arduino-cli
 
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
@@ -153,6 +157,12 @@ in
           publisher = "eww-yuck";
           version = "0.0.3";
           sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
+        }
+        {
+          name = "vscode-arduino-community";
+          publisher = "vscode-arduino";
+          version = "0.7.2";
+          sha256 = "/HdPJ6LBnyPhz7jeJ0MLRXO2L3bcAzM7J65nKsXsacY=";
         }
       ];
     })
