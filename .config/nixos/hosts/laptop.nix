@@ -90,7 +90,7 @@
   users.users.hypoxie = {
     isNormalUser = true;
     home = "/home/hypoxie";
-    extraGroups = [ "wheel" "video" "input" "networkmanager" ];
+    extraGroups = [ "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
     password = "12345678";
   };
 
@@ -126,6 +126,10 @@
   # List packages installed in system profile.
   # You can use https://search.nixos.org/ to find more packages (and options).
   environment.systemPackages = with pkgs; [
+    #libs
+    pkg-config
+    systemd.libudev
+
     gcc
     pam
     socat

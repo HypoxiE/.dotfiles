@@ -134,7 +134,10 @@ in
     keychron-udev-rules
 
     #programming
-    arduino-cli
+    arduino
+    rustc
+    cargo
+    openscad
 
     (vscode-with-extensions.override {
       vscodeExtensions = with vscode-extensions; [
@@ -159,10 +162,16 @@ in
           sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
         }
         {
-          name = "vscode-arduino-community";
-          publisher = "vscode-arduino";
-          version = "0.7.2";
-          sha256 = "/HdPJ6LBnyPhz7jeJ0MLRXO2L3bcAzM7J65nKsXsacY=";
+          name = "cpptools-extension-pack";
+          publisher = "ms-vscode";
+          version = "1.3.1";
+          sha256 = "HbI0UdN8uwHS2MPH1SGZhxNaN18cWzjMyWYcgVE7FjY=";
+        }
+        {
+          name = "cpptools";
+          publisher = "ms-vscode";
+          version = "1.29.3";
+          sha256 = "wDHdpW6vV183RrMrssCGFW6w5IrqnlvIZO1dr5T6Syg=";
         }
       ];
     })
