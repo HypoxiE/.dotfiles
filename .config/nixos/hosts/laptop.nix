@@ -42,22 +42,6 @@
 	boot.tmp.useTmpfs = true;
 	boot.tmp.zramSettings.zram-size = "min(ram / 2, 512)";
 
-	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-	hardware.graphics = {
-		enable = true;
-	};
-	services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;
-		powerManagement.finegrained = false;
-		open = false;
-		nvidiaSettings = true;
-		package = config.boot.kernelPackages.nvidiaPackages.stable;
-		prime = {
-		nvidiaBusId = "PCI:01:00.0";
-		};
-	};
-
 	networking.hostName = "hynix"; # Define your hostname.
 
 	# Configure network connections interactively with nmcli or nmtui.
@@ -118,24 +102,6 @@
 		extraGroups = [ "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
 		password = "12345678";
 	};
-
-	fileSystems = {
-
-		"/" = {
-		device = "/dev/disk/by-uuid/369cc362-1f13-4acb-ae0e-eb25e52533b3";
-		fsType = "ext4";
-		};
-		"/home" = {
-		device = "/dev/disk/by-uuid/98d9730f-2cd0-46c5-9a1b-64ea2e75a1c3";
-		fsType = "ext4";
-		};
-		"/boot" = {
-		device = "/dev/disk/by-uuid/46FD-E9EC";
-		fsType = "vfat";
-		options = [ "noatime" "umask=0077" ];
-		};
-	};
-	#swapDevices = [ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; } ];
 
 	services.udev.extraRules = ''
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="0860", MODE="0666"
