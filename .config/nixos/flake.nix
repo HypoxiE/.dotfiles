@@ -31,7 +31,7 @@
 			modules = [
 				./hosts/hardware-configuration.nix
 				./hosts/laptop.nix
-				./disko.nix
+				#./disko.nix
 				disko.nixosModules.disko
 				home-manager.nixosModules.home-manager
 				{

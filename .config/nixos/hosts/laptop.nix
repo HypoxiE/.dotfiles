@@ -42,6 +42,22 @@
 	boot.tmp.useTmpfs = true;
 	boot.tmp.zramSettings.zram-size = "min(ram / 2, 512)";
 
+	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
+	hardware.graphics = {
+		enable = true;
+	};
+	services.xserver.videoDrivers = ["nvidia"];
+	hardware.nvidia = {
+		modesetting.enable = true;
+		powerManagement.finegrained = false;
+		open = false;
+		nvidiaSettings = true;
+		package = config.boot.kernelPackages.nvidiaPackages.stable;
+		prime = {
+		nvidiaBusId = "PCI:01:00.0";
+		};
+	};
+
 	networking.hostName = "hynix"; # Define your hostname.
 
 	# Configure network connections interactively with nmcli or nmtui.
@@ -240,24 +256,6 @@
 			xdg-open "$@" & disown
 		}
 		'';
-	};
-
-	#boot.initrd.kernelModules = [ "nvidia" ];
-	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-
-	hardware.graphics = {
-		enable = true;
-	};
-	services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;
-		powerManagement.finegrained = false;
-		open = false;
-		nvidiaSettings = true;
-		package = config.boot.kernelPackages.nvidiaPackages.stable;
-		prime = {
-		nvidiaBusId = "PCI:01:00.0";
-		};
 	};
 	
 
