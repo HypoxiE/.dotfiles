@@ -23,7 +23,6 @@
 
 	let
 		system = "x86_64-linux";
-		username = "hypoxie";
 		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay  spicetify-nix.overlays.default ]; };
 	in
 	{

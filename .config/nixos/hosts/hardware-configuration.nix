@@ -7,27 +7,11 @@
 	imports =
 		[ (modulesPath + "/installer/scan/not-detected.nix")
 		];
-		
 
-	boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usb_storage" "usbhid" "sd_mod" ];
+	boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
 	boot.initrd.kernelModules = [ ];
 	boot.kernelModules = [ "kvm-amd" ];
-
-	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
-	hardware.graphics = {
-		enable = true;
-	};
-	services.xserver.videoDrivers = ["nvidia"];
-	hardware.nvidia = {
-		modesetting.enable = true;
-		powerManagement.finegrained = false;
-		open = false;
-		nvidiaSettings = true;
-		package = config.boot.kernelPackages.nvidiaPackages.stable;
-		prime = {
-		nvidiaBusId = "PCI:01:00.0";
-		};
-	};
+	boot.extraModulePackages = [ ];
 
 	fileSystems."/" =
 		{ device = "/dev/disk/by-uuid/369cc362-1f13-4acb-ae0e-eb25e52533b3";
@@ -45,9 +29,9 @@
 		options = [ "fmask=0022" "dmask=0022" ];
 		};
 
-	#  swapDevices =
-	#    [ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; }
-	#    ];
+	swapDevices =
+		[ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; }
+		];
 
 	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
 	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;

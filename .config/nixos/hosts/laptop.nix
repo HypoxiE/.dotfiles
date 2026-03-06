@@ -4,7 +4,13 @@
 
 { config, lib, pkgs, ... }:
 
-{
+let
+	hostFile =./host_name.info;
+	host =
+		if builtins.pathExists hostFile
+		then lib.strings.trim (builtins.readFile hostFile)
+		else "default";
+in {
 	#imports =
 	#  [ # Include the results of the hardware scan.
 	#    ./hardware-configuration.nix
@@ -42,7 +48,27 @@
 	boot.tmp.useTmpfs = true;
 	boot.tmp.zramSettings.zram-size = "min(ram / 2, 512)";
 
-	networking.hostName = "hynix"; # Define your hostname.
+	networking.hostName = host;
+
+	boot.extraModulePackages =
+    lib.mkIf (host == "hynix")
+      [ config.boot.kernelPackages.nvidia_x11 ];
+
+	hardware.graphics.enable =
+		lib.mkIf (host == "hynix") true;
+
+	services.xserver.videoDrivers =
+		lib.mkIf (host == "hynix") [ "nvidia" ];
+
+	hardware.nvidia =
+		lib.mkIf (host == "hynix") {
+		modesetting.enable = true;
+		powerManagement.finegrained = false;
+		open = false;
+		nvidiaSettings = true;
+		package = config.boot.kernelPackages.nvidiaPackages.stable;
+		prime.nvidiaBusId = "PCI:01:00.0";
+		};
 
 	# Configure network connections interactively with nmcli or nmtui.
 	networking.wireless.iwd.enable = true;
