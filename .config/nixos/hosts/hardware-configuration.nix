@@ -4,35 +4,15 @@
 { config, lib, pkgs, modulesPath, ... }:
 
 {
-	imports =
-		[ (modulesPath + "/installer/scan/not-detected.nix")
-		];
+  imports =
+    [ (modulesPath + "/installer/scan/not-detected.nix")
+    ];
 
-	boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "ahci" "usbhid" "sd_mod" ];
-	boot.initrd.kernelModules = [ ];
-	boot.kernelModules = [ "kvm-amd" ];
-	boot.extraModulePackages = [ ];
+  boot.initrd.availableKernelModules = [ "nvme" "xhci_pci" "usb_storage" "sd_mod" ];
+  boot.initrd.kernelModules = [ ];
+  boot.kernelModules = [ "kvm-amd" ];
+  boot.extraModulePackages = [ ];
 
-	fileSystems."/" =
-		{ device = "/dev/disk/by-uuid/369cc362-1f13-4acb-ae0e-eb25e52533b3";
-		fsType = "ext4";
-		};
-
-	fileSystems."/home" =
-		{ device = "/dev/disk/by-uuid/98d9730f-2cd0-46c5-9a1b-64ea2e75a1c3";
-		fsType = "ext4";
-		};
-
-	fileSystems."/boot/efi" =
-		{ device = "/dev/disk/by-uuid/46FD-E9EC";
-		fsType = "vfat";
-		options = [ "fmask=0022" "dmask=0022" ];
-		};
-
-	swapDevices =
-		[ { device = "/dev/disk/by-uuid/974d917d-6a53-4d1b-949c-4f84fbff742b"; }
-		];
-
-	nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
-	hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
+  nixpkgs.hostPlatform = lib.mkDefault "x86_64-linux";
+  hardware.cpu.amd.updateMicrocode = lib.mkDefault config.hardware.enableRedistributableFirmware;
 }

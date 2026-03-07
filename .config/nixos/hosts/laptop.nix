@@ -134,12 +134,16 @@ in {
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d030", MODE="0666"
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
 	'';
+	services.udisks2.enable = true;
 
 	programs.hyprland.enable = true;
 	programs.steam.enable = true;
 	programs.xwayland.enable = true;
 	#programs.zoxide.enable = true;
 	#programs.home-manager.enable = true;
+
+	hardware.bluetooth.enable = true;
+	hardware.bluetooth.powerOnBoot = true;
 
 	# List packages installed in system profile.
 	# You can use https://search.nixos.org/ to find more packages (and options).
@@ -161,6 +165,7 @@ in {
 		tree
 		htop
 		iwd # wifi
+		bluez # bluetooth
 		wget # для web запросов
 		gtk3 # Необходимо для запуска gui приложений
 		wev # Для получения кейкодов клавиш
@@ -193,6 +198,7 @@ in {
 
 		stow
 		clipse
+		udiskie
 	];
 	fonts.packages = with pkgs; [
 		material-symbols
