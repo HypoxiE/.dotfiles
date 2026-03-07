@@ -5,7 +5,7 @@
 { config, lib, pkgs, ... }:
 
 let
-	hostFile =./host_name.info;
+	hostFile = ./host_name.info;
 	host =
 		if builtins.pathExists hostFile
 		then lib.strings.trim (builtins.readFile hostFile)
