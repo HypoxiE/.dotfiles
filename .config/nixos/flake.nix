@@ -34,7 +34,7 @@
 					./disko.nix
 					disko.nixosModules.disko
 					home-manager.nixosModules.home-manager
-					{ host = "hypoxlaptop"; }
+					{ _module.args.host = "hypoxlaptop"; }
 					{
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
@@ -57,7 +57,7 @@
 					./disko.nix
 					disko.nixosModules.disko
 					home-manager.nixosModules.home-manager
-					{ host = "hynix"; }
+					{ _module.args.host = "hynix"; }
 					{
 						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
