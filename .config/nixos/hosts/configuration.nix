@@ -2,27 +2,11 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, ... }:
+{ config, lib, pkgs, host ? "default", ... }:
 
-let
-	hostFile = ./host_name.info;
-	host =
-		if builtins.pathExists hostFile
-		then lib.strings.trim (builtins.readFile hostFile)
-		else "default";
-in {
-	#imports =
-	#  [ # Include the results of the hardware scan.
-	#    ./hardware-configuration.nix
-	#    #<home-manager/nixos>
-	#  ];
+{
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 	nixpkgs.config.allowUnfree = true;
-
-	#home-manager.useGlobalPkgs = true;
-	#home-manager.useUserPackages = true;
-
-	#home-manager.users.hypoxie = import /home/hypoxie/.config/nixos/home/hypoxie.nix;
 
 	#Use the systemd-boot EFI boot loader.
 	boot.loader.systemd-boot.enable = false;
@@ -51,8 +35,8 @@ in {
 	networking.hostName = host;
 
 	boot.extraModulePackages =
-    lib.mkIf (host == "hynix")
-      [ config.boot.kernelPackages.nvidia_x11 ];
+	lib.mkIf (host == "hynix")
+	[ config.boot.kernelPackages.nvidia_x11 ];
 
 	hardware.graphics.enable =
 		lib.mkIf (host == "hynix") true;

@@ -26,27 +26,53 @@
 		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay  spicetify-nix.overlays.default ]; };
 	in
 	{
-		nixosConfigurations.laptop = nixpkgs.lib.nixosSystem {
-			modules = [
-				./hosts/hardware-configuration.nix
-				./hosts/laptop.nix
-				./disko.nix
-				disko.nixosModules.disko
-				home-manager.nixosModules.home-manager
-				{
-					home-manager.useGlobalPkgs = true;
-					home-manager.useUserPackages = true;
+		nixosConfigurations = {
+			laptop = nixpkgs.lib.nixosSystem {
+				modules = [
+					./hosts/hardware-configuration.nix
+					./hosts/configuration.nix
+					./disko.nix
+					disko.nixosModules.disko
+					home-manager.nixosModules.home-manager
+					{ host = "hypoxlaptop"; }
+					{
+						home-manager.useGlobalPkgs = true;
+						home-manager.useUserPackages = true;
 
-					home-manager.sharedModules = [
-						spicetify-nix.homeManagerModules.default
-					];
+						home-manager.sharedModules = [
+							spicetify-nix.homeManagerModules.default
+						];
 
-					home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
-						inherit config pkgs;
-						spicetify-nix = spicetify-nix;
-					};
-				}
-			];
+						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
+							inherit config pkgs;
+							spicetify-nix = spicetify-nix;
+						};
+					}
+				];
+			};
+			pc = nixpkgs.lib.nixosSystem {
+				modules = [
+					./hosts/hardware-configuration.nix
+					./hosts/configuration.nix
+					./disko.nix
+					disko.nixosModules.disko
+					home-manager.nixosModules.home-manager
+					{ host = "hynix"; }
+					{
+						home-manager.useGlobalPkgs = true;
+						home-manager.useUserPackages = true;
+
+						home-manager.sharedModules = [
+							spicetify-nix.homeManagerModules.default
+						];
+
+						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
+							inherit config pkgs;
+							spicetify-nix = spicetify-nix;
+						};
+					}
+				];
+			};
 		};
 	};
 }
