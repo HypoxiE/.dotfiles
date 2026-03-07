@@ -226,16 +226,21 @@
 		eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
 		
 		function rebuild {
+			if [ $# -ne 1 ]; then
+				echo "Ошибка: требуется ровно один аргумент" >&2
+				exit 1
+			fi
+
+			commit_msg="$1"
+
+			git add .
+			git commit -m "$commit_msg"
 			if [ -d /sys/class/power_supply/BAT* ]; then
 				echo "detected laptop";
 				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop
 			else
 				echo "detected pc";
 				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#pc
-			fi
-
-			if [ -n "$1" ] && [ "$1" = "-s" ]; then
-				shutdown +0
 			fi
 		}
 		
@@ -264,8 +269,8 @@
 	# services.openssh.enable = true;
 
 	# Open ports in the firewall.
-	# networking.firewall.allowedTCPPorts = [ ... ];
-	# networking.firewall.allowedUDPPorts = [ ... ];
+	networking.firewall.allowedTCPPorts = [ 22000 ];
+	networking.firewall.allowedUDPPorts = [ 22000 21027 ];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
 	networking.nftables.enable = true;
