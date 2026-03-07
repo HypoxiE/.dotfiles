@@ -197,6 +197,13 @@
 	#   enableSSHSupport = true;
 	# };
 
+	services.syncthing = {
+		enable = true;
+		user = "hypoxie";
+		dataDir = "/home/hypoxie";
+		configDir = "/home/hypoxie/.config/syncthing";
+	};
+
 	environment.sessionVariables = {
 		PATH = "$HOME/.local/bin:$PATH";
 
