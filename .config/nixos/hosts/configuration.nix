@@ -212,15 +212,25 @@
 		nohup = "nohup 2>&1 > ~/logs/nohup.out";
 		py = "python3";
 
-		rebuild="sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop";
-		rebuilds="sudo nixos-rebuild switch --flake ~/.config/nixos#laptop && shutdown +0";
-		rebuildr="sudo nixos-rebuild switch --flake ~/.config/nixos#laptop && reboot";
-
 		keybordsettings="nix shell nixpkgs#chromium -c chromium --user-data-dir=/tmp/chromium-via";
 		};
 
 		interactiveShellInit = ''
 		eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
+		
+		function rebuild {
+			if [ -d /sys/class/power_supply/BAT* ]; then
+				echo "detected laptop";
+				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop
+			else
+				echo "detected pc";
+				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#pc
+			fi
+
+			if [ -n "$1" ] && [ "$1" = "-s" ]; then
+				shutdown +0
+			fi
+		}
 		
 		function files {
 			local dir
