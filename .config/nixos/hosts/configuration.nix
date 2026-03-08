@@ -137,7 +137,7 @@
 		pkg-config
 
 		pam
-		cups # принтеры
+		cups pantum-driver # принтеры
 		socat
 		gnumake
 		wl-clipboard
