@@ -101,6 +101,7 @@
 		enable = true;
 		settingsFile = "/etc/xray/config.json";
 	};
+	services.printing.enable = true;
 
 	# Enable touchpad support (enabled default in most desktopManager).
 	# services.libinput.enable = true;
