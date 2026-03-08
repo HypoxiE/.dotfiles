@@ -143,7 +143,6 @@ in
 		unzip
 		calc
 		libreoffice
-		obs-studio
 		gimp
 		krita
 
