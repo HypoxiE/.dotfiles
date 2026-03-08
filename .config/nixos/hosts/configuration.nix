@@ -231,15 +231,11 @@
 		eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
 		
 		function rebuild {
-			if [ $# -ne 1 ]; then
-				echo "Ошибка: требуется ровно один аргумент" >&2
-				return 1
+			if [ $# -gt 0 ]; then
+				commit_msg="$*"
+				git add . && git commit -m "$commit_msg"
 			fi
-
-			commit_msg="$1"
-
-			git add .
-			git commit -m "$commit_msg"
+			
 			if [ -d /sys/class/power_supply/BAT* ]; then
 				echo "detected laptop";
 				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop
