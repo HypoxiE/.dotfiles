@@ -211,8 +211,6 @@
 		XCURSOR_SIZE = "24";
 	};
 
-	programs.steam.enable = true;
-
 	programs.bash = {
 		#enable = true;
 		shellAliases = {
