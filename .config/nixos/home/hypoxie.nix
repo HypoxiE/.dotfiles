@@ -28,7 +28,7 @@ in
 	programs.obs-studio = {
 		enable = true;
 		plugins = with pkgs.obs-studio-plugins; [
-			distroav
+			#distroav
 		];
 	};
 
@@ -175,6 +175,7 @@ in
 		inochi-session
 		inochi-creator
 		openseeface
+		obs-studio-plugins.distroav
 
 		#ssh
 		gnupg
