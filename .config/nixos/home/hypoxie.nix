@@ -128,8 +128,6 @@ in
 			# "application/pdf" = [ "zathura.desktop" ];
 		};
 	};
-	
-	programs.steam.enable = true;
 
 	home.packages = with pkgs; [
 		chafa
