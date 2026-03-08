@@ -25,6 +25,13 @@ in
 		};
 	};
 
+	programs.obs-studio = {
+		enable = true;
+		plugins = with pkgs.obs-studio-plugins; [
+			distroav
+		];
+	};
+
 	programs.spicetify = {
 		enable = true;
 		#theme = spicePkgs.themes.catppuccin;
