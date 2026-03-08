@@ -175,7 +175,6 @@ in
 		inochi-session
 		inochi-creator
 		openseeface
-		obs-studio-plugins.distroav
 
 		#ssh
 		gnupg
