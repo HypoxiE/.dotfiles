@@ -228,7 +228,7 @@
 		function rebuild {
 			if [ $# -ne 1 ]; then
 				echo "Ошибка: требуется ровно один аргумент" >&2
-				exit 1
+				return 1
 			fi
 
 			commit_msg="$1"

@@ -129,6 +129,8 @@ in
 		};
 	};
 	
+	programs.steam.enable = true;
+
 	home.packages = with pkgs; [
 		chafa
 		jq # for system monitor
