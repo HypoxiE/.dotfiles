@@ -56,9 +56,9 @@
 
 	# Configure network connections interactively with nmcli or nmtui.
 	networking = {
-		#wireless.iwd.enable = false;
+		wireless.iwd.enable = true;
 		networkmanager = {
-			enable = true;
+			enable = false;
 			wifi.backend = "iwd";
 		};
 	};
