@@ -56,7 +56,7 @@
 
 	# Configure network connections interactively with nmcli or nmtui.
 	networking.wireless.iwd.enable = true;
-	networking.networkmanager.enable = true;
+	networking.networkmanager.enable = false;
 	networking.networkmanager.wifi.backend = "iwd";
 
 	# Set your time zone.
