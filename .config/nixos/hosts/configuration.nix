@@ -137,6 +137,7 @@
 		pkg-config
 
 		pam
+		cups # принтеры
 		socat
 		gnumake
 		wl-clipboard
