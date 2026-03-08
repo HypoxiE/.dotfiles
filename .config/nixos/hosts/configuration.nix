@@ -101,7 +101,10 @@
 		enable = true;
 		settingsFile = "/etc/xray/config.json";
 	};
-	services.printing.enable = true;
+	services.printing = { 
+		enable = true;
+		drivers = [ pkgs.pantum-driver ];
+	};
 
 	# Enable touchpad support (enabled default in most desktopManager).
 	# services.libinput.enable = true;
