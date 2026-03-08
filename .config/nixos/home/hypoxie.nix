@@ -167,6 +167,7 @@ in
 		#vtubing
 		inochi-session
 		inochi-creator
+		openseeface
 
 		#ssh
 		gnupg
