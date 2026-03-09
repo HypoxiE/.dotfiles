@@ -44,6 +44,7 @@ in
 
 	stylix = {
     	enable = true;
+		image = "~/images/wallpapers/ngnl_2.png";
 	};
 
 	programs.firefox = {
