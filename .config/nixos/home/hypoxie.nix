@@ -42,7 +42,7 @@ in
 		];
 	};
 
-	programs.stylix = {
+	stylix = {
     	enable = true;
 	};
 
