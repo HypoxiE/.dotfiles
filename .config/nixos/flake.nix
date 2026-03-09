@@ -25,10 +25,10 @@
 	let
 		system = "x86_64-linux";
 		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlay  spicetify-nix.overlays.default ]; };
+		config = { allowUnfree = true; };
 	in
 	{
 		nixosConfigurations = {
-			nixpkgs.config.allowUnfree = true;
 			laptop = nixpkgs.lib.nixosSystem {
 				modules = [
 					./hosts/hardware-configuration.nix
@@ -64,7 +64,6 @@
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hynix"; }
 					{
-						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
