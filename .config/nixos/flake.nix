@@ -47,7 +47,6 @@
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hypoxlaptop"; }
 					{
-						#home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
@@ -56,7 +55,6 @@
 						];
 
 						home-manager.extraSpecialArgs = {
-							# Передаем pkgs с allowUnfree через specialArgs
 							inherit pkgs;
 						};
 
@@ -78,13 +76,16 @@
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hynix"; }
 					{
-						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
 							spicetify-nix.homeManagerModules.default
 							stylix.homeModules.stylix
 						];
+
+						home-manager.extraSpecialArgs = {
+							inherit pkgs;
+						};
 
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
 							inherit config pkgs spicetify-nix stylix;
