@@ -271,9 +271,9 @@ in {
 
 			
 			# Генерация workspace переключений (1-10)
-			++ (map (n: "$mainMod, ${toString n}, workspace, ${toString n}") workspaceNumbers)
+			++ (map (n: "$mainMod, ${toString (builtins.mod n 10)}, workspace, ${toString n}") workspaceNumbers)
 			# Генерация перемещений на workspace (1-10)
-			++ (map (n: "$mainMod SHIFT, ${toString n}, movetoworkspace, ${toString n}") workspaceNumbers);
+			++ (map (n: "$mainMod SHIFT, ${toString (builtins.mod n 10)}, movetoworkspace, ${toString n}") workspaceNumbers);
 			
 			bindel = [
 				",XF86AudioRaiseVolume, exec, pactl set-sink-volume 0 +2%"
@@ -298,7 +298,8 @@ in {
 			### ОКНА И РАБОЧИЕ СТОЛЫ ###
 			##############################
 			windowrule = [
-				
+				"suppressevent maximize, class:.*"
+				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 				"opacity 0.85, class:$terminal"
 				"float,class:(clipse)"
 				"size 622 652,class:(clipse)"
