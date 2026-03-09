@@ -122,8 +122,6 @@ in {
 				gaps_in = 5;
 				gaps_out = "$topGap,$rightGap,$bottomGap,$leftGap";
 				border_size = 5;
-				"col.active_border" = "$active_border_color_1 $active_border_color_2 45deg";
-				"col.inactive_border" = "$inactive_border_color_1 $inactive_border_color_2 45deg";
 				resize_on_border = false;
 				allow_tearing = false;
 				layout = "dwindle";
@@ -321,8 +319,5 @@ in {
 				"workspace silent current, class:.*"
 			];
 		};
-		extraConfig = ''
-			source = ~/.config/hypr/colors.conf
-		'';
 	};
 }
