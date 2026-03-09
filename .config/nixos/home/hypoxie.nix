@@ -42,16 +42,6 @@ in
 		];
 	};
 
-	programs.stylix = {
-		enable = true;
-
-		polarity = "dark";
-		base16Scheme = "${pkgs.base16-schemes}/share/themes/catppuccin-mocha.yaml";
-		fonts.sizes.applications = 10;
-
-		autoEnable = true;
-	};
-
 	programs.firefox = {
 		enable = true;
 
