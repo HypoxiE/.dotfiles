@@ -61,6 +61,8 @@
 				];
 			};
 			pc = nixpkgs.lib.nixosSystem {
+				system = system;
+				pkgs = pkgs;
 				modules = [
 					./hosts/hardware-configuration.nix
 					./hosts/configuration.nix
@@ -82,7 +84,6 @@
 						};
 					}
 				];
-				pkgs = pkgs;
 			};
 		};
 	};
