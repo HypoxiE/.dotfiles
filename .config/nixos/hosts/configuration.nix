@@ -273,8 +273,14 @@
 	# services.openssh.enable = true;
 
 	# Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [ 22000 24800 ];
-	networking.firewall.allowedUDPPorts = [ 22000 21027 24800 ];
+	networking.firewall.allowedTCPPorts = [
+		22000 #syncthing
+		4242 #lan mouse
+	];
+	networking.firewall.allowedUDPPorts = [
+		22000 21027 #syncthing
+		4242 #lan mouse
+	];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
 	networking.nftables.enable = true;
