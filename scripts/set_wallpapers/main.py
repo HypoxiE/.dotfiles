@@ -111,7 +111,7 @@ def main():
 	# устанавливаем обои
 	wait_for_swww()
 	
-	cmd = ["swww", "img", str(img_path)]
+	cmd = ["swww", "img", str(img_path), "--outputs", "eDP-1,HDMI-A-1"]
 	if args.instant:
 		cmd += ["--transition-type", "none", "--transition-duration", "0"]
 	result = subprocess.run(cmd, capture_output=True, text=True)
