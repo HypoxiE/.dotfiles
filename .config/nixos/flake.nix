@@ -34,7 +34,6 @@
 					./hosts/configuration.nix
 					./disko.nix
 					disko.nixosModules.disko
-					stylix.nixosModules.stylix
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hypoxlaptop"; }
 					{
@@ -43,6 +42,7 @@
 
 						home-manager.sharedModules = [
 							spicetify-nix.homeManagerModules.default
+							stylix.nixosModules.stylix
 						];
 
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
@@ -58,7 +58,6 @@
 					./hosts/configuration.nix
 					./disko.nix
 					disko.nixosModules.disko
-					stylix.nixosModules.stylix
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hynix"; }
 					{
@@ -67,6 +66,7 @@
 
 						home-manager.sharedModules = [
 							spicetify-nix.homeManagerModules.default
+							stylix.nixosModules.stylix
 						];
 
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {

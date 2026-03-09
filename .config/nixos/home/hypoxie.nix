@@ -1,4 +1,4 @@
-{ config, pkgs, spicetify-nix, ... }:
+{ config, pkgs, spicetify-nix, stylix, ... }:
 
 let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -37,9 +37,13 @@ in
 		enable = true;
 		#theme = spicePkgs.themes.catppuccin;
 		enabledExtensions = with spicePkgs.extensions; [
-		adblock
-		hidePodcasts
+			adblock
+			hidePodcasts
 		];
+	};
+
+	programs.stylix = {
+    	enable = true;
 	};
 
 	programs.firefox = {
