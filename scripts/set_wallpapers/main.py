@@ -4,6 +4,7 @@ from pathlib import Path
 import subprocess
 import random
 import argparse
+import time
 
 import logging
 logging.basicConfig(
@@ -59,6 +60,13 @@ def pick_random_image() -> Path:
 	
 	return img
 
+def wait_for_swww():
+	while True:
+		result = subprocess.run(["swww", "query"], capture_output=True)
+		if result.returncode == 0:
+			break
+		time.sleep(0.1)
+
 def main():
 	parser = argparse.ArgumentParser()
 	parser.add_argument("image", nargs="?", help="image path or name")
@@ -101,6 +109,8 @@ def main():
 	logging.info(f"hyprland reloaded: {result}")
 
 	# устанавливаем обои
+	wait_for_swww()
+	
 	cmd = ["swww", "img", str(img_path)]
 	if args.instant:
 		cmd += ["--transition-type", "none", "--transition-duration", "0"]
