@@ -66,6 +66,7 @@ in
 		targets.firefox = {
 			enable = false;
 		};
+		enableReleaseChecks = false;
 	};
 
 	programs.firefox = {
@@ -117,43 +118,6 @@ in
 		img = "chafa";
 		};
 	};
-	#gtk = {
-	#	enable = true;
-	#	iconTheme = {
-	#	package = pkgs.catppuccin-papirus-folders.override {
-	#		flavor = "macchiato";
-	#		accent = "maroon";
-	#	};
-	#	name = "Papirus-Dark";
-	#	};
-	#	theme = {
-	#	package = pkgs.gruvbox-dark-gtk;
-	#	name = "gruvbox-dark";
-	#	};
-	##    theme = {
-	##        name = "catppuccin-macchiato-mauve-compact";
-	##        package = pkgs.catppuccin-gtk.override {
-	##          accents = ["mauve"];
-	##          variant = "macchiato";
-	##          size = "compact";
-	##        };
-	##    };
-	#	colorScheme = "dark";
-	#	gtk2.extraConfig = ''
-	#	gtk-cursor-theme-size = 12
-	#	gtk-cursor-theme-name = "capitaine-cursors"
-	#	'';
-	#	gtk3.extraConfig = {
-	#	gtk-application-prefer-dark-theme = 1;
-	#	gtk-cursor-theme-size = 12;
-	#	gtk-cursor-theme-name = "capitaine-cursors";
-	#	};
-	#	gtk4.extraConfig = {
-	#	Settings = ''
-	#		gtk-application-prefer-dark-theme=1
-	#	'';
-	#	};
-	#};
 	xdg.mimeApps = {
 		enable = true;
 		defaultApplications = {
