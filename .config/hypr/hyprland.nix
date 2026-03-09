@@ -298,9 +298,6 @@ in {
 			##############################
 			### ОКНА И РАБОЧИЕ СТОЛЫ ###
 			##############################
-			windowrulev2 = [
-				"workspace silent current, class:.*"
-			];
 			windowrule = [
   # float/opacity для терминала и clipse
   "float,class:(clipse)"
