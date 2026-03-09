@@ -44,6 +44,7 @@ in
 
 	stylix = {
     	enable = true;
+		polarity = "dark";
 		base16Scheme = {
 			base00 = "1e1e2e";
 			base01 = "181825";
