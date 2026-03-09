@@ -34,6 +34,7 @@
 					./hosts/configuration.nix
 					./disko.nix
 					disko.nixosModules.disko
+					stylix.nixosModules.stylix
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hypoxlaptop"; }
 					{
@@ -58,6 +59,7 @@
 					./hosts/configuration.nix
 					./disko.nix
 					disko.nixosModules.disko
+					stylix.nixosModules.stylix
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hynix"; }
 					{
