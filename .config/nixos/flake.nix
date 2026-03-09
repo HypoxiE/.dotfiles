@@ -53,6 +53,7 @@
 						};
 					}
 				];
+				pkgs = pkgs;
 			};
 			pc = nixpkgs.lib.nixosSystem {
 				modules = [
