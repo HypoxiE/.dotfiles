@@ -3,6 +3,7 @@ import sys
 from pathlib import Path
 import subprocess
 import random
+import argparse
 
 import logging
 logging.basicConfig(
@@ -59,11 +60,16 @@ def pick_random_image() -> Path:
 	return img
 
 def main():
+	parser = argparse.ArgumentParser()
+	parser.add_argument("image", nargs="?", help="image path or name")
+	parser.add_argument("-i", "--instant", action="store_true", help="instant wallpaper change")
+	args = parser.parse_args()
+
 	if len(sys.argv) < 2:
 		# случайное изображение
 		img_path = pick_random_image()
 	else:
-		arg = Path(sys.argv[1])
+		arg = Path(args.image)
 		if arg.is_file():
 			img_path = arg
 			# проверяем .conf
@@ -74,9 +80,6 @@ def main():
 		else:
 			# поиск по базовому имени
 			img_path = pick_image(arg.stem)
-
-	# устанавливаем обои
-	subprocess.run(["swww", "img", str(img_path)])
 
 	# вызываем Python скрипт
 	result = subprocess.run(
@@ -96,6 +99,13 @@ def main():
 	logging.info(f"eww reloaded: {result}")
 	result = subprocess.run(["hyprctl", "reload"])
 	logging.info(f"hyprland reloaded: {result}")
+
+	# устанавливаем обои
+	cmd = ["swww", "img", str(img_path)]
+	if args.instant:
+		cmd += ["--transition-type", "none", "--transition-duration", "0"]
+	result = subprocess.run(cmd, capture_output=True, text=True)
+	logging.info(f"wallpaper set: {result}")
 
 if __name__ == "__main__":
 	main()
