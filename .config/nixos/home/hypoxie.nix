@@ -4,8 +4,9 @@ let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-	#nixpkgs.config.allowUnfree = true;
-
+	imports = [
+		../../hypr/hyprland.nix
+	];
 
 	home.username = "hypoxie";
 	home.homeDirectory = "/home/hypoxie";
