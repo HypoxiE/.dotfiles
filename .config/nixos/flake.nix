@@ -43,7 +43,6 @@
 
 						home-manager.sharedModules = [
 							spicetify-nix.homeManagerModules.default
-							stylix.nixosModules.stylix
 						];
 
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
@@ -69,7 +68,6 @@
 
 						home-manager.sharedModules = [
 							spicetify-nix.homeManagerModules.default
-							stylix.nixosModules.stylix
 						];
 
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
