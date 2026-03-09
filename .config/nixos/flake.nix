@@ -49,6 +49,7 @@
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
 							inherit config pkgs;
 							spicetify-nix = spicetify-nix;
+							stylix = stylix;
 						};
 					}
 				];
@@ -74,6 +75,7 @@
 						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
 							inherit config pkgs;
 							spicetify-nix = spicetify-nix;
+							stylix = stylix;
 						};
 					}
 				];
