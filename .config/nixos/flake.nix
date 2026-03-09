@@ -24,7 +24,13 @@
 
 	let
 		system = "x86_64-linux";
-		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlays.default   ]; config = { allowUnfree = true; }; };
+		pkgs = import nixpkgs {
+			inherit system;
+			overlays = [ nur.overlays.default ];
+			config = {
+				allowUnfree = true;
+			};
+		};
 		
 	in
 	{
