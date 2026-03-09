@@ -298,6 +298,9 @@ in {
 			##############################
 			### ОКНА И РАБОЧИЕ СТОЛЫ ###
 			##############################
+			windowrulev2 = [
+				"workspace silent current, class:.*"
+			];
 			windowrule = [
 				"suppressevent maximize, class:.*"
 				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
@@ -321,9 +324,6 @@ in {
 			# Генерация правил для workspace 10 (spotify)
 			++ [ "workspace 10 silent,class:Spotify" ];
 			
-			windowrulev2 = [
-				"workspace silent current, class:.*"
-			];
 		};
 	};
 }
