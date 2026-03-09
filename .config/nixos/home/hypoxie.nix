@@ -65,7 +65,7 @@ in
 		};
 		targets.firefox = {
 			enable = false;
-		}
+		};
 	};
 
 	programs.firefox = {
