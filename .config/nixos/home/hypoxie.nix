@@ -63,6 +63,9 @@ in
 			base0E = "cba6f7";
 			base0F = "f2cdcd";
 		};
+		targets.firefox = {
+			enable = false;
+		}
 	};
 
 	programs.firefox = {
