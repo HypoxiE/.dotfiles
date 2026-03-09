@@ -4,7 +4,7 @@ let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 in
 {
-	imports = [
+	modules = [
 		../../hypr/hyprland.nix
 	];
 
