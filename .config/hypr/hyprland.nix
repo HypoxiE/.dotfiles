@@ -3,6 +3,7 @@
 let
 	# Вспомогательная функция для генерации чисел от 1 до n
 	range = start: end: builtins.genList (n: start + n) (end - start + 1);
+	mod10 = n: if n == 10 then 0 else n;
 	
 	# Список классов для workspace 9
 	workspace9Classes = [
@@ -271,9 +272,9 @@ in {
 
 			
 			# Генерация workspace переключений (1-10)
-			++ (map (n: "$mainMod, ${toString (builtins.mod n 10)}, workspace, ${toString n}") workspaceNumbers)
+			++ (map (n: "$mainMod, ${toString (mod10 n)}, workspace, ${toString n}") workspaceNumbers)
 			# Генерация перемещений на workspace (1-10)
-			++ (map (n: "$mainMod SHIFT, ${toString (builtins.mod n 10)}, movetoworkspace, ${toString n}") workspaceNumbers);
+			++ (map (n: "$mainMod SHIFT, ${toString (mod10 n)}, movetoworkspace, ${toString n}") workspaceNumbers);
 			
 			bindel = [
 				",XF86AudioRaiseVolume, exec, pactl set-sink-volume 0 +2%"
