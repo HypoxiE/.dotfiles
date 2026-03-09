@@ -242,6 +242,12 @@ in
 				version = "2026.0.0";
 				sha256 = "se9kL7KmBZSh6R5f91XKey3CWLQVQNtEEbaHQ4AZAuo=";
 			}
+			{
+				name = "go";
+				publisher = "golang";
+				version = "0.52.2";
+				sha256 = "8g+r4Mv06Bx1W3yAXWVbtz1B/gXPcRdmaV0tPkTP6Gk=";
+			}
 		];
 		})
 	];
