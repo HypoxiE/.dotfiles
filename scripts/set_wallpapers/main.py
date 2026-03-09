@@ -4,6 +4,14 @@ from pathlib import Path
 import subprocess
 import random
 
+import logging
+logging.basicConfig(
+    filename="/tmp/set_wallpapers.log",
+    level=logging.INFO,
+    format="%(asctime)s [%(levelname)s] %(message)s"
+)
+
+
 gcol = ["gocp"]
 
 # Папка с обоями
@@ -71,12 +79,23 @@ def main():
 	subprocess.run(["swww", "img", str(img_path)])
 
 	# вызываем Python скрипт
-	subprocess.run([
-		"python3",
-		"/home/hypoxie/scripts/set_themes/main.py",
-		"-i",
-		str(img_path)
-	])
+	result = subprocess.run(
+		[
+			"python3",
+			"/home/hypoxie/scripts/set_themes/main.py",
+			"-i",
+			str(img_path)
+		],
+		capture_output=True,
+		text=True
+	)
+	logging.info(f"image path: {img_path}")
+	logging.info(f"set_theme is ready: {result}")
+	
+	result = subprocess.run(["eww", "reload"])
+	logging.info(f"eww reloaded: {result}")
+	result = subprocess.run(["hyprctl", "reload"])
+	logging.info(f"hyprland reloaded: {result}")
 
 if __name__ == "__main__":
 	main()
