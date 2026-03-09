@@ -159,7 +159,7 @@ in
 		usbutils
 		via
 		keychron-udev-rules
-		deskflow
+		lan-mouse
 
 		#programming
 		arduino
