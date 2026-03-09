@@ -28,6 +28,7 @@
 	in
 	{
 		nixosConfigurations = {
+			nixpkgs.config.allowUnfree = true;
 			laptop = nixpkgs.lib.nixosSystem {
 				modules = [
 					./hosts/hardware-configuration.nix
@@ -38,6 +39,7 @@
 					home-manager.nixosModules.home-manager
 					{ _module.args.host = "hypoxlaptop"; }
 					{
+						home-manager.useGlobalPkgs = true;
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
