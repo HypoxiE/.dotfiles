@@ -24,7 +24,7 @@
 
 	let
 		system = "x86_64-linux";
-		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlays.default  spicetify-nix.overlays.default ]; config = { allowUnfree = true; }; };
+		pkgs = import nixpkgs { inherit system; overlays = [ nur.overlays  spicetify-nix.overlays.default ]; config = { allowUnfree = true; }; };
 		
 	in
 	{
