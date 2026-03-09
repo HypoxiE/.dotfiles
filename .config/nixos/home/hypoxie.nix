@@ -160,6 +160,7 @@ in
 		via
 		keychron-udev-rules
 		lan-mouse
+		lan-mouse-gtk
 
 		#programming
 		arduino
