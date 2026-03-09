@@ -298,38 +298,31 @@ in {
 			##############################
 			### ОКНА И РАБОЧИЕ СТОЛЫ ###
 			##############################
+			#windowrulev2 = [
+			#	"workspace silent current, class:.*"
+			#];
 			windowrule = [
-  # float/opacity для терминала и clipse
-  "float,class:(clipse)"
-  "size 622 652,class:(clipse)"
-  "stayfocused, class:(clipse)"
-  "opacity 0.85, class:$terminal"
-
-  # workspace 2: браузеры
-  "workspace 2 silent,class:firefox"
-  "workspace 2 silent,class:vivaldi-stable"
-
-  # workspace 3: редакторы
-  "workspace 3 silent,class:code-oss"
-  "workspace 3 silent,class:code"
-  "workspace 3 silent,class:Code"
-
-  # workspace 8
-  "workspace 8 silent,class:steam"
-
-  # workspace 9: мессенджеры
-  "workspace 9 silent,class:org.telegram.desktop"
-  "workspace 9 silent,class:com.ayugram.desktop"
-  "workspace 9 silent,class:discord-canary"
-  "workspace 9 silent,class:discord"
-  "workspace 9 silent,class:legcord"
-
-  # workspace 10
-  "workspace 10 silent,class:Spotify"
-
-  # универсальное правило в самом конце
-  "suppressevent maximize, class:.*"
-];
+				"suppressevent maximize, class:.*"
+				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
+				"opacity 0.85, class:$terminal"
+				"float,class:(clipse)"
+				"size 622 652,class:(clipse)"
+				"stayfocused, class:(clipse)"
+			]
+			# Генерация правил для workspace 2 (браузеры)
+			++ (map (class: "workspace 2 silent,class:${class}") browserClasses)
+			
+			# Генерация правил для workspace 3 (редакторы)
+			++ (map (class: "workspace 3 silent,class:${class}") editorClasses)
+			
+			# Генерация правил для workspace 8 (steam)
+			++ [ "workspace 8 silent,class:steam" ]
+			
+			# Генерация правил для workspace 9 (мессенджеры)
+			++ (map (class: "workspace 9 silent,class:${class}") workspace9Classes)
+			
+			# Генерация правил для workspace 10 (spotify)
+			++ [ "workspace 10 silent,class:Spotify" ];
 			
 		};
 	};
