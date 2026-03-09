@@ -159,7 +159,7 @@ in
 		usbutils
 		via
 		keychron-udev-rules
-		wl-remote
+		lan-mouse
 
 		#programming
 		arduino
