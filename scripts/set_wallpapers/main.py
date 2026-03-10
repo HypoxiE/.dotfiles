@@ -5,6 +5,7 @@ import subprocess
 import random
 import argparse
 import time
+import json
 
 import logging
 logging.basicConfig(
@@ -102,20 +103,32 @@ def main():
 	)
 	logging.info(f"image path: {img_path}")
 	logging.info(f"set_theme is ready: {result}")
+
+	if not args.instant:
+		pos = subprocess.check_output(["hyprctl", "cursorpos"]).decode().strip()
+		x, y = map(int, pos.split(","))
+
+		monitors_json = subprocess.check_output(["hyprctl", "monitors", "-j"])
+		monitors = json.loads(monitors_json)
+
+		mon = monitors[0]
+		screen_width = mon["width"]
+		screen_height = mon["height"]
+
+		cmd = ["swww", "img", str(img_path), "--transition-type", "grow", "--transition-pos", f"{x},{screen_height-y}", "--transition-duration", "0.5", "--transition-fps", "100"]
+		result = subprocess.run(cmd, capture_output=True, text=True)
+		logging.info(f"wallpaper set: {result}")
 	
 	result = subprocess.run(["eww", "reload"])
 	logging.info(f"eww reloaded: {result}")
 	result = subprocess.run(["hyprctl", "reload"])
 	logging.info(f"hyprland reloaded: {result}")
-
-	# устанавливаем обои
-	wait_for_swww()
 	
-	cmd = ["swww", "img", str(img_path), "--outputs", "eDP-1,HDMI-A-1"]
 	if args.instant:
-		cmd += ["--transition-type", "none", "--transition-duration", "0"]
-	result = subprocess.run(cmd, capture_output=True, text=True)
-	logging.info(f"wallpaper set: {result}")
+		wait_for_swww()
+		cmd = ["swww", "img", str(img_path), "--transition-type", "none", "--transition-duration", "0"]#, "--outputs", "eDP-1,HDMI-A-1"
+		result = subprocess.run(cmd, capture_output=True, text=True)
+		logging.info(f"wallpaper set: {result}")
 
 if __name__ == "__main__":
 	main()
