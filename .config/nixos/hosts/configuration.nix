@@ -127,6 +127,20 @@
 	'';
 	services.udisks2.enable = true;
 
+	services.logind.settings.Login = {
+		HandleLidSwitch = "ignore";
+		HandleLidSwitchExternalPower = "ignore";
+		HandleLidSwitchDocked = "ignore";
+	};
+	services.acpid = {
+		enable = true;
+		handlers.lid = {
+			event = "button/lid.*";
+			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
+		};
+	};
+
+
 	programs.hyprland.enable = true;
 	programs.steam.enable = true;
 	programs.xwayland.enable = true;
@@ -152,6 +166,7 @@
 		pulseaudio # регулировка звука
 		playerctl # управление музыкой
 		brightnessctl ddcutil # яркость
+		acpid # выключение экрана
 
 		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree
