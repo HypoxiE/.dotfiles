@@ -74,7 +74,7 @@ def main():
 	parser.add_argument("-i", "--instant", action="store_true", help="instant wallpaper change")
 	args = parser.parse_args()
 
-	if len(sys.argv) < 2:
+	if args.image is None:
 		# случайное изображение
 		img_path = pick_random_image()
 	else:
