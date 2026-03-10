@@ -118,12 +118,17 @@ def main():
 		cmd = ["swww", "img", str(img_path), "--transition-type", "grow", "--transition-pos", f"{x},{screen_height-y}", "--transition-duration", "0.5", "--transition-fps", "100"]
 		result = subprocess.run(cmd, capture_output=True, text=True)
 		logging.info(f"wallpaper set: {result}")
-	
+
 	result = subprocess.run(["eww", "reload"])
 	logging.info(f"eww reloaded: {result}")
+	workspace_json = subprocess.check_output(["hyprctl", "activeworkspace", "-j"])
+	workspace_json = json.loads(workspace_json)
+	
+	subprocess.run(["eww", "update", f"active_workspace={workspace_json["id"]}"])
 	result = subprocess.run(["hyprctl", "reload"])
 	logging.info(f"hyprland reloaded: {result}")
-	
+
+
 	if args.instant:
 		wait_for_swww()
 		cmd = ["swww", "img", str(img_path), "--transition-type", "none", "--transition-duration", "0"]#, "--outputs", "eDP-1,HDMI-A-1"
