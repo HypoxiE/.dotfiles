@@ -148,7 +148,7 @@ in
 		wantedBy = [ "multi-user.target" ];
 
 		serviceConfig = {
-			ExecStart = "${pkgs.python3}/bin/python3 ${lidToggleScript}";
+			ExecStart = "#!/usr/bin/env python3 \n ${lidToggleScript}";
 			Type = "oneshot";
 			RemainAfterExit = true;
 		};
