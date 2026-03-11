@@ -5,7 +5,7 @@
 { config, lib, pkgs, host ? "default", ... }:
 
 let
-	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile ../../.dotfiles/scripts/lid_toggle/main.py);
+	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile ../../../scripts/lid_toggle/main.py);
 in
 {
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
