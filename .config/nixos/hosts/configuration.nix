@@ -33,8 +33,10 @@
 	networking.hostName = host;
 
 	imports = 
-	lib.mkIf (host == "hynix")
-	[ ./specific.nix ];
+	if host == "hynix" then
+		[ ./specific.nix ]
+	else
+		[];
 
 	#boot.extraModulePackages =
 	#lib.mkIf (host == "hynix")
