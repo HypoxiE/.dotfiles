@@ -32,11 +32,7 @@
 
 	networking.hostName = host;
 
-	imports = 
-	if host == "hynix" then
-		[ ./specific.nix ]
-	else
-		[];
+	imports = [ ./specific.nix ];
 
 	#boot.extraModulePackages =
 	#lib.mkIf (host == "hynix")

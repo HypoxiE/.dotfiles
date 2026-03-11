@@ -1,6 +1,6 @@
-{ config, pkgs, host, ... }:
+{ config, lib, pkgs, host, ... }:
 
-{
+lib.mkIf (host == "hynix") {
 	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 	hardware.graphics.enable = true;
 	services.xserver.videoDrivers = [ "nvidia" ];
