@@ -35,7 +35,7 @@ in
 
 	networking.hostName = host;
 
-	imports = [ ./specific.nix ];
+	imports = [ ./specific/specific-hynix.nix ./specific/specific-laptop.nix ];
 
 	# Configure network connections interactively with nmcli or nmtui.
 	networking = {
