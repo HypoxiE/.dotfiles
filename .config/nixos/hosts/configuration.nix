@@ -139,7 +139,7 @@ in
 		enable = true;
 		handlers.lid = {
 			event = "button/lid.*";
-			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
+			action = "#!/usr/bin/env python3 \n /home/hypoxie/scripts/lid_toggle/main.py";
 		};
 	};
 	systemd.services.lid_toggle = {
