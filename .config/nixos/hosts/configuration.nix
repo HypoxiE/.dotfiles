@@ -139,7 +139,7 @@ in
 		enable = true;
 		handlers.lid = {
 			event = "button/lid.*";
-			action = "${pkgs.python3}/bin/python3 ${lidToggleScript}";
+			action = "${pkgs.python3}/bin/python3 ~/.dotfiles/scripts/lid_toggle/main.py";
 		};
 	};
 	systemd.services.lid_toggle = {
