@@ -91,7 +91,7 @@ in {
 				"hyprmodify & udiskie &"
 				"swaync &"
 				"legcord & env DESKTOPINTEGRATION=1 AyuGram -- &"
-			] ++ (if host != "hynix" then ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"] else []);
+			] ++ (if host != "hynix_" then ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"] else []);
 			
 			#############################
 			### ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ ###
@@ -111,7 +111,7 @@ in {
 			#####################
 			### ВНЕШНИЙ ВИД ###
 			#####################
-			"$topGap" = if host != "hynix" then "60" else "10";
+			"$topGap" = if host != "hynix_" then "60" else "10";
 			"$bottomGap" = "10";
 			"$rightGap" = "10";
 			"$leftGap" = "10";

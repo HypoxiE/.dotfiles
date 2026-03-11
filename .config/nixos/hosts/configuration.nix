@@ -37,26 +37,6 @@ in
 
 	imports = [ ./specific.nix ];
 
-	#boot.extraModulePackages =
-	#lib.mkIf (host == "hynix")
-	#[ config.boot.kernelPackages.nvidia_x11 ];
-
-	#hardware.graphics.enable =
-	#	lib.mkIf (host == "hynix") true;
-
-	#services.xserver.videoDrivers =
-	#	lib.mkIf (host == "hynix") [ "nvidia" ];
-
-	#hardware.nvidia =
-	#	lib.mkIf (host == "hynix") {
-	#	modesetting.enable = true;
-	#	powerManagement.finegrained = false;
-	#	open = false;
-	#	nvidiaSettings = true;
-	#	package = config.boot.kernelPackages.nvidiaPackages.stable;
-	#	prime.nvidiaBusId = "PCI:01:00.0";
-	#	};
-
 	# Configure network connections interactively with nmcli or nmtui.
 	networking = {
 		wireless.iwd.enable = true;
@@ -81,19 +61,6 @@ in
 	i18n.defaultLocale = "en_US.UTF-8";
 	i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
 
-	# Enable the X11 windowing system.
-	#services.xserver.enable = true;
-
-	# Configure keymap in X11
-	#services.xserver.xkb.layout = "us,ru";
-	# services.xserver.xkb.options = "eurosign:e,caps:escape";
-
-	# Enable CUPS to print documents.
-	# services.printing.enable = true;
-
-	# Enable sound.
-	# services.pulseaudio.enable = true;
-	# OR
 	services.pipewire = {
 		enable = true;
 		pulse.enable = true;
@@ -126,41 +93,9 @@ in
 	'';
 	services.udisks2.enable = true;
 
-	services.logind.settings.Login = {
-		HandleLidSwitch = "ignore";
-		HandleLidSwitchExternalPower = "ignore";
-		HandleLidSwitchDocked = "ignore";
-	};
+	
 	services.acpid = {
 		enable = true;
-		handlers.lid = {
-			event = "button/lid.*";
-			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
-		};
-	};
-	systemd.services.lid_toggle_startup = {
-		description = "Run lid_toggle script once at startup";
-		after = [ "network.target" ];
-		wantedBy = [ "systemd-modules-load.service" "multi-user.target" ];
-
-		serviceConfig = {
-			ExecStart = "${pkgs.bash}/bin/bash -c 'until [ -e /sys/class/backlight/amdgpu_bl1/max_brightness ]; do sleep 0.1; done; ${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py'";
-			Type = "oneshot";
-			RemainAfterExit = true;
-		};
-	};
-	systemd.services.lid_toggle_shutdown = {
-		description = "Run custom script on shutdown/reboot";
-		wantedBy = [ "multi-user.target" ];
-
-		serviceConfig = {
-			Type = "oneshot";
-			ExecStart = "${pkgs.coreutils}/bin/true";
-			ExecStop = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py --state open";
-			RemainAfterExit = true;
-			DefaultDependencies = false;
-			Before = [ "shutdown.target" ];
-		};
 	};
 
 
