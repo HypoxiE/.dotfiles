@@ -160,7 +160,7 @@ in
 		serviceConfig = {
 			Type = "oneshot";
 			ExecStart = "${pkgs.coreutils}/bin/true";
-			ExecStop = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py --state closed";
+			ExecStop = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py --state open";
 			RemainAfterExit = true;
 			DefaultDependencies = false;
 			Before = [ "shutdown.target" ];
