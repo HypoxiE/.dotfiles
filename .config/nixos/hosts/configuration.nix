@@ -139,7 +139,7 @@ in
 		enable = true;
 		handlers.lid = {
 			event = "button/lid.*";
-			action = "sh -c '${pkgs.python3}/bin/python3 ${lidToggleScript}'";
+			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
 		};
 	};
 	systemd.services.lid_toggle = {
@@ -148,7 +148,7 @@ in
 		wantedBy = [ "multi-user.target" ];
 
 		serviceConfig = {
-			ExecStart = "#!/usr/bin/env python3 \n ${lidToggleScript}";
+			ExecStart = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
 			Type = "oneshot";
 			RemainAfterExit = true;
 		};
