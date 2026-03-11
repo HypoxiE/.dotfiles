@@ -139,7 +139,7 @@ in
 		enable = true;
 		handlers.lid = {
 			event = "button/lid.*";
-			action = "${lidToggleScript}";
+			action = "${pkgs.python3}/bin/python3 ${lidToggleScript}";
 		};
 	};
 	systemd.services.lid_toggle = {
@@ -148,7 +148,7 @@ in
 		wantedBy = [ "multi-user.target" ];
 
 		serviceConfig = {
-			ExecStart = "${lidToggleScript}";
+			ExecStart = "${pkgs.python3}/bin/python3 ${lidToggleScript}";
 			Type = "oneshot";
 			RemainAfterExit = true;
 		};
