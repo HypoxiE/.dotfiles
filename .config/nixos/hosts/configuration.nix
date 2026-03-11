@@ -5,7 +5,7 @@
 { config, lib, pkgs, host ? "default", ... }:
 
 let
-	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile /home/hypoxie/.dotfiles/scripts/lid_toggle/main.py);
+	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile ../../../.dotfiles/scripts/lid_toggle/main.py);
 in
 {
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
@@ -139,7 +139,7 @@ in
 		enable = true;
 		handlers.lid = {
 			event = "button/lid.*";
-			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
+			action = "${lidToggleScript}";
 		};
 	};
 	systemd.services.lid_toggle = {
