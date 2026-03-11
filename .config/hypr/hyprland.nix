@@ -85,7 +85,7 @@ in {
 			exec-once = [
 				"clipse -listen &"
 				"wl-clip-persist --clipboard regular &"
-				"swww-daemon &"
+				"swww-daemon --no-cache &"
 				"python3 ~/scripts/set_wallpapers/main.py --instant &"
 				"~/projects/ard_indicator/pc_monitor/target/release/pc_monitor &"
 				"GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"
