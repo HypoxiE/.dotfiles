@@ -19,7 +19,6 @@ in
 	boot.loader.grub.configurationLimit = 5;
 	boot.loader.grub = {
 		enable = true;
-		#devices = [ "/dev/disk/by-id/nvme-XPG_GAMMIX_S11_Pro_2P082LQ8B2UF" ];
 		devices = [ "nodev" ];
 		efiSupport = true;
 		efiInstallAsRemovable = true;
@@ -36,25 +35,27 @@ in
 
 	networking.hostName = host;
 
-	boot.extraModulePackages =
-	lib.mkIf (host == "hynix")
-	[ config.boot.kernelPackages.nvidia_x11 ];
+	imports = [ ./specific.nix ];
 
-	hardware.graphics.enable =
-		lib.mkIf (host == "hynix") true;
+	#boot.extraModulePackages =
+	#lib.mkIf (host == "hynix")
+	#[ config.boot.kernelPackages.nvidia_x11 ];
 
-	services.xserver.videoDrivers =
-		lib.mkIf (host == "hynix") [ "nvidia" ];
+	#hardware.graphics.enable =
+	#	lib.mkIf (host == "hynix") true;
 
-	hardware.nvidia =
-		lib.mkIf (host == "hynix") {
-		modesetting.enable = true;
-		powerManagement.finegrained = false;
-		open = false;
-		nvidiaSettings = true;
-		package = config.boot.kernelPackages.nvidiaPackages.stable;
-		prime.nvidiaBusId = "PCI:01:00.0";
-		};
+	#services.xserver.videoDrivers =
+	#	lib.mkIf (host == "hynix") [ "nvidia" ];
+
+	#hardware.nvidia =
+	#	lib.mkIf (host == "hynix") {
+	#	modesetting.enable = true;
+	#	powerManagement.finegrained = false;
+	#	open = false;
+	#	nvidiaSettings = true;
+	#	package = config.boot.kernelPackages.nvidiaPackages.stable;
+	#	prime.nvidiaBusId = "PCI:01:00.0";
+	#	};
 
 	# Configure network connections interactively with nmcli or nmtui.
 	networking = {
@@ -79,11 +80,6 @@ in
 	# Select internationalisation properties.
 	i18n.defaultLocale = "en_US.UTF-8";
 	i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
-	#console = {
-	#  font = "cyr-sun16";
-	#  keyMap = "ru";
-	#  useXkbConfig = false; # use xkb.options in tty.
-	#};
 
 	# Enable the X11 windowing system.
 	#services.xserver.enable = true;

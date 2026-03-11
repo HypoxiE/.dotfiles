@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ config, pkgs, host, ... }:
 
 let
 	# Вспомогательная функция для генерации чисел от 1 до n
@@ -88,11 +88,10 @@ in {
 				"swww-daemon --no-cache &"
 				"python3 ~/scripts/set_wallpapers/main.py --instant &"
 				"~/projects/ard_indicator/pc_monitor/target/release/pc_monitor &"
-				"GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"
 				"hyprmodify & udiskie &"
 				"swaync &"
 				"legcord & env DESKTOPINTEGRATION=1 AyuGram -- &"
-			];
+			] ++ (if host != "hynix" then ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"] else []);
 			
 			#############################
 			### ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ ###
@@ -112,7 +111,7 @@ in {
 			#####################
 			### ВНЕШНИЙ ВИД ###
 			#####################
-			"$topGap" = "60";
+			"$topGap" = if host != "hynix" then "60" else "10";
 			"$bottomGap" = "10";
 			"$rightGap" = "10";
 			"$leftGap" = "10";
