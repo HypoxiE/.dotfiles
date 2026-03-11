@@ -4,6 +4,9 @@
 
 { config, lib, pkgs, host ? "default", ... }:
 
+let
+	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile /home/hypoxie/.dotfiles/scripts/lid_toggle/main.py);
+in
 {
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
@@ -137,6 +140,17 @@
 		handlers.lid = {
 			event = "button/lid.*";
 			action = "${pkgs.python3}/bin/python3 /home/hypoxie/scripts/lid_toggle/main.py";
+		};
+	};
+	systemd.services.lid_toggle = {
+		description = "Run lid_toggle script once at startup";
+		after = [ "network.target" ];
+		wantedBy = [ "multi-user.target" ];
+
+		serviceConfig = {
+			ExecStart = "${lidToggleScript}";
+			Type = "oneshot";
+			RemainAfterExit = true;
 		};
 	};
 
