@@ -32,67 +32,112 @@
 			};
 		};
 		
+		mkHost = { hostname }:
+			nixpkgs.lib.nixosSystem {
+				inherit system pkgs;
+
+				modules = [
+
+					./hosts/hardware-configuration.nix
+					./hosts/configuration.nix
+					./disko.nix
+
+					disko.nixosModules.disko
+					stylix.nixosModules.stylix
+					home-manager.nixosModules.home-manager
+
+					{
+						_module.args.host = hostname;
+
+						home-manager.useUserPackages = true;
+
+						home-manager.sharedModules = [
+						spicetify-nix.homeManagerModules.default
+						stylix.homeModules.stylix
+						];
+
+						home-manager.extraSpecialArgs = {
+						inherit pkgs hostname;
+						host = hostname;
+						};
+
+						home-manager.users.hypoxie =
+						{ config, pkgs, host, ... }:
+						import ./home/hypoxie.nix {
+							inherit config pkgs host spicetify-nix stylix;
+						};
+					}
+				];
+			};
 	in
 	{
 		nixosConfigurations = {
-			laptop = nixpkgs.lib.nixosSystem {
-				system = system;
-				pkgs = pkgs;
-				modules = [
-					./hosts/hardware-configuration.nix
-					./hosts/configuration.nix
-					./disko.nix
-					disko.nixosModules.disko
-					stylix.nixosModules.stylix
-					home-manager.nixosModules.home-manager
-					{ _module.args.host = "hypoxlaptop"; }
-					{
-						home-manager.useUserPackages = true;
-
-						home-manager.sharedModules = [
-							spicetify-nix.homeManagerModules.default
-							stylix.homeModules.stylix
-						];
-
-						home-manager.extraSpecialArgs = {
-							inherit pkgs;
-						};
-
-						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
-							inherit config pkgs spicetify-nix stylix;
-						};
-					}
-				];
+			laptop = mkHost {
+				hostname = "hypoxlaptop";
 			};
-			pc = nixpkgs.lib.nixosSystem {
-				system = system;
-				pkgs = pkgs;
-				modules = [
-					./hosts/hardware-configuration.nix
-					./hosts/configuration.nix
-					./disko.nix
-					disko.nixosModules.disko
-					stylix.nixosModules.stylix
-					home-manager.nixosModules.home-manager
-					{ _module.args.host = "hynix"; }
-					{
-						home-manager.useUserPackages = true;
-
-						home-manager.sharedModules = [
-							spicetify-nix.homeManagerModules.default
-							stylix.homeModules.stylix
-						];
-
-						home-manager.extraSpecialArgs = {
-							inherit pkgs;
-						};
-
-						home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
-							inherit config pkgs spicetify-nix stylix;
-						};
-					}
-				];
+			pc = mkHost {
+				hostname = "hynix";
 			};
 		};
+		#nixosConfigurations = {
+		#	laptop = nixpkgs.lib.nixosSystem {
+		#		system = system;
+		#		pkgs = pkgs;
+		#		modules = [
+		#			./hosts/hardware-configuration.nix
+		#			./hosts/configuration.nix
+		#			./disko.nix
+		#			disko.nixosModules.disko
+		#			stylix.nixosModules.stylix
+		#			home-manager.nixosModules.home-manager
+		#			{ _module.args.host = "hypoxlaptop"; }
+		#			{
+		#				home-manager.useUserPackages = true;
+
+		#				home-manager.sharedModules = [
+		#					spicetify-nix.homeManagerModules.default
+		#					stylix.homeModules.stylix
+		#				];
+
+		#				home-manager.extraSpecialArgs = {
+		#					inherit pkgs;
+		#				};
+
+		#				home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
+		#					inherit config pkgs spicetify-nix stylix;
+		#				};
+		#			}
+		#		];
+		#	};
+		#	pc = nixpkgs.lib.nixosSystem {
+		#		system = system;
+		#		pkgs = pkgs;
+		#		modules = [
+		#			./hosts/hardware-configuration.nix
+		#			./hosts/configuration.nix
+		#			./disko.nix
+		#			disko.nixosModules.disko
+		#			stylix.nixosModules.stylix
+		#			home-manager.nixosModules.home-manager
+		#			{ _module.args.host = "hynix"; }
+		#			{
+		#				home-manager.useUserPackages = true;
+
+		#				home-manager.sharedModules = [
+		#					spicetify-nix.homeManagerModules.default
+		#					stylix.homeModules.stylix
+		#				];
+
+		#				home-manager.extraSpecialArgs = {
+		#					inherit pkgs;
+		#				};
+
+		#				home-manager.users.hypoxie = { config, pkgs, ... }: import ./home/hypoxie.nix {
+		#					inherit config pkgs spicetify-nix stylix;
+		#				};
+		#			}
+		#		];
+		#	};
+		#};
 	};
 }
