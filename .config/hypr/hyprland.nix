@@ -91,7 +91,10 @@ in {
 				"hyprmodify & udiskie &"
 				"swaync &"
 				"legcord & env DESKTOPINTEGRATION=1 AyuGram -- &"
-			] ++ (if host != "hynix_" then ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_bar && eww open time_bar"] else []);
+			] ++ 
+			(if host == "hynix_" then []
+			else if host == "hypoxlaptop" then ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_laptop_bar && eww open time_bar"]
+			else ["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_pc_bar && eww open time_bar"]);
 			
 			#############################
 			### ПЕРЕМЕННЫЕ ОКРУЖЕНИЯ ###
