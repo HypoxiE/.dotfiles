@@ -203,12 +203,10 @@ in
 	programs.bash = {
 		#enable = true;
 		shellAliases = {
-		scol = "python3 /home/hypoxie/scripts/set_themes/main.py";
-		wset = "/home/hypoxie/scripts/set_wallpapers/main.py";
+		scol = "${config.environment.etc."set_themes".source}/main.py";
+		wset = "${config.environment.etc."set_wallpapers".source}/main.py";
 		nohup = "nohup 2>&1 > ~/logs/nohup.out";
 		py = "python3";
-
-		keybordsettings="nix shell nixpkgs#chromium -c chromium --user-data-dir=/tmp/chromium-via";
 		};
 
 		interactiveShellInit = ''
