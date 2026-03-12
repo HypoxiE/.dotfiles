@@ -5,10 +5,18 @@
 { config, lib, pkgs, host ? "default", ... }:
 
 let
-	lidToggleScript = pkgs.writeScriptBin "lid_toggle" (builtins.readFile ../../../scripts/lid_toggle/main.py);
+	scriptsDir = ../../../scripts;
+	scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in
 {
 	nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
+	environment.etc = builtins.listToAttrs (map (name: {
+		name = name;
+		value = {
+			source = "${scriptsDir}/${name}";
+		};
+	}) scripts);
 
 	#Use the systemd-boot EFI boot loader.
 	boot.loader.systemd-boot.enable = false;
