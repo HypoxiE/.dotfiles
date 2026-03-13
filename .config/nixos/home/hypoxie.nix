@@ -52,20 +52,20 @@ in
 
 		ExtensionSettings = {
 			"uBlock0@raymondhill.net" = {
-			install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-			installation_mode = "force_installed";
+				install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+				installation_mode = "force_installed";
 			};
 			"simple-tab-groups@drive4ik" = {
-			install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
-			installation_mode = "force_installed";
+				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
+				installation_mode = "force_installed";
 			};
 			"simple-translate@sienori" = {
-			install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
-			installation_mode = "force_installed";
+				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
+				installation_mode = "force_installed";
 			};
-			"{da35dad8-f912-4c74-8f64-c4e6e6d62610}" = {
-			install_url = "https://addons.mozilla.org/firefox/downloads/latest/auto-refresh-page/latest.xpi";
-			installation_mode = "force_installed";
+			"jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
+				install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
+				installation_mode = "force_installed";
 			};
 			preferences = {
 			
