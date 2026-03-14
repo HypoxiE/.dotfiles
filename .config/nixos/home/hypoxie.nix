@@ -127,6 +127,7 @@ in
 		enable = true;
 		defaultApplications = {
 			"application/pdf" = [ "firefox.desktop" ];
+			"text/plain" = [ "code.desktop" ];
 		};
 	};
 
