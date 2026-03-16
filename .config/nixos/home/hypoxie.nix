@@ -9,8 +9,8 @@ let
 
 		src = pkgs.fetchgit {
 			url = "https://github.com/HypoxiE/screenland.git";
-			rev = "6c518efb070fe46b4826c6cfc6f53ae686843d68";
-			hash = "sha256-odhf1bijqFLyuyzNCcweWk4gllsJwbL5jZivUrMSOCk=";
+			rev = "80c803f88313d05a7223f9c0f950bc79609ac280";
+			hash = "sha256-6nz7J9HuRZMUJHlSV3hVmjM4z3vJMzpFiF/R4Dythv0=";
 		};
 
 		cargoHash = "sha256-fQhYWP25gqUqxe9ixI0/q1O3jt4FrCqxUZdqxlwbJsI=";
