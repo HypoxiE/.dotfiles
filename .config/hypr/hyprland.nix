@@ -265,7 +265,8 @@ in {
 				"SUPER CTRL, right, workspace, +1"
 				"ALT_L, TAB, exec, echo \"prev_tag\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
 				"$mainMod, $KEY_H, exec, echo \"hide_bar\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
-				",Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+				#",Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
+				",Print, exec, screenland"
 				"SUPER, $KEY_V, exec, $terminal --class clipse -e 'clipse'"
 				"ALT_R, $KEY_C, exec, hyprpicker --autocopy"
 				",Scroll_Lock, exec, hyprlock"
@@ -310,6 +311,12 @@ in {
 			#	"workspace silent current, class:.*"
 			#];
 			windowrule = ["workspace silent current, class:.*"]++[
+				#"monitor HDMI-A-1, match:title screenland-HDMI-A-1"
+				#"monitor DP-1, match:title screenland-DP-1"
+				#"float on, match:class screenland"
+				#"no_anim on, match:class screenland"
+				#"float on, match:title Save As"
+
 				"suppressevent maximize, class:.*"
 				"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
 				"opacity 0.85, class:$terminal"
