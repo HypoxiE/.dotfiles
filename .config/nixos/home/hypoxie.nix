@@ -3,6 +3,25 @@
 let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
+	hyprmodify = pkgs.buildGoModule {
+		pname = "hyprmodify";
+		version = "0.0.0";
+
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/hyprmodify.git";
+			rev = "be192477cb9ccba38a134bc3addfb19afc0b1834";
+			hash = "sha256-yy2NZ5k8MakWulU+omohO0m+EZbVOwFq/IEH01Hu1zo=";
+		};
+
+		vendorHash = null;
+
+		meta = with pkgs.lib; {
+			description = "Hyprland utility";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+	};
+
 	screenland = pkgs.rustPlatform.buildRustPackage {
 		pname = "screenland";
 		version = "0.1.0";
@@ -184,6 +203,8 @@ in
 
 	home.packages = with pkgs; [
 		screenland
+		hyprmodify
+
 		chafa
 		jq # for system monitor
 		ncdu # disk analiser
