@@ -21,7 +21,26 @@ let
 			platforms = platforms.linux;
 		};
 	};
+	gocp = pkgs.buildGoModule {
+		pname = "gocp";
+		version = "0.0.0";
 
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/go-colors-picker.git";
+			rev = "47de3c18c8d84bbae4cc5fe65cecdc0dfe4708df";
+			hash = "sha256-qe0nnoM3+WKjykUkusZrvHjS7UZqj9ajw6OQK9wBc0E=";
+		};
+
+		vendorHash = "sha256-ktU6xnJLlkUFKnmiYOyPwHioGTUVnV7nPIkrC6d4bhU=";
+
+		doCheck = false;
+
+		meta = with pkgs.lib; {
+			description = "Color pick utility";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+	};
 	screenland = pkgs.rustPlatform.buildRustPackage {
 		pname = "screenland";
 		version = "0.1.0";
@@ -204,6 +223,7 @@ in
 	home.packages = with pkgs; [
 		screenland
 		hyprmodify
+		gocp
 
 		chafa
 		jq # for system monitor

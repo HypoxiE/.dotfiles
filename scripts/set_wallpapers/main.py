@@ -16,7 +16,7 @@ logging.basicConfig(
 )
 
 
-gcol = ["gocp"]
+gcol = ["go-colors-picker"]
 
 # Папка с обоями
 WALLPAPER_DIR = Path.home() / "images" / "wallpapers"
