@@ -2,6 +2,57 @@
 
 let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
+
+	screenland = pkgs.rustPlatform.buildRustPackage {
+		pname = "screenland";
+		version = "0.1.0";
+
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/screenland.git";
+			rev = "6c518efb070fe46b4826c6cfc6f53ae686843d68";
+			hash = "sha256-odhf1bijqFLyuyzNCcweWk4gllsJwbL5jZivUrMSOCk=";
+		};
+
+		cargoHash = "sha256-fQhYWP25gqUqxe9ixI0/q1O3jt4FrCqxUZdqxlwbJsI=";
+
+		buildInputs = with pkgs; [
+			pkg-config
+			openssl
+		];
+
+		propagatedBuildInputs = with pkgs; [
+			libxkbcommon
+			wayland
+			zenity
+			libGL
+			vulkan-loader
+			mesa
+		];
+
+		meta = with pkgs.lib; {
+			description = "Screen capture tool";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+
+		nativeBuildInputs = with pkgs; [
+			makeWrapper
+		];
+
+		postFixup = ''
+			wrapProgram $out/bin/screenland \
+				--prefix PATH : ${pkgs.lib.makeBinPath [
+				pkgs.zenity
+			]} \
+				--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
+				pkgs.wayland
+				pkgs.libxkbcommon
+				pkgs.vulkan-loader
+				pkgs.mesa
+				pkgs.libGL
+			]}
+		'';
+	};
 in
 {
 	imports = [
@@ -132,6 +183,7 @@ in
 	};
 
 	home.packages = with pkgs; [
+		screenland
 		chafa
 		jq # for system monitor
 		ncdu # disk analiser
