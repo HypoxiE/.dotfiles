@@ -1,13 +1,7 @@
 [submodule ".config/eww"]
 	path = .config/eww
 	url = https://github.com/HypoxiE/eww-configs
-[submodule "scripts/hyprmodify"]
-	path = scripts/hyprmodify
-	url = https://github.com/HypoxiE/hyprmodify
 [submodule "scripts/hypoxlogin"]
 	path = scripts/hypoxlogin
 	url = https://github.com/HypoxiE/go-login-system
-[submodule "scripts/go-colors-picker"]
-	path = scripts/go-colors-picker
-	url = https://github.com/HypoxiE/go-colors-picker
 	

@@ -5,6 +5,43 @@
 { config, lib, pkgs, host ? "default", ... }:
 
 let
+	go-login = pkgs.buildGoModule {
+		pname = "go-login";
+		version = "0.0.0";
+
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/go-login-system.git";
+			rev = "de035b15e75a7c52dd915375f64f7c095184f432";
+			hash = "sha256-ZbockZFesNu+l6QY3SV+50xB6WVnQdd7iTDEDf7xx8k=";
+		};
+
+		vendorHash = "sha256-ith7A1fSk42DWQQiFItynpO2fKAfQm+tesAPILszwDs=";
+
+		buildInputs = with pkgs; [
+			pam
+		];
+
+		nativeBuildInputs = with pkgs; [
+			pkg-config
+			makeWrapper
+		];
+
+		env = {
+			CGO_ENABLED = 1;
+		};
+
+		postFixup = ''
+			wrapProgram $out/bin/go-login \
+				--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [ pkgs.pam ]}
+		'';
+
+		meta = with pkgs.lib; {
+			description = "Console login program for system";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+	};
+
 	scriptsDir = ../../../scripts;
 	scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in
@@ -82,6 +119,28 @@ in
 		enable = true;
 		drivers = [ pkgs.pantum-driver ];
 	};
+	#systemd.services."getty@tty2".enable = true;
+	#systemd.services."getty@tty2".serviceConfig = {
+	#	ExecStart = pkgs.lib.mkForce [
+	#		""
+	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${go-login}/bin/go-login %I $TERM"
+	#	];
+	#	Type = "idle";
+	#	NoNewPrivileges = "no";
+	#};
+	#services.getty.extraArgs = ["--skip-login" "--noissue" "--noclear"];
+	#services.getty.loginProgram = "${go-login}/bin/go-login";
+	#systemd.units."getty@tty2.service".serviceConfig = {
+	#	NoNewPrivileges = "no";
+	#};
+	#systemd.services."getty@".serviceConfig = {
+	#	ExecStart = [
+	#		""
+	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${pkgs.util-linux}/bin/login -- ${go-login}/bin/go-login %I $TERM"
+	#	];
+	#	Type = "idle";
+	#	NoNewPrivileges = "no";
+	#};
 
 	# Enable touchpad support (enabled default in most desktopManager).
 	# services.libinput.enable = true;
@@ -119,10 +178,11 @@ in
 	# List packages installed in system profile.
 	# You can use https://search.nixos.org/ to find more packages (and options).
 	environment.systemPackages = with pkgs; [
+		go-login
+
 		#libs
 		pkg-config
 
-		pam
 		cups pantum-driver # принтеры
 		socat
 		gnumake
