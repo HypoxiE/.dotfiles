@@ -3,14 +3,33 @@
 let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
+	hyprmodify = pkgs.buildGoModule {
+		pname = "hyprmodify";
+		version = "0.0.0";
+
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/hyprmodify.git";
+			rev = "be192477cb9ccba38a134bc3addfb19afc0b1834";
+			hash = "sha256-yy2NZ5k8MakWulU+omohO0m+EZbVOwFq/IEH01Hu1zo=";
+		};
+
+		vendorHash = null;
+
+		meta = with pkgs.lib; {
+			description = "Hyprland utility";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+	};
+
 	screenland = pkgs.rustPlatform.buildRustPackage {
 		pname = "screenland";
 		version = "0.1.0";
 
 		src = pkgs.fetchgit {
 			url = "https://github.com/HypoxiE/screenland.git";
-			rev = "6c518efb070fe46b4826c6cfc6f53ae686843d68";
-			hash = "sha256-odhf1bijqFLyuyzNCcweWk4gllsJwbL5jZivUrMSOCk=";
+			rev = "80c803f88313d05a7223f9c0f950bc79609ac280";
+			hash = "sha256-6nz7J9HuRZMUJHlSV3hVmjM4z3vJMzpFiF/R4Dythv0=";
 		};
 
 		cargoHash = "sha256-fQhYWP25gqUqxe9ixI0/q1O3jt4FrCqxUZdqxlwbJsI=";
@@ -184,6 +203,8 @@ in
 
 	home.packages = with pkgs; [
 		screenland
+		hyprmodify
+
 		chafa
 		jq # for system monitor
 		ncdu # disk analiser
