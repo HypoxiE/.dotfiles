@@ -83,13 +83,36 @@ in
 	imports = [ ./specific/specific-hynix.nix ./specific/specific-laptop.nix ];
 
 	# Configure network connections interactively with nmcli or nmtui.
+	#networking = {
+	#	wireless.iwd.enable = true;
+	#	networkmanager = {
+	#		enable = false;
+	#		wifi.backend = "iwd";
+	#	};
+	#};
 	networking = {
-		wireless.iwd.enable = true;
-		networkmanager = {
-			enable = false;
-			wifi.backend = "iwd";
+		wireless.iwd = {
+			enable = true;
+
+			settings = {
+				General = {
+					EnableNetworkConfiguration = true;
+				};
+
+				Station = {
+				PowerSave = false;
+				};
+			};
 		};
 	};
+	boot.extraModprobeConfig = ''
+		# Intel 7265 фиксы
+		#options iwlwifi power_save=0
+		#options iwlwifi uapsd_disable=1
+
+		# если будут зависания — раскомментируй:
+		# options iwlwifi disable_11n=1
+	'';
 
 	# Set your time zone.
 	time.timeZone = "Europe/Moscow";
