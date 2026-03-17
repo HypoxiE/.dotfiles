@@ -20,7 +20,7 @@ gcol = ["go-colors-picker"]
 
 # Папка с обоями
 WALLPAPER_DIR = Path.home() / "images" / "wallpapers"
-SUPPORTED_EXT = [".jpg", ".png", ".gif", ".webp"]
+SUPPORTED_EXT = [".jpg", ".jpeg", ".png", ".gif", ".webp"]
 
 def pick_image(base_name: str) -> Path:
 	"""
