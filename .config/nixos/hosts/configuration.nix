@@ -96,8 +96,10 @@ in
 			cp -r ${baseTheme}/Nyarch-theme/. $out/
 
 			rm $out/background.png
+			rm $out/images/progress_highlight_c.png
 			
-			cp ${../grub_background.png} $out/background.png
+			cp ${../grub_textures/background.png} $out/background.png
+			cp ${../grub_textures/progress_highlight_c.png} $out/images/progress_highlight_c.png
 		'';
 	};
 	boot.tmp.useTmpfs = true;
