@@ -95,6 +95,8 @@ in
 
 			cp -r ${baseTheme}/Nyarch-theme/. $out/
 
+			rm $out/background.png
+			
 			cp ${../grub_background.png} $out/background.png
 		'';
 	};
