@@ -84,22 +84,20 @@ in
 		'';
 
 		theme = let
-		baseTheme = pkgs.fetchFromGitHub {
-			owner = "NyarchLinux";
-			repo = "Nyarch-Grub-Theme";
-			rev = "8cb88c7ad161ebc8e72fe6c7b1f70cf0f511d639";
-			sha256 = "sha256-i77XGqIkECO2+Vw6ntZ1DVKPt42lPYjJU/qysL7fjDs=";
-		};
+			baseTheme = pkgs.fetchFromGitHub {
+				owner = "NyarchLinux";
+				repo = "Nyarch-Grub-Theme";
+				rev = "8cb88c7ad161ebc8e72fe6c7b1f70cf0f511d639";
+				sha256 = "sha256-i77XGqIkECO2+Vw6ntZ1DVKPt42lPYjJU/qysL7fjDs=";
+			};
 		in pkgs.runCommand "custom-grub-theme" {} ''
 			mkdir -p $out
+			mkdir -p $out/images
 
 			cp -r ${baseTheme}/Nyarch-theme/. $out/
-
-			rm $out/background.png
-			rm $out/images/progress_highlight_c.png
 			
-			cp ${../grub_textures/background.png} $out/background.png
-			cp ${../grub_textures/progress_highlight_c.png} $out/images/progress_highlight_c.png
+			install -Dm644 ${../grub_textures/background.png} $out/background.png
+			install -Dm644 ${../grub_textures/progress_highlight_c.png} $out/images/progress_highlight_c.png
 		'';
 	};
 	boot.tmp.useTmpfs = true;
