@@ -61,9 +61,17 @@ in
 	#boot.initrd.systemd.enable = true;
 	#boot.initrd.enable = true;
 	#boot.loader.systemd-boot.useUnifiedKernelImages = true;
-	boot.loader.grub.configurationLimit = 5;
+	boot.extraModprobeConfig = ''
+		# Intel 7265 фиксы
+		#options iwlwifi power_save=0
+		#options iwlwifi uapsd_disable=1
+
+		# если будут зависания — раскомментируй:
+		# options iwlwifi disable_11n=1
+	'';
 	boot.loader.grub = {
 		enable = true;
+		configurationLimit = 5;
 		devices = [ "nodev" ];
 		efiSupport = true;
 		efiInstallAsRemovable = true;
@@ -73,6 +81,24 @@ in
 				halt --no-apm
 				poweroff
 			}
+		'';
+
+		theme = let
+		baseTheme = pkgs.fetchFromGitHub {
+			owner = "NyarchLinux";
+			repo = "Nyarch-Grub-Theme";
+			rev = "8cb88c7ad161ebc8e72fe6c7b1f70cf0f511d639";
+			sha256 = "sha256-i77XGqIkECO2+Vw6ntZ1DVKPt42lPYjJU/qysL7fjDs=";
+		};
+		in pkgs.runCommand "custom-grub-theme" {} ''
+		cp -r ${baseTheme}/Nyarch-theme $out
+
+		# заменяем фон
+		cp ${../grub_background.png} $out/background.png
+
+		# правим theme.txt
+		substituteInPlace $out/theme.txt \
+			--replace "background.png" "background.png"
 		'';
 	};
 	boot.tmp.useTmpfs = true;
@@ -105,14 +131,6 @@ in
 			};
 		};
 	};
-	boot.extraModprobeConfig = ''
-		# Intel 7265 фиксы
-		#options iwlwifi power_save=0
-		#options iwlwifi uapsd_disable=1
-
-		# если будут зависания — раскомментируй:
-		# options iwlwifi disable_11n=1
-	'';
 
 	# Set your time zone.
 	time.timeZone = "Europe/Moscow";
