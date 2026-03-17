@@ -91,14 +91,11 @@ in
 			sha256 = "sha256-i77XGqIkECO2+Vw6ntZ1DVKPt42lPYjJU/qysL7fjDs=";
 		};
 		in pkgs.runCommand "custom-grub-theme" {} ''
-		cp -r ${baseTheme}/Nyarch-theme $out
+			mkdir -p $out
 
-		# заменяем фон
-		cp ${../grub_background.png} $out/background.png
+			cp -r ${baseTheme}/Nyarch-theme/. $out/
 
-		# правим theme.txt
-		substituteInPlace $out/theme.txt \
-			--replace "background.png" "background.png"
+			cp ${../grub_background.png} $out/background.png
 		'';
 	};
 	boot.tmp.useTmpfs = true;
