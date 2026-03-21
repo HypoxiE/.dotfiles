@@ -313,7 +313,7 @@ in
 		openscad
 		android-tools
 		mtkclient
-		hoppscotch # http requests
+		bruno # http requests
 
 		#vtubing
 		inochi-session
