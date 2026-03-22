@@ -100,12 +100,12 @@ let
 		version = "0.1.0";
 
 		src = pkgs.fetchgit {
-			url = "https://github.com/HypoxiE/screenland.git";
-			rev = "80c803f88313d05a7223f9c0f950bc79609ac280";
-			hash = "sha256-6nz7J9HuRZMUJHlSV3hVmjM4z3vJMzpFiF/R4Dythv0=";
+			url = "https://github.com/Andrewkoro105/screenland.git";
+			rev = "f15a4ab98fb63f7c03fc776610c88d3fecf05508";
+			hash = "sha256-RRK27FcoTc/o9gHxrywfwF1tchGRUVkoSPB5Mrd9eHg=";
 		};
 
-		cargoHash = "sha256-fQhYWP25gqUqxe9ixI0/q1O3jt4FrCqxUZdqxlwbJsI=";
+		cargoHash = "sha256-2YkmEqOziRh2fnTSlFGLyFde1XTVDMoaqz6pTQigPVg=";
 
 		buildInputs = with pkgs; [
 			pkg-config
