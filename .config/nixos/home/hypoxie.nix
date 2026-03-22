@@ -27,7 +27,7 @@ let
 					gettext
 					wrapGAppsHook3
 					desktop-file-utils
-				appstream-glib
+					appstream-glib
 				];
 
 				buildInputs = with pkgs; [
@@ -101,8 +101,8 @@ let
 
 		src = pkgs.fetchgit {
 			url = "https://github.com/Andrewkoro105/screenland.git";
-			rev = "f15a4ab98fb63f7c03fc776610c88d3fecf05508";
-			hash = "sha256-RRK27FcoTc/o9gHxrywfwF1tchGRUVkoSPB5Mrd9eHg=";
+			rev = "21c9ab2a8be7717b4d01b74bbe641e8cfc3b1d4e";
+			hash = "sha256-XrRsq3jgaL1h1PLKJYoFXmASA44nCvy4Ucrk0KwrKPs=";
 		};
 
 		cargoHash = "sha256-2YkmEqOziRh2fnTSlFGLyFde1XTVDMoaqz6pTQigPVg=";
@@ -130,6 +130,10 @@ let
 		nativeBuildInputs = with pkgs; [
 			makeWrapper
 		];
+
+		postPatch = ''
+			sed -i '95s/sleep(Duration::from_millis(10));/sleep(Duration::from_millis(30));/' src/app/update.rs
+		'';
 
 		postFixup = ''
 			wrapProgram $out/bin/screenland \
