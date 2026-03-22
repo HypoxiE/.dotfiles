@@ -237,9 +237,9 @@ in
 
 	programs.vscode = {
 		enable = true;
-		package = pkgs.vscode.fhs;
+		#package = pkgs.vscode.fhs;
 
-		extensions = with pkgs.vscode-extensions; [
+		profiles.default.extensions = with pkgs.vscode-extensions; [
 			bbenoist.nix
 			ms-vscode.cpptools
 			ms-vscode.cmake-tools
