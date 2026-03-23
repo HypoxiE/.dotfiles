@@ -350,9 +350,7 @@ in
 		android-tools
 		mtkclient
 		bruno # http requests
-		gcc
-		gdb
-		cmake
+		gcc gdb cmake fmt
 
 		#vtubing
 		inochi-session
