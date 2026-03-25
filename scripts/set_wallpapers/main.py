@@ -8,6 +8,31 @@ import argparse
 import time
 import json
 
+from datetime import date
+
+#(holiday_id, weight)
+def check_holidays(date) -> list[tuple[str, int]]:
+	holiday_flag = []
+	if (25 <= date.day and date.month == 12) or (date.day <= 10 and date.month == 1):
+		holiday_flag.append(("new_year", 25))
+	
+	if (date.day == 31 and date.month == 10):
+		holiday_flag.append(("halloween", 25))
+
+	if (14 <= date.day <= 17 and date.month == 2):
+		holiday_flag.append(("valentine_day", 25))
+	
+	if date.month == 12 or date.month == 1 or date.month == 2:
+		holiday_flag.append(("winter", 5))
+	if 3 <= date.month <= 5:
+		holiday_flag.append(("spring", 5))
+	if 6 <= date.month <= 8:
+		holiday_flag.append(("summer", 5))
+	if 9 <= date.month <= 11:
+		holiday_flag.append(("autumn", 5))
+
+	return holiday_flag
+
 import logging
 logging.basicConfig(
     filename="/tmp/set_wallpapers.log",
@@ -51,9 +76,28 @@ def pick_image(base_name: str) -> Path:
 	return img
 
 def pick_random_image() -> Path:
-	files = [f for f in WALLPAPER_DIR.iterdir() if f.suffix.lower() in SUPPORTED_EXT]
+	files = {file: 1 for file in (WALLPAPER_DIR / "universal").iterdir() if file.suffix.lower() in SUPPORTED_EXT}
+	for holid, weight in check_holidays(date.today()):
+		hol_dir = WALLPAPER_DIR / holid
+		if not hol_dir.exists() or not hol_dir.is_dir():
+			continue
+
+		file_names = {i.name: i for i in files.keys()}
+
+		for file in hol_dir.iterdir():
+			if file.name in file_names.keys():
+				if files[file_names[file.name]] < weight:
+					files[file_names[file.name]] = weight
+			else:
+				if file.suffix.lower() in SUPPORTED_EXT:
+					files[file] = weight
+
 	assert files
-	img = random.choice(files)
+	img = random.choices(
+		population=[f for f in files.keys()],
+		weights=[w for w in files.values()],
+		k=1
+	)[0]
 
 	conf_file = img.with_suffix(".conf")
 	if not conf_file.exists():
