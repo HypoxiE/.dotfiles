@@ -319,6 +319,7 @@ in
 		chafa
 		jq # for system monitor
 		ncdu # disk analiser
+		kdePackages.dolphin # file manager
 		unzip
 		calc
 		libreoffice
