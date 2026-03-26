@@ -12,24 +12,27 @@ from datetime import date
 
 #(holiday_id, weight)
 def check_holidays(date) -> list[tuple[str, int]]:
+	season_weight = 5
+	big_holidays_weight = 25
+
 	holiday_flag = []
 	if (25 <= date.day and date.month == 12) or (date.day <= 10 and date.month == 1):
-		holiday_flag.append(("new_year", 25))
+		holiday_flag.append(("new_year", big_holidays_weight))
 	
 	if (date.day == 31 and date.month == 10):
-		holiday_flag.append(("halloween", 25))
+		holiday_flag.append(("halloween", big_holidays_weight))
 
 	if (14 <= date.day <= 17 and date.month == 2):
-		holiday_flag.append(("valentine_day", 25))
+		holiday_flag.append(("valentine_day", big_holidays_weight))
 	
 	if date.month == 12 or date.month == 1 or date.month == 2:
-		holiday_flag.append(("winter", 5))
+		holiday_flag.append(("winter", season_weight))
 	if 3 <= date.month <= 5:
-		holiday_flag.append(("spring", 5))
+		holiday_flag.append(("spring", season_weight))
 	if 6 <= date.month <= 8:
-		holiday_flag.append(("summer", 5))
+		holiday_flag.append(("summer", season_weight))
 	if 9 <= date.month <= 11:
-		holiday_flag.append(("autumn", 5))
+		holiday_flag.append(("autumn", season_weight))
 
 	return holiday_flag
 
