@@ -102,6 +102,9 @@ def pick_random_image() -> Path:
 		k=1
 	)[0]
 
+	img = WALLPAPER_DIR / "all" / img.name
+
+
 	conf_file = img.with_suffix(".conf")
 	if not conf_file.exists():
 		print(f"⚠️  Конфиг {conf_file} не найден, запускаем gcol...")
