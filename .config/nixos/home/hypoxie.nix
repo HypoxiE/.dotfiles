@@ -101,11 +101,11 @@ let
 
 		src = pkgs.fetchgit {
 			url = "https://github.com/Andrewkoro105/screenland.git";
-			rev = "21c9ab2a8be7717b4d01b74bbe641e8cfc3b1d4e";
-			hash = "sha256-XrRsq3jgaL1h1PLKJYoFXmASA44nCvy4Ucrk0KwrKPs=";
+			rev = "ef35686cdc4849d6e319f00a9126ab0150f57226";
+			hash = "sha256-kpqpoQyqsrtH7iRYE6/E5eQ55mlKAu9NoYbffRkTkFw=";
 		};
 
-		cargoHash = "sha256-2YkmEqOziRh2fnTSlFGLyFde1XTVDMoaqz6pTQigPVg=";
+		cargoHash = "sha256-+9BdlUX1/RV3hvdzqmM9JdQofopFxmtYwKk5ZdQ4f04=";
 
 		buildInputs = with pkgs; [
 			pkg-config
