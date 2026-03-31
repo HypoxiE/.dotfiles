@@ -131,12 +131,8 @@ let
 			makeWrapper
 		];
 
-		postPatch = ''
-			sed -i '95s/sleep(Duration::from_millis(10));/sleep(Duration::from_millis(30));/' src/app/update.rs
-		'';
-
 		postFixup = ''
-			wrapProgram $out/bin/screenland \
+			wrapProgram $out/bin/wallpaper-manager \
 				--prefix PATH : ${pkgs.lib.makeBinPath [
 				pkgs.zenity
 			]} \
@@ -146,6 +142,46 @@ let
 				pkgs.vulkan-loader
 				pkgs.mesa
 				pkgs.libGL
+			]}
+		'';
+	};
+	wallpaper-manager = pkgs.rustPlatform.buildRustPackage {
+		pname = "wallpaper-manager";
+		version = "0.1.0";
+
+		src = pkgs.fetchgit {
+			url = "https://github.com/HypoxiE/wallpapers_manager";
+			rev = "d43137c8f057abface30d052bd206cf7eb6e077c";
+			hash = "sha256-I+ROQyxnjyh8DWWhJZVmwPb2cvNPXbjUS77xKbioVj0=";
+		};
+
+		cargoHash = "sha256-eOwHehAhEyatqRL1oXS+MOZ41A9PeR6W7gkj+ssQ/ng=";
+
+		buildInputs = with pkgs; [
+			pkg-config
+			openssl
+		];
+
+		propagatedBuildInputs = with pkgs; [
+			libxkbcommon
+			wayland
+		];
+
+		meta = with pkgs.lib; {
+			description = "My wallpapers management program";
+			license = licenses.mit;
+			platforms = platforms.linux;
+		};
+
+		nativeBuildInputs = with pkgs; [
+			makeWrapper
+		];
+
+		postFixup = ''
+			wrapProgram $out/bin/screenland \
+				--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
+				pkgs.wayland
+				pkgs.libxkbcommon
 			]}
 		'';
 	};
@@ -312,6 +348,7 @@ in
 
 	home.packages = with pkgs; [
 		catgirl-downloader
+		wallpaper-manager
 		screenland
 		hyprmodify
 		gocp
