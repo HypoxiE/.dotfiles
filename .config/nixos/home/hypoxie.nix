@@ -183,6 +183,18 @@ let
 				pkgs.wayland
 				pkgs.libxkbcommon
 			]}
+
+			mkdir -p $out/share/applications
+			cat > $out/share/applications/wallpaper-manager.desktop <<EOF
+[Desktop Entry]
+Type=Application
+Name=Wallpaper Manager
+Comment=Manage your wallpapers
+Exec=$out/bin/wallpaper_manager
+Icon=preferences-desktop-wallpaper
+Terminal=false
+Categories=Utility;X-GNOME-Utilities;
+EOF
 		'';
 	};
 in
