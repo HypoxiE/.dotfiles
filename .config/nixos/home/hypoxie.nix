@@ -132,7 +132,7 @@ let
 		];
 
 		postFixup = ''
-			wrapProgram $out/bin/wallpaper-manager \
+			wrapProgram $out/bin/screenland \
 				--prefix PATH : ${pkgs.lib.makeBinPath [
 				pkgs.zenity
 			]} \
@@ -178,7 +178,7 @@ let
 		];
 
 		postFixup = ''
-			wrapProgram $out/bin/screenland \
+			wrapProgram $out/bin/wallpaper-manager \
 				--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [
 				pkgs.wayland
 				pkgs.libxkbcommon
