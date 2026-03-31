@@ -151,8 +151,8 @@ let
 
 		src = pkgs.fetchgit {
 			url = "https://github.com/HypoxiE/wallpapers_manager";
-			rev = "4d6d3bfd2f7c17f7f52c6f993452c722019de74b";
-			hash = "sha256-udzfisgKi5pd62cv++dQhRGLc5ff8YTP6sWi2lVfxA4=";
+			rev = "42d7ffcbdc7a981e217df9ed87ce05154afa319d";
+			hash = "sha256-JeJ43vyB26Oq2reEslBSkkyL3BHYUS8khCzmK3En89E=";
 		};
 
 		cargoHash = "sha256-eOwHehAhEyatqRL1oXS+MOZ41A9PeR6W7gkj+ssQ/ng=";
