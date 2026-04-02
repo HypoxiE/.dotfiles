@@ -276,8 +276,7 @@ in {
 				"SUPER SHIFT, X, exec, pkill Xwayland"
 
 				#autoclicker
-				"$mainMod, F6, exec, ~/.config/hypr/autoclicker.sh"
-				"$mainMod, F7, exec, pkill -f ydotool"
+				"ALT_R, F6, exec, ~/.config/hypr/autoclicker.sh"
 			]
 			#++ map (i: "$mainMod, ${toString i}, exec, hyprctl dispatch workspace $(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')${toString i}") (pkgs.lib.range 0 9)
 			#++ map (i: "$mainMod SHIFT, ${toString i}, exec, hyprctl dispatch movetoworkspace $(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')${toString i}") (pkgs.lib.range 0 9);
