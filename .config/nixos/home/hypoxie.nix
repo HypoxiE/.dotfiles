@@ -3,6 +3,22 @@
 let
 	spicePkgs = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
+	mikuCursor = pkgs.stdenv.mkDerivation {
+		name = "hatsune-miku-cursor";
+
+		src = pkgs.fetchFromGitHub {
+			owner = "supermariofps";
+			repo = "hatsune-miku-windows-linux-cursors";
+			rev = "471ff88156e9a3dc8542d23e8cae4e1c9de6e732";
+			sha256 = "sha256-HCHo4GwWLvjjnKWNiHb156Z+NQqliqLX1T1qNxMEMfE=";
+		};
+
+		installPhase = ''
+		mkdir -p $out/share/icons
+		cp -r miku-cursor-linux $out/share/icons/Hatsune\ Miku
+		'';
+	};
+
 	catgirl-downloader =
 		let
 			pythonEnv = pkgs.python3.withPackages (ps: with ps; [
@@ -318,8 +334,19 @@ in
 		];
 	};
 
+	home.sessionVariables = {
+		XCURSOR_THEME = "Hatsune Miku";
+		XCURSOR_SIZE = "24";
+		ELECTRON_OZONE_PLATFORM_HINT = "auto";
+	};
+
 	gtk = {
 		enable = true;
+		cursorTheme = {
+			name = "Hatsune Miku";
+			package = mikuCursor;
+			size = 24;
+		};
 		iconTheme = {
 			#package = pkgs.catppuccin-papirus-folders.override {
 			#	flavor = "macchiato";
@@ -380,6 +407,7 @@ in
 		screenland
 		hyprmodify
 		gocp
+		mikuCursor
 
 		chafa
 		jq # for system monitor
