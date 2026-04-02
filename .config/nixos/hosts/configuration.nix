@@ -199,8 +199,16 @@ in
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
 	'';
 	services.udisks2.enable = true;
-	services.ydotool = {
-		enable = true;
+		systemd.services.ydotoold = {
+		description = "ydotool daemon";
+		wantedBy = [ "multi-user.target" ];
+		after = [ "network.target" ];
+
+		serviceConfig = {
+			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
+			Restart = "always";
+			RestartSec = 1;
+		};
 	};
 	
 	services.acpid = {
