@@ -199,16 +199,6 @@ in
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
 	'';
 	services.udisks2.enable = true;
-	systemd.user.services.ydotoold = {
-		description = "ydotool daemon (user)";
-		wantedBy = [ "default.target" ];
-
-		serviceConfig = {
-			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
-			Restart = "always";
-			RestartSec = 1;
-		};
-	};
 	hardware.uinput.enable = true;
 	
 	services.acpid = {
@@ -245,7 +235,6 @@ in
 		playerctl # управление музыкой
 		brightnessctl ddcutil # яркость
 		acpid # выключение экрана
-		ydotool # автокликер
 
 		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree

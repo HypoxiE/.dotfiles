@@ -358,6 +358,17 @@ in
 		};
 	};
 
+	systemd.user.services.ydotoold = {
+		description = "ydotool daemon (user)";
+		wantedBy = [ "default.target" ];
+
+		serviceConfig = {
+			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
+			Restart = "always";
+			RestartSec = 1;
+		};
+	};
+
 	home.packages = with pkgs; [
 		catgirl-downloader
 		wallpaper-manager
@@ -374,6 +385,7 @@ in
 		libreoffice
 		gimp
 		krita
+		ydotool # автокликер
 
 		#communication
 		ayugram-desktop
