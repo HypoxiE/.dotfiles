@@ -359,13 +359,18 @@ in
 	};
 
 	systemd.user.services.ydotoold = {
-		description = "ydotool daemon (user)";
-		wantedBy = [ "default.target" ];
+		Unit = {
+			Description = "ydotool daemon (user)";
+		};
 
-		serviceConfig = {
+		Service = {
 			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
 			Restart = "always";
 			RestartSec = 1;
+		};
+
+		Install = {
+			WantedBy = [ "default.target" ];
 		};
 	};
 
