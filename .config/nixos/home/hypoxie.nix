@@ -374,6 +374,7 @@ in
 		libreoffice
 		gimp
 		krita
+		ydotool # автокликер
 
 		#communication
 		ayugram-desktop

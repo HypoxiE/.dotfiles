@@ -274,6 +274,10 @@ in {
 				",XF86Search, exec, firefox"
 				"ALT_R, $KEY_W, exec, ~/scripts/set_wallpapers/main.py"
 				"SUPER SHIFT, X, exec, pkill Xwayland"
+
+				#autoclicker
+				"$mainMod, F6, exec, pkill -f ydotool; while true; do ydotool click 0xC0; sleep 0.05; done"
+				"$mainMod, F7, exec, pkill -f ydotool"
 			]
 			#++ map (i: "$mainMod, ${toString i}, exec, hyprctl dispatch workspace $(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')${toString i}") (pkgs.lib.range 0 9)
 			#++ map (i: "$mainMod SHIFT, ${toString i}, exec, hyprctl dispatch movetoworkspace $(hyprctl monitors -j | jq -r '.[] | select(.focused == true) | .id')${toString i}") (pkgs.lib.range 0 9);
