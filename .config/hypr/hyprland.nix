@@ -36,6 +36,7 @@ let
 		W = "code:25";
 		E = "code:26";
 		R = "code:27";
+		T = "code:28";
 		P = "code:33";
 		S = "code:39";
 		F = "code:41";
@@ -249,7 +250,8 @@ in {
 				"ALT_L, F4, killactive,"
 				"$mainMod, $KEY_M, workspace, 1"
 				"$mainMod, $KEY_E, exec, $fileManager"
-				"$mainMod, $KEY_F, togglefloating,"
+				"$mainMod, $KEY_T, togglefloating,"
+				"$mainMod, $KEY_F, fullscreen,"
 				"$mainMod, $KEY_R, exec, $menu"
 				"$mainMod, $KEY_P, pseudo,"
 				"$mainMod, $KEY_J, togglesplit,"
@@ -338,6 +340,10 @@ in {
 			
 			# Генерация правил для workspace 9 (мессенджеры)
 			++ (map (class: "workspace 9 silent,class:${class}") workspace9Classes)
+			++ [
+				"float, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
+				"fullscreen, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
+			]
 			
 			# Генерация правил для workspace 10 (spotify)
 			++ [ "workspace 10 silent,class:Spotify" ];
