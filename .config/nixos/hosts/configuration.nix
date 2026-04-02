@@ -199,7 +199,9 @@ in
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
 	'';
 	services.udisks2.enable = true;
-
+	services.ydotool = {
+		enable = true;
+	};
 	
 	services.acpid = {
 		enable = true;
@@ -235,6 +237,7 @@ in
 		playerctl # управление музыкой
 		brightnessctl ddcutil # яркость
 		acpid # выключение экрана
+		ydotool # автокликер
 
 		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree

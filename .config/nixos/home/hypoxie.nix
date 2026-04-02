@@ -237,10 +237,6 @@ in
 		];
 	};
 
-	services.ydotool = {
-		enable = true;
-	};
-
 	programs.firefox = {
 		enable = true;
 
@@ -378,7 +374,6 @@ in
 		libreoffice
 		gimp
 		krita
-		ydotool # автокликер
 
 		#communication
 		ayugram-desktop
