@@ -199,10 +199,9 @@ in
 		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
 	'';
 	services.udisks2.enable = true;
-	systemd.services.ydotoold = {
-		description = "ydotool daemon";
-		wantedBy = [ "multi-user.target" ];
-		after = [ "network.target" ];
+	systemd.user.services.ydotoold = {
+		description = "ydotool daemon (user)";
+		wantedBy = [ "default.target" ];
 
 		serviceConfig = {
 			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
