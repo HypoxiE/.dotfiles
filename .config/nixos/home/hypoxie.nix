@@ -1,7 +1,7 @@
 { config, pkgs, spicetify-nix, stylix, host, ... }:
 
 let
-	spicetify = pkgs.callPackage ./spicetify-nix { };
+	spicetify = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
 	my-pkgs = import ./build_my_pksg.nix { inherit pkgs; };
 	other-pkgs = import ./build_pksg.nix { inherit pkgs; };
