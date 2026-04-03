@@ -4,5 +4,6 @@ pkgs.python313.withPackages (ps: with ps; [
 	numpy
 	pandas
 	requests
-	flask
+	json5
+	typer #arguments
 ])
