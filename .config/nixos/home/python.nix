@@ -6,4 +6,5 @@ pkgs.python313.withPackages (ps: with ps; [
 	requests
 	json5
 	typer #arguments
+	textual
 ])
