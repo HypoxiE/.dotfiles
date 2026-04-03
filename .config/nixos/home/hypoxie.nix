@@ -39,7 +39,7 @@ in
 	programs.spicetify = {
 		enable = true;
 		#theme = spicePkgs.themes.catppuccin;
-		enabledExtensions = with other-pkgs.spicetify.extensions; [
+		enabledExtensions = with spicetify.extensions; [
 			adblock
 			hidePodcasts
 		];
