@@ -402,6 +402,8 @@ in
 	};
 
 	home.packages = with pkgs; [
+		(import ./python.nix { inherit pkgs; })
+
 		catgirl-downloader
 		wallpaper-manager
 		screenland
