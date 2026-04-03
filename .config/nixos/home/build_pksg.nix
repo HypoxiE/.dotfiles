@@ -1,7 +1,6 @@
 { pkgs }:
 
 let
-	spicetify = pkgs.callPackage ./spicetify-nix { };
 
 	miku-cursor = pkgs.stdenv.mkDerivation {
 		name = "hatsune-miku-cursor";
@@ -75,5 +74,5 @@ let
 
 in
 {
-	inherit spicetify miku-cursor catgirl-downloader;
+	inherit miku-cursor catgirl-downloader;
 }
