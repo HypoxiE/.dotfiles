@@ -101,6 +101,7 @@ in
 
 		profiles.default.extensions = with pkgs.vscode-extensions; [
 			bbenoist.nix
+			arrterian.nix-env-selector
 			ms-vscode.cpptools
 			ms-vscode.cmake-tools
 
@@ -108,6 +109,15 @@ in
 			golang.go
 
 			ms-python.python
+			ms-python.vscode-pylance
+			ms-python.debugpy
+
+			ms-toolsai.jupyter
+			ms-toolsai.vscode-jupyter-cell-tags
+			ms-toolsai.vscode-jupyter-slideshow
+			ms-toolsai.jupyter-keymap
+			#ms-toolsai.jupyter-renderers
+
 			james-yu.latex-workshop
 		]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
 			{
