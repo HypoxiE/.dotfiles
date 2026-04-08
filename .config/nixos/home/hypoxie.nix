@@ -105,8 +105,6 @@ in
 			ms-vscode.cpptools
 			ms-vscode.cmake-tools
 
-			janisdd.vscode-edit-csv
-
 			rust-lang.rust-analyzer
 			golang.go
 
@@ -134,7 +132,12 @@ in
 				version = "0.0.3";
 				sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
 			}
-
+			{
+				name = "csv";
+				publisher = "repreng";
+				version = "1.3.0";
+				sha256 = "wrbrArOWHxpjJh8/TQ4YJpz6B3F+WgI5C2bSGUYmfPM=";
+			}
 		];
 	};
 
