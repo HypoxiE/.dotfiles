@@ -105,6 +105,8 @@ in
 			ms-vscode.cpptools
 			ms-vscode.cmake-tools
 
+			mechatroner.rainbow-csv
+
 			rust-lang.rust-analyzer
 			golang.go
 
