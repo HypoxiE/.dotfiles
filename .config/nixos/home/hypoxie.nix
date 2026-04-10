@@ -100,6 +100,12 @@ in
 		#package = pkgs.vscode.fhs;
 
 		profiles.default.extensions = with pkgs.vscode-extensions; [
+			ms-toolsai.jupyter
+			ms-toolsai.vscode-jupyter-cell-tags
+			ms-toolsai.vscode-jupyter-slideshow
+			ms-toolsai.jupyter-keymap
+			#ms-toolsai.jupyter-renderers
+			
 			bbenoist.nix
 			arrterian.nix-env-selector
 			ms-vscode.cpptools
@@ -111,12 +117,6 @@ in
 			ms-python.python
 			ms-python.vscode-pylance
 			ms-python.debugpy
-
-			ms-toolsai.jupyter
-			ms-toolsai.vscode-jupyter-cell-tags
-			ms-toolsai.vscode-jupyter-slideshow
-			ms-toolsai.jupyter-keymap
-			#ms-toolsai.jupyter-renderers
 
 			james-yu.latex-workshop
 		]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
