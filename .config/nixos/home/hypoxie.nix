@@ -213,6 +213,9 @@ in
 
 		other-pkgs.miku-cursor
 		other-pkgs.catgirl-downloader
+		hevel
+		neuswc
+		neuwld
 
 		my-pkgs.hyprmodify
 		my-pkgs.go-colors-picker

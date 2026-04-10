@@ -1,7 +1,6 @@
 { pkgs }:
 
 let
-
 	miku-cursor = pkgs.stdenv.mkDerivation {
 		name = "hatsune-miku-cursor";
 

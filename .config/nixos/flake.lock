@@ -202,7 +202,41 @@
         "type": "github"
       }
     },
+    "neu-nix": {
+      "inputs": {
+        "nixpkgs": "nixpkgs"
+      },
+      "locked": {
+        "lastModified": 1775514088,
+        "narHash": "sha256-BL9AZ/c5EJhyFMfrGXFUDnaZfhlWfz+KrjrtwXOEuD4=",
+        "owner": "ricardomaps",
+        "repo": "neu-nix",
+        "rev": "79c866d111cb24dc6d0815edc6425667763f7235",
+        "type": "github"
+      },
+      "original": {
+        "owner": "ricardomaps",
+        "repo": "neu-nix",
+        "type": "github"
+      }
+    },
     "nixpkgs": {
+      "locked": {
+        "lastModified": 1774106199,
+        "narHash": "sha256-US5Tda2sKmjrg2lNHQL3jRQ6p96cgfWh3J1QBliQ8Ws=",
+        "owner": "NixOS",
+        "repo": "nixpkgs",
+        "rev": "6c9a78c09ff4d6c21d0319114873508a6ec01655",
+        "type": "github"
+      },
+      "original": {
+        "owner": "NixOS",
+        "ref": "nixos-unstable",
+        "repo": "nixpkgs",
+        "type": "github"
+      }
+    },
+    "nixpkgs_2": {
       "locked": {
         "lastModified": 1770136044,
         "narHash": "sha256-tlFqNG/uzz2++aAmn4v8J0vAkV3z7XngeIIB3rM3650=",
@@ -218,7 +252,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_2": {
+    "nixpkgs_3": {
       "locked": {
         "lastModified": 1770197578,
         "narHash": "sha256-AYqlWrX09+HvGs8zM6ebZ1pwUqjkfpnv8mewYwAo+iM=",
@@ -234,7 +268,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_3": {
+    "nixpkgs_4": {
       "locked": {
         "lastModified": 1769461804,
         "narHash": "sha256-msG8SU5WsBUfVVa/9RPLaymvi5bI8edTavbIq3vRlhI=",
@@ -250,7 +284,7 @@
         "type": "github"
       }
     },
-    "nixpkgs_4": {
+    "nixpkgs_5": {
       "locked": {
         "lastModified": 1767767207,
         "narHash": "sha256-Mj3d3PfwltLmukFal5i3fFt27L6NiKXdBezC1EBuZs4=",
@@ -269,7 +303,7 @@
     "nur": {
       "inputs": {
         "flake-parts": "flake-parts",
-        "nixpkgs": "nixpkgs_2"
+        "nixpkgs": "nixpkgs_3"
       },
       "locked": {
         "lastModified": 1770295452,
@@ -314,7 +348,8 @@
       "inputs": {
         "disko": "disko",
         "home-manager": "home-manager",
-        "nixpkgs": "nixpkgs",
+        "neu-nix": "neu-nix",
+        "nixpkgs": "nixpkgs_2",
         "nur": "nur",
         "spicetify-nix": "spicetify-nix",
         "stylix": "stylix"
@@ -322,7 +357,7 @@
     },
     "spicetify-nix": {
       "inputs": {
-        "nixpkgs": "nixpkgs_3",
+        "nixpkgs": "nixpkgs_4",
         "systems": "systems"
       },
       "locked": {
@@ -348,7 +383,7 @@
         "firefox-gnome-theme": "firefox-gnome-theme",
         "flake-parts": "flake-parts_2",
         "gnome-shell": "gnome-shell",
-        "nixpkgs": "nixpkgs_4",
+        "nixpkgs": "nixpkgs_5",
         "nur": "nur_2",
         "systems": "systems_2",
         "tinted-foot": "tinted-foot",

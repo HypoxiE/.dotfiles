@@ -14,19 +14,21 @@
 
 		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
+		neu-nix.url = "github:ricardomaps/neu-nix";
+
 		disko = {
 			url = "github:nix-community/disko";
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, nur, stylix, spicetify-nix, disko, ... }:
+	outputs = { self, nixpkgs, home-manager, nur, stylix, spicetify-nix, neu-nix, disko, ... }:
 
 	let
 		system = "x86_64-linux";
 		pkgs = import nixpkgs {
 			inherit system;
-			overlays = [ nur.overlays.default ];
+			overlays = [ nur.overlays.default neu-nix.overlays.default ];
 			config = {
 				allowUnfree = true;
 			};
