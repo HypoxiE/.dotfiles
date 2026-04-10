@@ -91,7 +91,8 @@ in
 	programs.bash = {
 		enable = true;
 		shellAliases = {
-		img = "chafa";
+			img = "chafa";
+			hevel = "swc-launch hevel";
 		};
 	};
 
