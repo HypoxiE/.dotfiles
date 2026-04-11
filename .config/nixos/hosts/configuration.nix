@@ -305,10 +305,12 @@ in
 	programs.bash = {
 		#enable = true;
 		shellAliases = {
-		scol = "${config.environment.etc."set_themes".source}/main.py";
-		wset = "${config.environment.etc."set_wallpapers".source}/main.py";
-		nohup = "nohup 2>&1 > ~/logs/nohup.out";
-		py = "python3";
+			scol = "${config.environment.etc."set_themes".source}/main.py";
+			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
+			nohup = "nohup 2>&1 > ~/logs/nohup.out";
+			py = "python3";
+			shd = "shutdown";
+			off = "poweroff";
 		};
 
 		interactiveShellInit = ''
