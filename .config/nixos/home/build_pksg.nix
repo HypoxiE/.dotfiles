@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-	miku-cursor = pkgs.stdenv.mkDerivation {
+	input.miku-cursor = pkgs.stdenv.mkDerivation {
 		name = "hatsune-miku-cursor";
 
 		src = pkgs.fetchFromGitHub {
@@ -17,7 +17,7 @@ let
 		'';
 	};
 
-	catgirl-downloader =
+	input.catgirl-downloader =
 		let
 			pythonEnv = pkgs.python3.withPackages (ps: with ps; [
 				pygobject3
@@ -73,5 +73,5 @@ let
 
 in
 {
-	inherit miku-cursor catgirl-downloader;
+	inherit input;
 }

@@ -1,7 +1,7 @@
 { pkgs }:
 
 let
-	hyprmodify = pkgs.buildGoModule {
+	input.hyprmodify = pkgs.buildGoModule {
 		pname = "hyprmodify";
 		version = "0.0.0";
 
@@ -20,7 +20,7 @@ let
 		};
 	};
 
-	go-colors-picker = pkgs.buildGoModule {
+	input.go-colors-picker = pkgs.buildGoModule {
 		pname = "go-colors-picker";
 		version = "0.0.0";
 
@@ -41,7 +41,7 @@ let
 		};
 	};
 
-	screenland = pkgs.rustPlatform.buildRustPackage {
+	input.screenland = pkgs.rustPlatform.buildRustPackage {
 		pname = "screenland";
 		version = "0.1.0";
 
@@ -91,7 +91,7 @@ let
 			]}
 		'';
 	};
-	wallpaper-manager = pkgs.rustPlatform.buildRustPackage {
+	input.wallpaper-manager = pkgs.rustPlatform.buildRustPackage {
 		pname = "wallpaper-manager";
 		version = "0.1.0";
 
@@ -146,5 +146,5 @@ EOF
 
 in
 {
-	inherit hyprmodify go-colors-picker screenland wallpaper-manager;
+	inherit input;
 }

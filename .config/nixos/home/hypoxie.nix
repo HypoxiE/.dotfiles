@@ -212,16 +212,16 @@ in
 	home.packages = with pkgs; [
 		(import ./python.nix { inherit pkgs; })
 
-		other-pkgs.miku-cursor
-		other-pkgs.catgirl-downloader
+		other-pkgs.input.miku-cursor
+		other-pkgs.input.catgirl-downloader
 		hevel
 		neuswc
 		neuwld
 
-		my-pkgs.hyprmodify
-		my-pkgs.go-colors-picker
-		my-pkgs.screenland
-		my-pkgs.wallpaper-manager
+		my-pkgs.input.hyprmodify
+		my-pkgs.input.go-colors-picker
+		my-pkgs.input.screenland
+		my-pkgs.input.wallpaper-manager
 
 		chafa
 		jq # for system monitor
