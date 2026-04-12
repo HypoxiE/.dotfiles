@@ -152,7 +152,7 @@ in
 		enable = true;
 		cursorTheme = {
 			name = "Hatsune Miku";
-			package = other-pkgs.miku-cursor;
+			package = other-pkgs.input.miku-cursor;
 			size = 24;
 		};
 		iconTheme = {
