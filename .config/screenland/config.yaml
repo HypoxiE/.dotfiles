@@ -29,3 +29,13 @@ custom_objects:
       num_input: 1.0
   shader: '   return vec4(pixel_color.r * data.filter_r, pixel_color.g * data.filter_g, pixel_color.b * data.filter_b, pixel_color.a);'
   points_format: Cube
+icon:
+  SolidName: user-ninja
+shader: |2-
+  
+      if in_cube(pixel_pos, data.cube.start, data.cube.end) {
+          return vec4(0., 0., 0., 0.);
+      } else {
+        return pixel_color;
+      }
+points_format: Cube
