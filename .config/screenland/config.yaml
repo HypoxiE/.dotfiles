@@ -1,41 +1,9 @@
-config_path: /home/hypoxie/.config/screenland/config.yaml
 color_format:
   r: 0
   g: 1
   b: 2
   a: 3
-path: ./images/screenshots
+path: ./
 format: screenshot_%Y-%m-%d_%H:%M:%S.png
 base_end: null
-edit_object_base_settings:
-  color:
-    r: 1.0
-    g: 0.0
-    b: 0.0
-    a: 1.0
-  size: 6.0
-custom_objects:
-- name: rectangle
-  icon: !Name square
-  params:
-  - name: filter_r
-    shader_type: !F32
-      num_input: 1.0
-  - name: filter_g
-    shader_type: !F32
-      num_input: 0.5
-  - name: filter_b
-    shader_type: !F32
-      num_input: 1.0
-  shader: '   return vec4(pixel_color.r * data.filter_r, pixel_color.g * data.filter_g, pixel_color.b * data.filter_b, pixel_color.a);'
-  points_format: Cube
-icon:
-  SolidName: user-ninja
-shader: |2-
-  
-      if in_cube(pixel_pos, data.cube.start, data.cube.end) {
-          return vec4(0., 0., 0., 0.);
-      } else {
-        return pixel_color;
-      }
-points_format: Cube
+disables_overlay: false
