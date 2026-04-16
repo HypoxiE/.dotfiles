@@ -344,6 +344,10 @@ in {
 				"float, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
 				"fullscreen, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
 			]
+			++ [
+				"fullscreen, class:^(Matplotlib)$"
+			]
+
 			
 			# Генерация правил для workspace 10 (spotify)
 			++ [ "workspace 10 silent,class:Spotify" ];

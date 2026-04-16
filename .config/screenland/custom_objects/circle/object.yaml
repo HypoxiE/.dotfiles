@@ -1,0 +1,20 @@
+icon:
+  Name: circle
+params: []
+functions:
+  in: |4-
+    
+          (pos: vec2<f32>, center: vec2<f32>, radius: vec2<f32>) -> bool {
+              return pow(pos.x - center.x, 2) / pow(radius.x, 2) + pow(pos.y - center.y, 2) / pow(radius.y, 2) < 1;
+          }
+shader: |2-
+  
+      let result_color = vec4(mix(pixel_color.rgb, data.base_settings.color.rgb, data.base_settings.color.a), pixel_color.a);
+      let radius = (data.cube.end - data.cube.start) / 2;
+      let center = data.cube.start + radius;
+      if circle_in(pixel_pos, center, radius) && !circle_in(pixel_pos, center, radius - data.base_settings.size) {
+          return result_color;
+      } else {
+          return pixel_color;
+      }
+points_format: Cube

@@ -1,0 +1,12 @@
+icon:
+  Name: square
+params: []
+functions: {}
+shader: |2-
+  
+      if in_cube(pixel_pos, data.cube.start, data.cube.end) && !in_cube(pixel_pos, data.cube.start + data.base_settings.size, data.cube.end - data.base_settings.size) {
+          return vec4(mix(pixel_color.rgb, data.base_settings.color.rgb, data.base_settings.color.a), pixel_color.a);
+      } else {
+          return pixel_color;
+      }
+points_format: Cube
