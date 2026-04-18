@@ -311,7 +311,6 @@ in
 			py = "python3";
 			shd = "shutdown";
 			off = "poweroff";
-			update = "nix flake update --flake /home/hypoxie/.dotfiles/.config/nixos/flake.nix"
 		};
 
 		interactiveShellInit = ''
