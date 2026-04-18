@@ -311,6 +311,7 @@ in
 			py = "python3";
 			shd = "shutdown";
 			off = "poweroff";
+			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
 		};
 
 		interactiveShellInit = ''
@@ -328,16 +329,6 @@ in
 			else
 				echo "detected pc";
 				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#pc
-			fi
-		}
-
-		function update {
-			if [ -d /sys/class/power_supply/BAT* ]; then
-				echo "detected laptop";
-				nix flake update --flake ~/.dotfiles/.config/nixos#laptop
-			else
-				echo "detected pc";
-				nix flake update --flake ~/.dotfiles/.config/nixos#pc
 			fi
 		}
 		
