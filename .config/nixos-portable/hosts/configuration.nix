@@ -178,13 +178,6 @@ in
 		xray
 		nftables
 
-		hyprland
-		hyprlock hyprpicker eww swww
-		wayland wayland-protocols
-		kitty
-		wofi
-		swaynotificationcenter
-
 		go
 		python3
 		gcc
