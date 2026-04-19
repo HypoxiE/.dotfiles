@@ -146,7 +146,6 @@ in
 	];
 	fonts.packages = with pkgs; [
 		material-symbols
-		liberation_ttf
 	];
 
 	# Some programs need SUID wrappers, can be configured further or are
