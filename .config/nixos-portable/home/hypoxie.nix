@@ -1,12 +1,21 @@
-{ config, pkgs, spicetify-nix, stylix, host, ... }:
+{ config, pkgs, host, impermanence, ... }:
 
 let
-	spicetify = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
-
 	my-pkgs = import ./build_my_pksg.nix { inherit pkgs; };
 	other-pkgs = import ./build_pksg.nix { inherit pkgs; };
 in
 {
+
+	home.persistence."/persistent/home/hypoxie" = {
+		directories = [
+			".dotfiles"
+		];
+		files = [
+			".bash_history"
+		];
+		allowOther = true;
+	};
+
 	imports = [
 		../../hypr/hyprland.nix
 	];
@@ -27,22 +36,6 @@ in
 			credential.helper = "store";
 			credential.useHttpPath = true;
 		};
-	};
-
-	programs.obs-studio = {
-		enable = true;
-		plugins = with pkgs.obs-studio-plugins; [
-			obs-multi-rtmp
-		];
-	};
-
-	programs.spicetify = {
-		enable = true;
-		#theme = spicePkgs.themes.catppuccin;
-		enabledExtensions = with spicetify.extensions; [
-			adblock
-			hidePodcasts
-		];
 	};
 
 	programs.firefox = {
@@ -101,12 +94,6 @@ in
 		#package = pkgs.vscode.fhs;
 
 		profiles.default.extensions = with pkgs.vscode-extensions; [
-			ms-toolsai.jupyter
-			ms-toolsai.vscode-jupyter-cell-tags
-			ms-toolsai.vscode-jupyter-slideshow
-			ms-toolsai.jupyter-keymap
-			#ms-toolsai.jupyter-renderers
-			
 			bbenoist.nix
 			arrterian.nix-env-selector
 			ms-vscode.cpptools
@@ -118,8 +105,6 @@ in
 			ms-python.python
 			ms-python.vscode-pylance
 			ms-python.debugpy
-
-			james-yu.latex-workshop
 		]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
 			{
 				name = "save-as-root";
@@ -193,30 +178,26 @@ in
 		};
 	};
 
-	systemd.user.services.ydotoold = {
-		Unit = {
-			Description = "ydotool daemon (user)";
-		};
+	systemd.user.services = {
+		ydotoold = {
+			Unit = {
+				Description = "ydotool daemon (user)";
+			};
 
-		Service = {
-			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
-			Restart = "always";
-			RestartSec = 1;
-		};
+			Service = {
+				ExecStart = "${pkgs.ydotool}/bin/ydotoold";
+				Restart = "always";
+				RestartSec = 1;
+			};
 
-		Install = {
-			WantedBy = [ "default.target" ];
+			Install = {
+				WantedBy = [ "default.target" ];
+			};
 		};
 	};
 
 	home.packages = with pkgs; [
-		(import ./python.nix { inherit pkgs; })
-
 		other-pkgs.input.miku-cursor
-		other-pkgs.input.catgirl-downloader
-		hevel
-		neuswc
-		neuwld
 
 		my-pkgs.input.hyprmodify
 		my-pkgs.input.go-colors-picker
@@ -226,59 +207,24 @@ in
 		chafa
 		jq # for system monitor
 		ncdu # disk analiser
-		kdePackages.dolphin # file manager
 		unzip
 		calc
-		libreoffice
-		gimp
-		krita
 		ydotool # автокликер
-		cups pantum-driver # принтеры
-		
-		#wayland
+		clipse
+
 		wl-clipboard
 		wl-clip-persist
-		clipse
-		hyprland
-		hyprlock hyprpicker eww swww
-		wayland wayland-protocols
-		kitty
-		wofi
-		swaynotificationcenter
-		remmina # Для подключения к виртуалке винды
-
-		#communication
-		ayugram-desktop
-		legcord
-
-		#games
-		steam
-		protonup-qt
-		prismlauncher
-
-		#keyboard
-		qmk
-		usbutils
-		via
-		keychron-udev-rules
-		lan-mouse
+		adwaita-icon-theme
+		gnumake
+		pulseaudio # регулировка звука
+		playerctl # управление музыкой
+		brightnessctl ddcutil # яркость
 
 		#programming
-		texlive.combined.scheme-full
-		arduino
 		rustc
 		rust-analyzer
 		cargo
-		openscad
-		android-tools
-		mtkclient
-		bruno # http requests
-		gcc gdb cmake fmt ninja
-
-		#vtubing
-		inochi-session
-		inochi-creator
-		openseeface
+		#gcc gdb cmake fmt ninja
 
 		#ssh
 		gnupg

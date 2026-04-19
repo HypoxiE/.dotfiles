@@ -5,42 +5,10 @@
 { config, lib, pkgs, host ? "default", ... }:
 
 let
-	go-login = pkgs.buildGoModule {
-		pname = "go-login";
-		version = "0.0.0";
-
-		src = pkgs.fetchgit {
-			url = "https://github.com/HypoxiE/go-login-system.git";
-			rev = "de035b15e75a7c52dd915375f64f7c095184f432";
-			hash = "sha256-ZbockZFesNu+l6QY3SV+50xB6WVnQdd7iTDEDf7xx8k=";
-		};
-
-		vendorHash = "sha256-ith7A1fSk42DWQQiFItynpO2fKAfQm+tesAPILszwDs=";
-
-		buildInputs = with pkgs; [
-			pam
-		];
-
-		nativeBuildInputs = with pkgs; [
-			pkg-config
-			makeWrapper
-		];
-
-		env = {
-			CGO_ENABLED = 1;
-		};
-
-		postFixup = ''
-			wrapProgram $out/bin/go-login \
-				--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [ pkgs.pam ]}
-		'';
-
-		meta = with pkgs.lib; {
-			description = "Console login program for system";
-			license = licenses.mit;
-			platforms = platforms.linux;
-		};
-	};
+	specificDir = ./specific;
+	specificFiles = builtins.attrNames (builtins.readDir specificDir);
+	specificNixFiles = builtins.filter (f: builtins.match ".*\\.nix" f != null) specificFiles;
+	specificImports = map (f: specificDir + ("/" + f)) specificNixFiles;
 
 	scriptsDir = ../../../scripts;
 	scripts = builtins.attrNames (builtins.readDir scriptsDir);
@@ -61,14 +29,6 @@ in
 	#boot.initrd.systemd.enable = true;
 	#boot.initrd.enable = true;
 	#boot.loader.systemd-boot.useUnifiedKernelImages = true;
-	boot.extraModprobeConfig = ''
-		# Intel 7265 фиксы
-		#options iwlwifi power_save=0
-		#options iwlwifi uapsd_disable=1
-
-		# если будут зависания — раскомментируй:
-		# options iwlwifi disable_11n=1
-	'';
 	boot.loader.grub = {
 		enable = true;
 		configurationLimit = 5;
@@ -100,12 +60,10 @@ in
 			install -Dm644 ${../grub_textures/progress_highlight_c.png} $out/images/progress_highlight_c.png
 		'';
 	};
-	boot.tmp.useTmpfs = true;
-	boot.tmp.zramSettings.zram-size = "min(ram / 2, 512)";
 
 	networking.hostName = host;
 
-	imports = [ ./specific/specific-hynix.nix ./specific/specific-laptop.nix ];
+	imports = specificImports;
 
 	# Configure network connections interactively with nmcli or nmtui.
 	#networking = {
@@ -134,14 +92,6 @@ in
 	# Set your time zone.
 	time.timeZone = "Europe/Moscow";
 
-	# Configure network proxy if necessary
-	networking.proxy = {
-		default = "socks5://127.0.0.1:10808";
-		httpProxy = "http://127.0.0.1:10808";
-		httpsProxy = "http://127.0.0.1:10808";
-		noProxy = "127.0.0.1,localhost,internal.domain";
-	};
-
 	# Select internationalisation properties.
 	i18n.defaultLocale = "en_US.UTF-8";
 	i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
@@ -149,15 +99,6 @@ in
 	services.pipewire = {
 		enable = true;
 		pulse.enable = true;
-	};
-	
-	services.xray = {
-		enable = true;
-		settingsFile = "/etc/xray/config.json";
-	};
-	services.printing = { 
-		enable = true;
-		drivers = [ pkgs.pantum-driver ];
 	};
 	#systemd.services."getty@tty2".enable = true;
 	#systemd.services."getty@tty2".serviceConfig = {
@@ -205,12 +146,9 @@ in
 		enable = true;
 	};
 
-
 	programs.hyprland.enable = true;
 	programs.steam.enable = true;
 	programs.xwayland.enable = true;
-	#programs.zoxide.enable = true;
-	#programs.home-manager.enable = true;
 
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
@@ -224,13 +162,7 @@ in
 
 		#libs
 		pkg-config
-		
 		socat
-		gnumake
-		adwaita-icon-theme
-		pulseaudio # регулировка звука
-		playerctl # управление музыкой
-		brightnessctl ddcutil # яркость
 		acpid # выключение экрана
 
 		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
@@ -241,11 +173,17 @@ in
 		wget # для web запросов
 		gtk3 # Необходимо для запуска gui приложений
 		wev # Для получения кейкодов клавиш
-		neofetch
 		git
 		zoxide fzf # для поиска
 		xray
 		nftables
+
+		hyprland
+		hyprlock hyprpicker eww swww
+		wayland wayland-protocols
+		kitty
+		wofi
+		swaynotificationcenter
 
 		go
 		python3
@@ -266,13 +204,6 @@ in
 	#   enable = true;
 	#   enableSSHSupport = true;
 	# };
-
-	services.syncthing = {
-		enable = true;
-		user = "hypoxie";
-		dataDir = "/home/hypoxie";
-		configDir = "/home/hypoxie/.config/syncthing";
-	};
 
 	environment.sessionVariables = {
 		PATH = "$HOME/.local/bin:$PATH";
@@ -338,11 +269,11 @@ in
 	# Open ports in the firewall.
 	networking.firewall.allowedTCPPorts = [
 		22000 #syncthing
-		4242 #lan mouse
+		# 4242 #lan mouse
 	];
 	networking.firewall.allowedUDPPorts = [
 		22000 21027 #syncthing
-		4242 #lan mouse
+		# 4242 #lan mouse
 	];
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
