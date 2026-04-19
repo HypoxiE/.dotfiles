@@ -20,7 +20,7 @@ lib.mkIf (host == "hyflash") {
 		options = [ "mode=755" ];
 	};
 
-	fileSystems."/home/hypoxie" = {
+	fileSystems."/home/hypoxie" = lib.mkForce {
 		device = "none";
 		fsType = "tmpfs";
 		options = [ "defaults" "size=4G" "mode=777" ];
