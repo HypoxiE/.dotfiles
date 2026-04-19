@@ -158,8 +158,6 @@ in
 	# List packages installed in system profile.
 	# You can use https://search.nixos.org/ to find more packages (and options).
 	environment.systemPackages = with pkgs; [
-		go-login
-
 		#libs
 		pkg-config
 		socat
