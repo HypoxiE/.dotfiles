@@ -24,6 +24,7 @@ lib.mkIf (host == "hyflash") {
 		device = "none";
 		fsType = "tmpfs";
 		options = [ "defaults" "size=4G" "mode=777" ];
+		neededForBoot = true;
 	};
 
 	boot.initrd.luks.devices."cryptpersist" = {
