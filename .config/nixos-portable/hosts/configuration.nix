@@ -96,33 +96,6 @@ in
 	i18n.defaultLocale = "en_US.UTF-8";
 	i18n.supportedLocales = [ "ru_RU.UTF-8/UTF-8" "en_US.UTF-8/UTF-8" ];
 
-	services.pipewire = {
-		enable = true;
-		pulse.enable = true;
-	};
-	#systemd.services."getty@tty2".enable = true;
-	#systemd.services."getty@tty2".serviceConfig = {
-	#	ExecStart = pkgs.lib.mkForce [
-	#		""
-	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${go-login}/bin/go-login %I $TERM"
-	#	];
-	#	Type = "idle";
-	#	NoNewPrivileges = "no";
-	#};
-	#services.getty.extraArgs = ["--skip-login" "--noissue" "--noclear"];
-	#services.getty.loginProgram = "${go-login}/bin/go-login";
-	#systemd.units."getty@tty2.service".serviceConfig = {
-	#	NoNewPrivileges = "no";
-	#};
-	#systemd.services."getty@".serviceConfig = {
-	#	ExecStart = [
-	#		""
-	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${pkgs.util-linux}/bin/login -- ${go-login}/bin/go-login %I $TERM"
-	#	];
-	#	Type = "idle";
-	#	NoNewPrivileges = "no";
-	#};
-
 	# Enable touchpad support (enabled default in most desktopManager).
 	# services.libinput.enable = true;
 
@@ -184,12 +157,12 @@ in
 	#   enableSSHSupport = true;
 	# };
 
-	environment.sessionVariables = {
-		PATH = "$HOME/.local/bin:$PATH";
+	#environment.sessionVariables = {
+	#	PATH = "$HOME/.local/bin:$PATH";
 
-		XCURSOR_THEME = "Adwaita";
-		XCURSOR_SIZE = "24";
-	};
+	#	XCURSOR_THEME = "Adwaita";
+	#	XCURSOR_SIZE = "24";
+	#};
 
 	programs.bash = {
 		#enable = true;
@@ -259,8 +232,8 @@ in
 	networking.nftables.enable = true;
 	#networking.firewall.interfaces."lo".allowed = true;
 
-	virtualisation.docker.enable = true;
-	virtualisation.docker.autoPrune.enable = true;
+	#virtualisation.docker.enable = true;
+	#virtualisation.docker.autoPrune.enable = true;
 
 
 
