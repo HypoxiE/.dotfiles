@@ -27,7 +27,7 @@ lib.mkIf (host == "hyflash") {
 		neededForBoot = true;
 	};
 
-	boot.initrd.luks.devices."cryptpersist" = {
+	boot.initrd.luks.devices."cryptpersist" = lib.mkForce {
 		device = "/dev/pool/persist";
 		preLVM = false;
 		allowDiscards = true;
