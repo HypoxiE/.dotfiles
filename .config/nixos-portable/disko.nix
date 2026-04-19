@@ -53,7 +53,6 @@
 			"/home/hypoxie" = {
 				fsType = "tmpfs";
 				mountOptions = [ "defaults" "size=4G" "mode=777" ];
-				neededForBoot = true;
 			};
 			"/tmp" = {
 				fsType = "tmpfs";
