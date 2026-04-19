@@ -17,7 +17,7 @@
 						};
 					};
 					nix = {
-						size = "10G";	# под пакеты
+						size = "12G";	# под пакеты
 						content = {
 							type = "filesystem";
 							format = "ext4";
