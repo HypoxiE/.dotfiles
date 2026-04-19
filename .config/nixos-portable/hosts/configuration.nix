@@ -125,7 +125,7 @@ in
 		pkg-config
 		socat
 
-		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+		neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree
 		htop
 		iwd # wifi
