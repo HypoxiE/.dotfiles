@@ -139,15 +139,6 @@ in
 			package = other-pkgs.input.miku-cursor;
 			size = 24;
 		};
-		iconTheme = {
-			#package = pkgs.catppuccin-papirus-folders.override {
-			#	flavor = "macchiato";
-			#	accent = "maroon";
-			#};
-			#name = "Papirus-Dark";
-			package = pkgs.tela-icon-theme;
-			name = "Tela";
-		};
 		
 		theme = {
 			package = pkgs.orchis-theme;
