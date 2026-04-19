@@ -203,11 +203,12 @@ in
 		clipse
 
 		hyprland
-		hyprlock hyprpicker eww swww
+		#hyprlock hyprpicker
+		eww swww
 		wayland wayland-protocols
 		kitty
 		wofi
-		swaynotificationcenter
+		#swaynotificationcenter
 
 		wl-clipboard
 		wl-clip-persist
