@@ -1,4 +1,4 @@
-{ config, pkgs, host, impermanence, ... }:
+{ config, pkgs, host, ... }:
 
 let
 	my-pkgs = import ./build_my_pksg.nix { inherit pkgs; };
@@ -6,14 +6,13 @@ let
 in
 {
 
-	home.persistence."/persistent/home/hypoxie" = {
+	home.persistence."/persistent" = {
 		directories = [
 			".dotfiles"
 		];
 		files = [
 			".bash_history"
 		];
-		allowOther = true;
 	};
 
 	imports = [

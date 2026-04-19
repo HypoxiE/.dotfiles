@@ -54,7 +54,7 @@
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
-							impermanence.homeManagerModules.impermanence
+							#impermanence.homeManagerModules.impermanence
 						];
 
 						home-manager.extraSpecialArgs = {
