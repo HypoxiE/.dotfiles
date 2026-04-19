@@ -134,24 +134,14 @@ in
 		password = "12345678";
 	};
 
-	services.udev.extraRules = ''
-		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="0860", MODE="0666"
-		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d030", MODE="0666"
-		SUBSYSTEM=="hidraw", ATTRS{idVendor}=="3434", ATTRS{idProduct}=="d038", MODE="0666"
-	'';
 	services.udisks2.enable = true;
 	hardware.uinput.enable = true;
-	
-	services.acpid = {
-		enable = true;
-	};
 
 	programs.hyprland.enable = true;
-	programs.steam.enable = true;
 	programs.xwayland.enable = true;
 
-	hardware.bluetooth.enable = true;
-	hardware.bluetooth.powerOnBoot = true;
+	#hardware.bluetooth.enable = true;
+	#hardware.bluetooth.powerOnBoot = true;
 
 	#programs.nix-ld.enable = true;
 
@@ -161,19 +151,17 @@ in
 		#libs
 		pkg-config
 		socat
-		acpid # выключение экрана
 
 		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree
 		htop
 		iwd # wifi
-		bluez # bluetooth
+		#bluez # bluetooth
 		wget # для web запросов
 		gtk3 # Необходимо для запуска gui приложений
 		wev # Для получения кейкодов клавиш
 		git
 		zoxide fzf # для поиска
-		xray
 		nftables
 
 		go

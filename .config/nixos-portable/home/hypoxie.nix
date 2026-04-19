@@ -177,23 +177,23 @@ in
 		};
 	};
 
-	systemd.user.services = {
-		ydotoold = {
-			Unit = {
-				Description = "ydotool daemon (user)";
-			};
+	#systemd.user.services = {
+	#	ydotoold = {
+	#		Unit = {
+	#			Description = "ydotool daemon (user)";
+	#		};
 
-			Service = {
-				ExecStart = "${pkgs.ydotool}/bin/ydotoold";
-				Restart = "always";
-				RestartSec = 1;
-			};
+	#		Service = {
+	#			ExecStart = "${pkgs.ydotool}/bin/ydotoold";
+	#			Restart = "always";
+	#			RestartSec = 1;
+	#		};
 
-			Install = {
-				WantedBy = [ "default.target" ];
-			};
-		};
-	};
+	#		Install = {
+	#			WantedBy = [ "default.target" ];
+	#		};
+	#	};
+	#};
 
 	home.packages = with pkgs; [
 		other-pkgs.input.miku-cursor
@@ -203,12 +203,12 @@ in
 		my-pkgs.input.screenland
 		my-pkgs.input.wallpaper-manager
 
-		chafa
+		#chafa
 		jq # for system monitor
 		ncdu # disk analiser
 		unzip
 		calc
-		ydotool # автокликер
+		#ydotool # автокликер
 		clipse
 
 		hyprland
@@ -220,16 +220,16 @@ in
 
 		wl-clipboard
 		wl-clip-persist
-		adwaita-icon-theme
+		#adwaita-icon-theme
 		gnumake
-		pulseaudio # регулировка звука
-		playerctl # управление музыкой
-		brightnessctl ddcutil # яркость
+		#pulseaudio # регулировка звука
+		#playerctl # управление музыкой
+		#brightnessctl ddcutil # яркость
 
 		#programming
-		rustc
-		rust-analyzer
-		cargo
+		#rustc
+		#rust-analyzer
+		#cargo
 		#gcc gdb cmake fmt ninja
 
 		#ssh
