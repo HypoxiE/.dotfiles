@@ -42,7 +42,7 @@
 
 					./hosts/hardware-configuration.nix
 					./hosts/configuration.nix
-					./flash-disko.nix
+					./disko.nix
 
 					disko.nixosModules.disko
 					home-manager.nixosModules.home-manager
