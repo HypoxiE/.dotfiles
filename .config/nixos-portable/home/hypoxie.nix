@@ -132,41 +132,41 @@ in
 		ELECTRON_OZONE_PLATFORM_HINT = "auto";
 	};
 
-	gtk = {
-		enable = true;
-		cursorTheme = {
-			name = "Hatsune Miku";
-			package = other-pkgs.input.miku-cursor;
-			size = 24;
-		};
+	#gtk = {
+	#	enable = true;
+	#	cursorTheme = {
+	#		name = "Hatsune Miku";
+	#		package = other-pkgs.input.miku-cursor;
+	#		size = 24;
+	#	};
 		
-		theme = {
-			package = pkgs.orchis-theme;
-			name = "Orchis-Dark";
-		};
-		colorScheme = "dark";
-		gtk2.extraConfig = ''
-			gtk-cursor-theme-size = 12
-			gtk-cursor-theme-name = "capitaine-cursors"
-		'';
-		gtk3.extraConfig = {
-			gtk-application-prefer-dark-theme = 1;
-			gtk-cursor-theme-size = 12;
-			gtk-cursor-theme-name = "capitaine-cursors";
-		};
-		gtk4.extraConfig = {
-			Settings = ''
-				gtk-application-prefer-dark-theme=1
-			'';
-		};
-	};
-	xdg.mimeApps = {
-		enable = true;
-		defaultApplications = {
-			"application/pdf" = [ "firefox.desktop" ];
-			"text/plain" = [ "code.desktop" ];
-		};
-	};
+	#	theme = {
+	#		package = pkgs.orchis-theme;
+	#		name = "Orchis-Dark";
+	#	};
+	#	colorScheme = "dark";
+	#	gtk2.extraConfig = ''
+	#		gtk-cursor-theme-size = 12
+	#		gtk-cursor-theme-name = "capitaine-cursors"
+	#	'';
+	#	gtk3.extraConfig = {
+	#		gtk-application-prefer-dark-theme = 1;
+	#		gtk-cursor-theme-size = 12;
+	#		gtk-cursor-theme-name = "capitaine-cursors";
+	#	};
+	#	gtk4.extraConfig = {
+	#		Settings = ''
+	#			gtk-application-prefer-dark-theme=1
+	#		'';
+	#	};
+	#};
+	#xdg.mimeApps = {
+	#	enable = true;
+	#	defaultApplications = {
+	#		"application/pdf" = [ "firefox.desktop" ];
+	#		"text/plain" = [ "code.desktop" ];
+	#	};
+	#};
 
 	#systemd.user.services = {
 	#	ydotoold = {
@@ -200,7 +200,7 @@ in
 		unzip
 		calc
 		#ydotool # автокликер
-		clipse
+		#clipse
 
 		#hyprland
 		##hyprlock hyprpicker
@@ -210,8 +210,8 @@ in
 		#wofi
 		##swaynotificationcenter
 
-		wl-clipboard
-		wl-clip-persist
+		#wl-clipboard
+		#wl-clip-persist
 		#adwaita-icon-theme
 		gnumake
 		#pulseaudio # регулировка звука
