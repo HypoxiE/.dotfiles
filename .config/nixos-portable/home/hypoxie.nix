@@ -37,48 +37,48 @@ in
 		};
 	};
 
-	programs.firefox = {
-		enable = true;
+	#programs.firefox = {
+	#	enable = true;
 
-		policies = {
-		DisableTelemetry = true;
-		DisableFirefoxAccounts = true;
-		DisableAccounts = true;
+	#	policies = {
+	#	DisableTelemetry = true;
+	#	DisableFirefoxAccounts = true;
+	#	DisableAccounts = true;
 
-		ExtensionSettings = {
-			"uBlock0@raymondhill.net" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"simple-tab-groups@drive4ik" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"simple-translate@sienori" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			preferences = {
+	#	ExtensionSettings = {
+	#		"uBlock0@raymondhill.net" = {
+	#			install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+	#			installation_mode = "force_installed";
+	#		};
+	#		"simple-tab-groups@drive4ik" = {
+	#			install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
+	#			installation_mode = "force_installed";
+	#		};
+	#		"simple-translate@sienori" = {
+	#			install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
+	#			installation_mode = "force_installed";
+	#		};
+	#		"jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
+	#			install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
+	#			installation_mode = "force_installed";
+	#		};
+	#		preferences = {
 			
-			};
-		};
-		};
-		profiles.default = {
-		id = 0;
-		name = "default";
-		isDefault = true;
-		settings = {
-			"browser.tabs.closeWindowWithLastTab" = false;
-			"browser.newtabpage.activity-stream.default.sites" = "";
-			"browser.startup.page" = 3;
-		};
+	#		};
+	#	};
+	#	};
+	#	profiles.default = {
+	#	id = 0;
+	#	name = "default";
+	#	isDefault = true;
+	#	settings = {
+	#		"browser.tabs.closeWindowWithLastTab" = false;
+	#		"browser.newtabpage.activity-stream.default.sites" = "";
+	#		"browser.startup.page" = 3;
+	#	};
 
-		};
-	};
+	#	};
+	#};
 
 	programs.bash = {
 		enable = true;
@@ -189,10 +189,10 @@ in
 	home.packages = with pkgs; [
 		other-pkgs.input.miku-cursor
 
-		my-pkgs.input.hyprmodify
-		my-pkgs.input.go-colors-picker
-		my-pkgs.input.screenland
-		my-pkgs.input.wallpaper-manager
+		#my-pkgs.input.hyprmodify
+		#my-pkgs.input.go-colors-picker
+		#my-pkgs.input.screenland
+		#my-pkgs.input.wallpaper-manager
 
 		#chafa
 		jq # for system monitor
