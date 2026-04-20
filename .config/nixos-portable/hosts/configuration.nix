@@ -163,6 +163,11 @@ in
 	#	XCURSOR_SIZE = "24";
 	#};
 
+	environment.pathToLink = [
+		"/share/applications"
+		"/share/xdg-desktop-portal"
+	];
+
 	programs.bash = {
 		#enable = true;
 		shellAliases = {
