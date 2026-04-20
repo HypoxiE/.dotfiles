@@ -63,11 +63,12 @@ in
 	#boot.loader.systemd-boot.useUnifiedKernelImages = true;
 	boot.extraModprobeConfig = ''
 		# Intel 7265 фиксы
-		#options iwlwifi power_save=0
-		#options iwlwifi uapsd_disable=1
+		options iwlwifi power_save=0
+		options iwlwifi power_scheme=1
+		options iwlwifi uapsd_disable=1
 
 		# если будут зависания — раскомментируй:
-		# options iwlwifi disable_11n=1
+		options iwlwifi disable_11n=1
 	'';
 	boot.loader.grub = {
 		enable = true;
