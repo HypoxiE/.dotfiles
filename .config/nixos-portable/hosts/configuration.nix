@@ -110,8 +110,8 @@ in
 	services.udisks2.enable = true;
 	hardware.uinput.enable = true;
 
-	programs.hyprland.enable = true;
-	programs.xwayland.enable = true;
+	#programs.hyprland.enable = true;
+	#programs.xwayland.enable = true;
 
 	#hardware.bluetooth.enable = true;
 	#hardware.bluetooth.powerOnBoot = true;

@@ -202,13 +202,13 @@ in
 		#ydotool # автокликер
 		clipse
 
-		hyprland
-		#hyprlock hyprpicker
-		eww swww
-		wayland wayland-protocols
-		kitty
-		wofi
-		#swaynotificationcenter
+		#hyprland
+		##hyprlock hyprpicker
+		#eww swww
+		#wayland wayland-protocols
+		#kitty
+		#wofi
+		##swaynotificationcenter
 
 		wl-clipboard
 		wl-clip-persist
