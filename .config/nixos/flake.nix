@@ -15,6 +15,7 @@
 		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
 		neu-nix.url = "github:ricardomaps/neu-nix";
+		nixvim.url = "github:nix-community/nixvim";
 
 		disko = {
 			url = "github:nix-community/disko";
@@ -22,7 +23,7 @@
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, nur, stylix, spicetify-nix, neu-nix, disko, ... }:
+	outputs = { self, nixpkgs, home-manager, nur, stylix, spicetify-nix, neu-nix, nixvim, disko, ... }:
 
 	let
 		system = "x86_64-linux";
@@ -46,6 +47,7 @@
 
 					disko.nixosModules.disko
 					stylix.nixosModules.stylix
+					nixvim.nixosModules.nixvim
 					home-manager.nixosModules.home-manager
 
 					{

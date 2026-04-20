@@ -211,6 +211,36 @@ in
 	programs.xwayland.enable = true;
 	#programs.zoxide.enable = true;
 	#programs.home-manager.enable = true;
+	programs.nixvim = {
+		enable = true;
+		plugins.web-devicons.enable = true;
+
+		plugins = {
+			nvim-tree.enable = true;
+			telescope.enable = true;
+			treesitter.enable = true;
+			lsp.enable = true;
+		};
+
+		opts = {
+      number = true;
+      relativenumber = true;
+
+      expandtab = false;
+      tabstop = 4;
+      shiftwidth = 4;
+      softtabstop = 4;
+
+      cursorline = true;
+      signcolumn = "yes";
+	  clipboard = "unnamedplus";
+    };
+
+		extraConfigLua = ''
+		-- открыть дерево файлов на Ctrl+n
+		vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
+		'';
+	};
 
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
@@ -233,7 +263,7 @@ in
 		brightnessctl ddcutil # яркость
 		acpid # выключение экрана
 
-		vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+		#vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		tree
 		htop
 		iwd # wifi
