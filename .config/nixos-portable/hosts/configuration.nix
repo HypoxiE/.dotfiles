@@ -163,7 +163,7 @@ in
 	#	XCURSOR_SIZE = "24";
 	#};
 
-	environment.pathToLink = [
+	environment.pathsToLink = [
 		"/share/applications"
 		"/share/xdg-desktop-portal"
 	];
