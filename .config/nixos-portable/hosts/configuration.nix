@@ -107,7 +107,7 @@ in
 		password = "12345678";
 	};
 
-	services.udisks2.enable = true;
+	#services.udisks2.enable = true;
 	hardware.uinput.enable = true;
 
 	#programs.hyprland.enable = true;
@@ -131,8 +131,8 @@ in
 		iwd # wifi
 		#bluez # bluetooth
 		wget # для web запросов
-		gtk3 # Необходимо для запуска gui приложений
-		wev # Для получения кейкодов клавиш
+		#gtk3 # Необходимо для запуска gui приложений
+		#wev # Для получения кейкодов клавиш
 		git
 		zoxide fzf # для поиска
 		nftables
@@ -142,7 +142,7 @@ in
 		gcc
 
 		stow
-		udiskie
+		#udiskie
 	];
 	fonts.packages = with pkgs; [
 		material-symbols
