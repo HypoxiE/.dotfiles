@@ -338,12 +338,18 @@ in
 		shellAliases = {
 			scol = "${config.environment.etc."set_themes".source}/main.py";
 			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
+			
 			nohup = "nohup 2>&1 > ~/logs/nohup.out";
+			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
+
 			py = "python3";
 			venv = "source venv/bin/activate";
+
+			vim = "nvim";
+			code = "nvim";
+
 			shd = "shutdown";
 			off = "poweroff";
-			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
 		};
 	};
 
@@ -353,12 +359,18 @@ in
 		shellAliases = {
 			scol = "${config.environment.etc."set_themes".source}/main.py";
 			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
+			
 			nohup = "nohup 2>&1 > ~/logs/nohup.out";
+			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
+
 			py = "python3";
 			venv = "source venv/bin/activate";
+
+			vim = "nvim";
+			code = "nvim";
+
 			shd = "shutdown";
 			off = "poweroff";
-			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
 		};
 
 		interactiveShellInit = ''
