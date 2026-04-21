@@ -96,51 +96,51 @@ in
 		};
 	};
 
-	programs.vscode = {
-		enable = true;
-		#package = pkgs.vscode.fhs;
+	# programs.vscode = {
+	# 	enable = true;
+	# 	#package = pkgs.vscode.fhs;
 
-		profiles.default.extensions = with pkgs.vscode-extensions; [
-			ms-toolsai.jupyter
-			ms-toolsai.vscode-jupyter-cell-tags
-			ms-toolsai.vscode-jupyter-slideshow
-			ms-toolsai.jupyter-keymap
-			#ms-toolsai.jupyter-renderers
-			
-			bbenoist.nix
-			arrterian.nix-env-selector
-			ms-vscode.cpptools
-			ms-vscode.cmake-tools
+	# 	profiles.default.extensions = with pkgs.vscode-extensions; [
+	# 		ms-toolsai.jupyter
+	# 		ms-toolsai.vscode-jupyter-cell-tags
+	# 		ms-toolsai.vscode-jupyter-slideshow
+	# 		ms-toolsai.jupyter-keymap
+	# 		#ms-toolsai.jupyter-renderers
+	# 		
+	# 		bbenoist.nix
+	# 		arrterian.nix-env-selector
+	# 		ms-vscode.cpptools
+	# 		ms-vscode.cmake-tools
 
-			rust-lang.rust-analyzer
-			golang.go
+	# 		rust-lang.rust-analyzer
+	# 		golang.go
 
-			ms-python.python
-			ms-python.vscode-pylance
-			ms-python.debugpy
+	# 		ms-python.python
+	# 		ms-python.vscode-pylance
+	# 		ms-python.debugpy
 
-			james-yu.latex-workshop
-		]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
-			{
-				name = "save-as-root";
-				publisher = "yy0931";
-				version = "1.12.0";
-				sha256 = "fGYqT7emOL14p3LfAaR4CaxUkTYHbopIOc25TC248r4=";
-			}
-			{
-				name = "yuck";
-				publisher = "eww-yuck";
-				version = "0.0.3";
-				sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
-			}
-			{
-				name = "csv";
-				publisher = "repreng";
-				version = "1.3.0";
-				sha256 = "wrbrArOWHxpjJh8/TQ4YJpz6B3F+WgI5C2bSGUYmfPM=";
-			}
-		];
-	};
+	# 		james-yu.latex-workshop
+	# 	]++ pkgs.vscode-utils.extensionsFromVscodeMarketplace [
+	# 		{
+	# 			name = "save-as-root";
+	# 			publisher = "yy0931";
+	# 			version = "1.12.0";
+	# 			sha256 = "fGYqT7emOL14p3LfAaR4CaxUkTYHbopIOc25TC248r4=";
+	# 		}
+	# 		{
+	# 			name = "yuck";
+	# 			publisher = "eww-yuck";
+	# 			version = "0.0.3";
+	# 			sha256 = "DITgLedaO0Ifrttu+ZXkiaVA7Ua5RXc4jXQHPYLqrcM=";
+	# 		}
+	# 		{
+	# 			name = "csv";
+	# 			publisher = "repreng";
+	# 			version = "1.3.0";
+	# 			sha256 = "wrbrArOWHxpjJh8/TQ4YJpz6B3F+WgI5C2bSGUYmfPM=";
+	# 		}
+	# 	];
+	# };
 
 	home.sessionVariables = {
 		XCURSOR_THEME = "Hatsune Miku";

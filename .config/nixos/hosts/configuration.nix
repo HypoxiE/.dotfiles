@@ -224,7 +224,7 @@ in
 			treesitter = {
 				enable = true;
 				settings = {
-					ensure_installed = [ "python" ];
+					ensure_installed = [ "python" "LaTeX" ];
 				};
 			};
 			lsp.enable = true;
@@ -333,6 +333,20 @@ in
 		XCURSOR_THEME = "Adwaita";
 		XCURSOR_SIZE = "24";
 	};
+
+	programs.bash = {
+		shellAliases = {
+			scol = "${config.environment.etc."set_themes".source}/main.py";
+			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
+			nohup = "nohup 2>&1 > ~/logs/nohup.out";
+			py = "python3";
+			venv = "source venv/bin/activate";
+			shd = "shutdown";
+			off = "poweroff";
+			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
+		};
+	};
+
 
 	programs.zsh = {
 		enable = true;
