@@ -252,6 +252,11 @@ in
 				key = "<C-l>";
 				action = ":nohlsearch<CR>";
 			}
+			{
+				mode = "n";
+				key = "<F5>";
+				action = ":w | silent !xelatex %:p<CR>";
+			}
 		];
 
 		opts = {
