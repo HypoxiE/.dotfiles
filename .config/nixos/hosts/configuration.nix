@@ -242,7 +242,7 @@ in
 			}
 			{
 				mode = "n";
-				key = "<Esc>";
+				key = "<C-l>";
 				action = ":nohlsearch<CR>";
 			}
 		];
