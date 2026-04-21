@@ -234,6 +234,7 @@ in
 		krita
 		ydotool # автокликер
 		cups pantum-driver # принтеры
+		zathura #pdf viewer
 		
 		#wayland
 		wl-clipboard

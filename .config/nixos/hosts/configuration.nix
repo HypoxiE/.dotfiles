@@ -221,6 +221,11 @@ in
 		plugins = {
 			nvim-tree.enable = true;
 			telescope.enable = true;
+			
+			overseer = {
+				enable = true;
+				
+			};
 			treesitter = {
 				enable = true;
 				settings = {
@@ -382,12 +387,14 @@ in
 				git add . && git commit -m "$commit_msg"
 			fi
 			
-			if [ -d /sys/class/power_supply/BAT* ]; then
-				echo "detected laptop";
-				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop
+			local bats=(/sys/class/power_supply/BAT*(N))
+
+			if (( ''${#bats} > 0 )); then
+			    echo "detected laptop"
+			    sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#laptop
 			else
-				echo "detected pc";
-				sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#pc
+			    echo "detected pc"
+			    sudo nixos-rebuild switch --flake ~/.dotfiles/.config/nixos#pc
 			fi
 		}
 		
