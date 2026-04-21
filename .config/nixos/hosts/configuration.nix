@@ -202,7 +202,7 @@ in
 	services.udisks2.enable = true;
 	hardware.uinput.enable = true;
 	
-	services.acpid = 
+	services.acpid = { 
 		enable = true;
 	};
 
