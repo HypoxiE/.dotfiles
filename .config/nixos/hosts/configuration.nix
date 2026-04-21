@@ -202,7 +202,7 @@ in
 	services.udisks2.enable = true;
 	hardware.uinput.enable = true;
 	
-	services.acpid = {
+	services.acpid = 
 		enable = true;
 	};
 
@@ -239,7 +239,11 @@ in
 				mode = "n";
 				key = "<C-n>";
 				action = ":NvimTreeToggle<CR>";
-
+			}
+			{
+				mode = "n";
+				key = "<Esc>";
+				action = ":nohlsearch<CR>";
 			}
 		];
 
