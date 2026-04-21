@@ -219,28 +219,44 @@ in
 		plugins = {
 			nvim-tree.enable = true;
 			telescope.enable = true;
-			treesitter.enable = true;
+			treesitter = {
+				enable = true;
+				settings = {
+					ensure_installed = [ "python" ];
+				};
+			};
 			lsp.enable = true;
+			toggleterm.enable = true;
 		};
 
+		keymaps = [
+			{
+				mode = "n";
+				key = "<leader>t";
+				action = ":ToggleTerm<CR>";
+			}
+			{
+				mode = "n";
+				key = "<C-n>";
+				action = ":NvimTreeToggle<CR>";
+
+			}
+		];
+
 		opts = {
-      number = true;
-      relativenumber = true;
+	      number = true;
+	      relativenumber = true;
+	
+	      expandtab = false;
+	      tabstop = 4;
+	      shiftwidth = 4;
+	      softtabstop = 4;
+	
+	      cursorline = true;
+	      signcolumn = "yes";
+		  clipboard = "unnamedplus";
+	    };
 
-      expandtab = false;
-      tabstop = 4;
-      shiftwidth = 4;
-      softtabstop = 4;
-
-      cursorline = true;
-      signcolumn = "yes";
-	  clipboard = "unnamedplus";
-    };
-
-		extraConfigLua = ''
-		-- открыть дерево файлов на Ctrl+n
-		vim.keymap.set("n", "<C-n>", ":NvimTreeToggle<CR>")
-		'';
 	};
 
 	hardware.bluetooth.enable = true;
@@ -319,6 +335,7 @@ in
 			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
 			nohup = "nohup 2>&1 > ~/logs/nohup.out";
 			py = "python3";
+			venv = "source venv/bin/activate";
 			shd = "shutdown";
 			off = "poweroff";
 			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
