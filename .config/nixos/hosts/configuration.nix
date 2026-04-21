@@ -160,28 +160,28 @@ in
 		enable = true;
 		drivers = [ pkgs.pantum-driver ];
 	};
-	#systemd.services."getty@tty2".enable = true;
-	#systemd.services."getty@tty2".serviceConfig = {
-	#	ExecStart = pkgs.lib.mkForce [
-	#		""
-	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${go-login}/bin/go-login %I $TERM"
-	#	];
-	#	Type = "idle";
-	#	NoNewPrivileges = "no";
-	#};
-	#services.getty.extraArgs = ["--skip-login" "--noissue" "--noclear"];
-	#services.getty.loginProgram = "${go-login}/bin/go-login";
-	#systemd.units."getty@tty2.service".serviceConfig = {
-	#	NoNewPrivileges = "no";
-	#};
-	#systemd.services."getty@".serviceConfig = {
-	#	ExecStart = [
-	#		""
-	#		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${pkgs.util-linux}/bin/login -- ${go-login}/bin/go-login %I $TERM"
-	#	];
-	#	Type = "idle";
-	#	NoNewPrivileges = "no";
-	#};
+	# systemd.services."getty@tty2".enable = true;
+	# systemd.services."getty@tty2".serviceConfig = {
+	# 	ExecStart = pkgs.lib.mkForce [
+	# 		""
+	# 		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${go-login}/bin/go-login %I $TERM"
+	# 	];
+	# 	Type = "idle";
+	# 	NoNewPrivileges = "no";
+	# };
+	# services.getty.extraArgs = ["--skip-login" "--noissue" "--noclear"];
+	# services.getty.loginProgram = "${go-login}/bin/go-login";
+	# systemd.units."getty@tty2.service".serviceConfig = {
+	# 	NoNewPrivileges = "no";
+	# };
+	# systemd.services."getty@".serviceConfig = {
+	# 	ExecStart = [
+	# 		""
+	# 		"${pkgs.util-linux}/bin/agetty --skip-login --noissue --noclear --login-program ${pkgs.util-linux}/bin/login -- ${go-login}/bin/go-login %I $TERM"
+	# 	];
+	# 	Type = "idle";
+	# 	NoNewPrivileges = "no";
+	# };
 
 	# Enable touchpad support (enabled default in most desktopManager).
 	# services.libinput.enable = true;
@@ -189,6 +189,7 @@ in
 	# Define a user account. Don't forget to set a password with ‘passwd’.
 	users.users.hypoxie = {
 		isNormalUser = true;
+		shell = pkgs.zsh;
 		home = "/home/hypoxie";
 		extraGroups = [ "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
 		password = "12345678";
@@ -206,12 +207,13 @@ in
 		enable = true;
 	};
 
-
+	programs.bash.enable = false;
 	programs.hyprland.enable = true;
 	programs.steam.enable = true;
 	programs.xwayland.enable = true;
-	#programs.zoxide.enable = true;
-	#programs.home-manager.enable = true;
+	# programs.starship.enable = true;
+	# programs.zoxide.enable = true;
+	# programs.home-manager.enable = true;
 	programs.nixvim = {
 		enable = true;
 		plugins.web-devicons.enable = true;
@@ -332,8 +334,8 @@ in
 		XCURSOR_SIZE = "24";
 	};
 
-	programs.bash = {
-		#enable = true;
+	programs.zsh = {
+		enable = true;
 		shellAliases = {
 			scol = "${config.environment.etc."set_themes".source}/main.py";
 			wset = "${config.environment.etc."set_wallpapers".source}/main.py";
@@ -346,7 +348,7 @@ in
 		};
 
 		interactiveShellInit = ''
-		eval "$(${pkgs.zoxide}/bin/zoxide init bash)"
+		eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 		
 		function rebuild {
 			if [ $# -gt 0 ]; then
@@ -379,6 +381,9 @@ in
 			xdg-open "$@" & disown
 		}
 		'';
+		
+		autosuggestions.enable = true;
+		syntaxHighlighting.enable = true;
 	};
 	
 
