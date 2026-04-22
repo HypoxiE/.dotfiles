@@ -257,6 +257,11 @@ in
 				key = "<F5>";
 				action = ":w | silent !xelatex %:p<CR>";
 			}
+			{
+				mode = "n";
+				key = "<leader>c";
+				action = "<cmd>lua if vim.o.clipboard == 'unnamedplus' then vim.o.clipboard = '' else vim.o.clipboard = 'unnamedplus' end<CR>";
+			}
 		];
 
 		opts = {
