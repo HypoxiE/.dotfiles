@@ -394,7 +394,7 @@ in
 		function rebuild {
 			if [ $# -gt 0 ]; then
 				commit_msg="$*"
-				git add . && git commit -m "$commit_msg"
+				git -C ~/.dotfiles add . && git -C ~/.dotfiles commit -m "$commit_msg"
 			fi
 			
 			local bats=(/sys/class/power_supply/BAT*(N))
