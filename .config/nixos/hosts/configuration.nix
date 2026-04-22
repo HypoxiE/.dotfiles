@@ -363,7 +363,6 @@ in
 		};
 	};
 
-
 	programs.zsh = {
 		enable = true;
 		shellAliases = {
@@ -372,6 +371,7 @@ in
 			
 			nohup = "nohup 2>&1 > ~/logs/nohup.out";
 			update = "nix flake update --flake ~/.dotfiles/.config/nixos";
+			no-proxy = "unset http_proxy https_proxy no_proxy all_proxy ftp_proxy";
 
 			py = "python3";
 			venv = "source venv/bin/activate";
@@ -379,11 +379,16 @@ in
 			vim = "nvim";
 			code = "nvim";
 
+			gita = "git add .";
+			gitc = "git commit -m";
+			gits = "git status";
+
 			shd = "shutdown";
 			off = "poweroff";
 		};
 
 		interactiveShellInit = ''
+		tabs -4
 		eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 		
 		function rebuild {
