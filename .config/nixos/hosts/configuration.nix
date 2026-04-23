@@ -55,6 +55,11 @@ in
 		};
 	}) scripts);
 
+	environment.variables = {
+		EDITOR = "nvim";
+		VISUAL = "nvim";
+	};
+
 	#Use the systemd-boot EFI boot loader.
 	boot.loader.systemd-boot.enable = false;
 	#boot.loader.efi.canTouchEfiVariables = true;
@@ -279,6 +284,7 @@ in
 	    };
 
 	};
+	programs.neovim.defaultEditor = true;
 
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
@@ -302,6 +308,7 @@ in
 		acpid # выключение экрана
 
 		#vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+		yazi
 		tree
 		htop
 		iwd # wifi
@@ -322,6 +329,7 @@ in
 		stow
 		udiskie
 	];
+
 	fonts.packages = with pkgs; [
 		material-symbols
 		liberation_ttf
