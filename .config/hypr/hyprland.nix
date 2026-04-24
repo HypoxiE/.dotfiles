@@ -32,19 +32,32 @@ let
 	
 	# Коды клавиш
 	keyCodes = {
-		Q = "code:24";
-		W = "code:25";
-		E = "code:26";
-		R = "code:27";
-		T = "code:28";
-		P = "code:33";
-		S = "code:39";
-		F = "code:41";
-		H = "code:43";
-		J = "code:44";
+		A = "code:38";
+		B = "code:56";
 		C = "code:54";
-		V = "code:55";
+		D = "code:40";
+		E = "code:26";
+		F = "code:41";
+		G = "code:42";
+		H = "code:43";
+		I = "code:31";
+		J = "code:44";
+		K = "code:45";
+		L = "code:46";
 		M = "code:58";
+		N = "code:57";
+		O = "code:32";
+		P = "code:33";
+		Q = "code:24";
+		R = "code:27";
+		S = "code:39";
+		T = "code:28";
+		U = "code:30";
+		V = "code:55";
+		W = "code:25";
+		X = "code:53";
+		Y = "code:29";
+		Z = "code:52";
 	};
 	
 	# Функция для создания переменных клавиш
@@ -255,10 +268,30 @@ in {
 				"$mainMod, $KEY_R, exec, $menu"
 				"$mainMod, $KEY_P, pseudo,"
 				"$mainMod, $KEY_J, togglesplit,"
+
 				"$mainMod, left, movefocus, l"
 				"$mainMod, right, movefocus, r"
 				"$mainMod, up, movefocus, u"
 				"$mainMod, down, movefocus, d"
+				"$mainMod, $KEY_H, movefocus, l"
+				"$mainMod, $KEY_L, movefocus, r"
+				"$mainMod, $KEY_K, movefocus, u"
+				"$mainMod, $KEY_J, movefocus, d"
+
+				"$mainMod SHIFT, left, movewindow, l"
+				"$mainMod SHIFT, right, movewindow, r"
+				"$mainMod SHIFT, up, movewindow, u"
+				"$mainMod SHIFT, down, movewindow, d"
+				"$mainMod SHIFT, $KEY_H, movewindow, l"
+				"$mainMod SHIFT, $KEY_L, movewindow, r"
+				"$mainMod SHIFT, $KEY_K, movewindow, u"
+				"$mainMod SHIFT, $KEY_J, movewindow, d"
+
+				"$mainMod CTRL, $KEY_H, resizeactive, -50 0"
+				"$mainMod CTRL, $KEY_L, resizeactive, 50 0"
+				"$mainMod CTRL, $KEY_K, resizeactive, 0 -50"
+				"$mainMod CTRL, $KEY_J, resizeactive, 0 50"
+
 				"$mainMod, $KEY_S, togglespecialworkspace, magic"
 				"$mainMod SHIFT, $KEY_S, movetoworkspace, special:magic"
 				"$mainMod, mouse_down, workspace, e+1"
@@ -267,7 +300,6 @@ in {
 				"SUPER CTRL, right, workspace, +1"
 				"ALT_L, TAB, exec, echo \"prev_tag\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
 				"$mainMod, $KEY_H, exec, echo \"hide_bar\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
-				#",Print, exec, grim -g \"$(slurp -d)\" - | wl-copy"
 				",Print, exec, screenland"
 				"SUPER, $KEY_V, exec, $terminal --class clipse -e 'clipse'"
 				"ALT_R, $KEY_C, exec, hyprpicker --autocopy"
