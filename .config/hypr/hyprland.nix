@@ -267,7 +267,7 @@ in {
 				"$mainMod, $KEY_F, fullscreen,"
 				"$mainMod, $KEY_R, exec, $menu"
 				"$mainMod, $KEY_P, pseudo,"
-				"$mainMod, $KEY_S, togglesplit,"
+				"$mainMod ALT_L, $KEY_S, togglesplit,"
 
 				"$mainMod, left, movefocus, l"
 				"$mainMod, right, movefocus, r"
