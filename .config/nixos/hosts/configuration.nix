@@ -196,7 +196,7 @@ in
 		isNormalUser = true;
 		shell = pkgs.zsh;
 		home = "/home/hypoxie";
-		extraGroups = [ "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
+		extraGroups = [ "libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
 		password = "12345678";
 	};
 
@@ -465,7 +465,7 @@ in
 	virtualisation.docker.enable = true;
 	virtualisation.docker.autoPrune.enable = true;
 
-
+	virtualisation.libvirtd.enable = true;
 
 	# Copy the NixOS configuration file and link it from the resulting system
 	# (/run/current-system/configuration.nix). This is useful in case you

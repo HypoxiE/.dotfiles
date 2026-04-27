@@ -235,6 +235,9 @@ in
 		ydotool # автокликер
 		cups pantum-driver # принтеры
 		zathura #pdf viewer
+		virt-manager
+		virt-viewer
+		qemu
 		
 		#wayland
 		wl-clipboard
