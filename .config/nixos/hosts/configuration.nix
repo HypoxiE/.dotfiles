@@ -216,7 +216,7 @@ in
 		criticalPowerAction = "Hibernate";
 		usePercentageForPolicy = true;
 		percentageCritical = 10;
-		percentageAction = 5
+		percentageAction = 5;
 	};
 	
 	systemd = {
