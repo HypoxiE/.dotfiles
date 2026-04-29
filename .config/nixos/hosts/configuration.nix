@@ -112,6 +112,11 @@ in
 
 	networking.hostName = host;
 
+	systemd.tmpfiles.rules = [
+		"d /swap 0755 root root -"
+	];
+
+
 	imports = [ ./specific/specific-hynix.nix ./specific/specific-laptop.nix ];
 
 	# Configure network connections interactively with nmcli or nmtui.

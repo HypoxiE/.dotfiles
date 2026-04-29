@@ -376,7 +376,7 @@ in {
 			++ [
 				"float, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
 				"fullscreen, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
-				"workspace 9 silent,title:^(Legcord)"
+				"workspace 9 silent,title:^(.*Legcord.*)$"
 			]
 			++ [
 				"fullscreen, class:^(Matplotlib)$"
