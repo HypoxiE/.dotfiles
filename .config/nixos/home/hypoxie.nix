@@ -238,6 +238,9 @@ in
 		virt-manager
 		virt-viewer
 		qemu
+
+		wineWow64Packages.stable
+		winetricks
 		
 		#wayland
 		wl-clipboard
