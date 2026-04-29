@@ -64,6 +64,7 @@ in
 	boot.loader.systemd-boot.enable = false;
 	#boot.loader.efi.canTouchEfiVariables = true;
 	boot.initrd.systemd.enable = true;
+	powerManagement.enable = true;
 	#boot.initrd.enable = true;
 	#boot.loader.systemd-boot.useUnifiedKernelImages = true;
 	boot.extraModprobeConfig = ''
@@ -217,8 +218,7 @@ in
 		usePercentageForPolicy = true;
 		percentageCritical = 10;
 		percentageAction = 5;
-	};
-	
+	};	
 	systemd = {
 		services = {
 			upower = {
@@ -226,8 +226,7 @@ in
 			};
 		};
 	};
-	services.logind.settings.Login.PowerKey = "hibernate";
-	services.logind.settings.Login.PowerKeyLongPress = "poweroff";
+	services.power-profiles-daemon.enable = true;
 
 	programs.bash.enable = false;
 	programs.hyprland.enable = true;
