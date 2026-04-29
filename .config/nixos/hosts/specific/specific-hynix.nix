@@ -1,6 +1,15 @@
 { config, lib, pkgs, host, ... }:
 
 lib.mkIf (host == "hynix") {
+
+	swapDevices = [
+		{
+			device = "/swap/swapfile";
+			size = 32022;
+			priority = -300;
+		}
+	];
+
 	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 	hardware.graphics.enable = true;
 	services.xserver.videoDrivers = [ "nvidia" ];
