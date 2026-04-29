@@ -2,6 +2,14 @@
 
 (lib.mkIf (host == "hypoxlaptop") {
 
+	swapDevices = [
+		{
+			device = "/swap/swapfile";
+			size = 15384;
+			priority = -300;
+		}
+	];
+
 	services.logind.settings.Login = {
 		HandleLidSwitch = "ignore";
 		HandleLidSwitchExternalPower = "ignore";

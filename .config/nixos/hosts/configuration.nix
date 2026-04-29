@@ -63,7 +63,7 @@ in
 	#Use the systemd-boot EFI boot loader.
 	boot.loader.systemd-boot.enable = false;
 	#boot.loader.efi.canTouchEfiVariables = true;
-	#boot.initrd.systemd.enable = true;
+	boot.initrd.systemd.enable = true;
 	#boot.initrd.enable = true;
 	#boot.loader.systemd-boot.useUnifiedKernelImages = true;
 	boot.extraModprobeConfig = ''
@@ -211,6 +211,7 @@ in
 	services.acpid = { 
 		enable = true;
 	};
+	services.upower.criticalPowerAction = "Hibernate";
 
 	programs.bash.enable = false;
 	programs.hyprland.enable = true;
@@ -398,6 +399,7 @@ in
 
 			shd = "shutdown";
 			off = "poweroff";
+			hb = "sudo systemctl hibernate";
 		};
 
 		interactiveShellInit = ''
