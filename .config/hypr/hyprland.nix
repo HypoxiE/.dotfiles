@@ -12,6 +12,7 @@ let
 		"discord-canary"
 		"discord"
 		"legcord"
+		"Legcord"
 	];
 	
 	# Список браузеров для workspace 2

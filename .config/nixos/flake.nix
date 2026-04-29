@@ -10,7 +10,6 @@
 			inputs.nixpkgs.follows = "nixpkgs";
 		};
 		nur.url = "github:nix-community/NUR";
-		stylix.url = "github:danth/stylix";
 
 		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
@@ -23,7 +22,7 @@
 		};
 	};
 
-	outputs = { self, nixpkgs, home-manager, nur, stylix, spicetify-nix, neu-nix, nixvim, disko, ... }:
+	outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, neu-nix, nixvim, disko, ... }:
 
 	let
 		system = "x86_64-linux";
@@ -46,7 +45,6 @@
 					./disko.nix
 
 					disko.nixosModules.disko
-					stylix.nixosModules.stylix
 					nixvim.nixosModules.nixvim
 					home-manager.nixosModules.home-manager
 
@@ -57,7 +55,6 @@
 
 						home-manager.sharedModules = [
 						spicetify-nix.homeManagerModules.default
-						stylix.homeModules.stylix
 						];
 
 						home-manager.extraSpecialArgs = {
@@ -68,7 +65,7 @@
 						home-manager.users.hypoxie =
 						{ config, pkgs, host, ... }:
 						import ./home/hypoxie.nix {
-							inherit config pkgs host spicetify-nix stylix;
+							inherit config pkgs host spicetify-nix;
 						};
 					}
 				];
