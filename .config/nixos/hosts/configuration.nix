@@ -211,7 +211,23 @@ in
 	services.acpid = { 
 		enable = true;
 	};
-	services.upower.criticalPowerAction = "Hibernate";
+	services.upower = {
+		enable = true;
+		criticalPowerAction = "Hibernate";
+		usePercentageForPolicy = true;
+		percentageCritical = 10;
+		percentageAction = 5
+	};
+	
+	systemd = {
+		services = {
+			upower = {
+				wantedBy = [ "graphical.target" ];
+			};
+		};
+	};
+	services.logind.settings.Login.PowerKey = "hibernate";
+	services.logind.settings.Login.PowerKeyLongPress = "poweroff";
 
 	programs.bash.enable = false;
 	programs.hyprland.enable = true;
