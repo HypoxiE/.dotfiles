@@ -315,7 +315,7 @@ in
 	# List packages installed in system profile.
 	# You can use https://search.nixos.org/ to find more packages (and options).
 	environment.systemPackages = with pkgs; [
-		go-login
+		#go-login
 
 		#libs
 		pkg-config
@@ -327,6 +327,7 @@ in
 		playerctl # управление музыкой
 		brightnessctl ddcutil # яркость
 		acpid # выключение экрана
+		dnsmasq
 
 		#vim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
 		yazi
@@ -471,17 +472,22 @@ in
 	# services.openssh.enable = true;
 
 	# Open ports in the firewall.
-	networking.firewall.allowedTCPPorts = [
-		22000 #syncthing
-		4242 #lan mouse
-	];
-	networking.firewall.allowedUDPPorts = [
-		22000 21027 #syncthing
-		4242 #lan mouse
-	];
+	networking.firewall = {
+		allowedTCPPorts = [
+			22000 #syncthing
+			4242 #lan mouse
+		];
+		allowedUDPPorts = [
+			22000 21027 #syncthing
+			4242 #lan mouse
+		];
+		trustedInterfaces = [ "virbr0" ];
+	};
+	
 	# Or disable the firewall altogether.
 	# networking.firewall.enable = false;
 	networking.nftables.enable = true;
+	
 	#networking.firewall.interfaces."lo".allowed = true;
 
 	virtualisation.docker.enable = true;
