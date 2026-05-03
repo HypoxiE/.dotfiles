@@ -13,6 +13,7 @@ let
 		"discord"
 		"legcord"
 		"Legcord"
+		"electron"
 	];
 	
 	# Список браузеров для workspace 2

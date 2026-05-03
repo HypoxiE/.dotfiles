@@ -137,14 +137,14 @@ in
 				};
 
 				Station = {
-				PowerSave = false;
+					PowerSave = false;
 				};
 			};
 		};
 	};
 
 	# Set your time zone.
-	time.timeZone = "Europe/Moscow";
+	time.timeZone = "Asia/Jakarta"; #Europe/Moscow
 
 	# Configure network proxy if necessary
 	networking.proxy = {
@@ -409,7 +409,16 @@ in
 			no-proxy = "unset http_proxy https_proxy no_proxy all_proxy ftp_proxy";
 
 			py = "python3";
-			venv = "source venv/bin/activate";
+			venv = ''
+			if [ -d "venv" ]; then
+			    source venv/bin/activate
+			elif [ -d ".venv" ]; then
+			    source .venv/bin/activate
+			else
+			    printf "ERROR: venv not found!\n"
+			fi
+			'';
+			cvenv = "python -m venv .venv";
 
 			vim = "nvim";
 			code = "nvim";
