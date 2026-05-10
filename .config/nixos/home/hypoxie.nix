@@ -5,6 +5,10 @@ let
 
 	my-pkgs = import ./build_my_pksg.nix { inherit pkgs; };
 	other-pkgs = import ./build_pksg.nix { inherit pkgs; };
+	proton-gw = pkgs.fetchurl {
+		url = "https://dawn.wine/dawn-winery/dwproton/releases/download/dwproton-11.0-1/dwproton-11.0-1-x86_64.tar.xz";
+		sha256 = "sha256-5RjicnGSmlXHL/eEdTY+1aTHpkt2PcLo7FFRYBHPx2s=";
+	};
 in
 {
 	imports = [
@@ -15,6 +19,13 @@ in
 	home.homeDirectory = "/home/hypoxie";
 
 	home.stateVersion = "25.11";
+
+	home.activation.installProtonGW = config.lib.dag.entryAfter ["writeBoundary"] ''
+		export PATH=${pkgs.lib.makeBinPath [ pkgs.gnutar pkgs.gzip pkgs.xz ]}:$PATH
+
+		mkdir -p $HOME/.steam/root/compatibilitytools.d
+		tar -xvJf ${proton-gw} -C $HOME/.steam/root/compatibilitytools.d
+	'';
 
 	programs.git = {
 		enable = true;
@@ -239,9 +250,6 @@ in
 		virt-viewer
 		qemu
 
-		wineWow64Packages.stable
-		winetricks
-		
 		#wayland
 		wl-clipboard
 		wl-clip-persist
