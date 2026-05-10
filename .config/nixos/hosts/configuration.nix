@@ -265,12 +265,12 @@ in
 		keymaps = [
 			{
 				mode = "t";
-				key = "<leader>t";
-				action = "[[<C-\\><C-n>:ToggleTerm<CR>]]";
+				key = "<C-t>";
+				action = "<C-\\><C-n>:ToggleTerm<CR>";
 			}
 			{
 				mode = "n";
-				key = "<leader>t";
+				key = "<C-t>";
 				action = ":ToggleTerm<CR>";
 			}
 			{
