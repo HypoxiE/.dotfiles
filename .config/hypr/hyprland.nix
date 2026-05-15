@@ -308,7 +308,7 @@ in {
 				",Scroll_Lock, exec, hyprlock"
 				",XF86AudioStop, exec, spotify"
 				",XF86Search, exec, firefox"
-				"ALT_R, $KEY_W, exec, ~/scripts/set_wallpapers/main.py"
+				"ALT_R, F1, exec, ~/scripts/set_wallpapers/main.py"
 				"SUPER SHIFT, X, exec, pkill Xwayland"
 
 				#autoclicker
