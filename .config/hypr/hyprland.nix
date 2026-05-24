@@ -27,6 +27,7 @@ let
 		"code-oss"
 		"code"
 		"Code"
+		"Emacs"
 	];
 	
 	# Цифры для workspace bindings

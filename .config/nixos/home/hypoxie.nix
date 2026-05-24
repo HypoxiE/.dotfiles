@@ -107,6 +107,14 @@ in
 		};
 	};
 
+	programs.emacs = {
+		enable = true;
+		extraPackages = epkgs: [
+			      epkgs.doom-themes
+			      epkgs.use-package
+		];
+	};
+
 	# programs.vscode = {
 	# 	enable = true;
 	# 	#package = pkgs.vscode.fhs;
