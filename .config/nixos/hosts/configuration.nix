@@ -148,6 +148,9 @@ in
 
 	# Configure network proxy if necessary
 	networking.proxy = {
+		# default = "socks5h://10.245.48.119:65000";
+		# httpProxy = "http://10.245.48.119:65001";
+		# httpsProxy = "http://10.245.48.119:65001";
 		default = "socks5://127.0.0.1:10808";
 		httpProxy = "http://127.0.0.1:10808";
 		httpsProxy = "http://127.0.0.1:10808";
