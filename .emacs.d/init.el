@@ -4,3 +4,6 @@
 (global-set-key (kbd "<down>")  (lambda () (interactive) (message "no arrows")))
 
 (load-theme 'doom-one t)
+
+(setq-default tab-width 4)
+(setq-default indent-tabs-mode nil)

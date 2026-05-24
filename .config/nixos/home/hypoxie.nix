@@ -60,42 +60,41 @@ in
 		enable = true;
 
 		policies = {
-		DisableTelemetry = true;
-		DisableFirefoxAccounts = true;
-		DisableAccounts = true;
+	    	DisableTelemetry = true;
+            DisableFirefoxAccounts = true;
+            DisableAccounts = true;
 
-		ExtensionSettings = {
-			"uBlock0@raymondhill.net" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"simple-tab-groups@drive4ik" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"simple-translate@sienori" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			"jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
-				install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
-				installation_mode = "force_installed";
-			};
-			preferences = {
-			
-			};
-		};
+            ExtensionSettings = {
+                "uBlock0@raymondhill.net" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                "simple-tab-groups@drive4ik" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-tab-groups/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                "simple-translate@sienori" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                preferences = {
+
+                };
+		    };
 		};
 		profiles.default = {
-		id = 0;
-		name = "default";
-		isDefault = true;
-		settings = {
-			"browser.tabs.closeWindowWithLastTab" = false;
-			"browser.newtabpage.activity-stream.default.sites" = "";
-			"browser.startup.page" = 3;
-		};
-
+		    id = 0;
+            name = "default";
+            isDefault = true;
+            settings = {
+                "browser.tabs.closeWindowWithLastTab" = false;
+                "browser.newtabpage.activity-stream.default.sites" = "";
+                "browser.startup.page" = 3;
+            };
 		};
 	};
 
@@ -107,6 +106,10 @@ in
 		};
 	};
 
+	services.emacs = {
+		enable = true;
+		client.enable = true;
+	};
 	programs.emacs = {
 		enable = true;
 		extraPackages = epkgs: [
