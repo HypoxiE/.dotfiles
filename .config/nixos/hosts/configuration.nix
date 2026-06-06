@@ -497,6 +497,7 @@ in
 	networking.firewall = {
 		allowedTCPPorts = [
 			22000 #syncthing
+            2095 #sing-box
 			4242 #lan mouse
             22 #openssh
 		];
