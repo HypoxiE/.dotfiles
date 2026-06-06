@@ -6,8 +6,8 @@ let
 	my-pkgs = import ./build_my_pksg.nix { inherit pkgs; };
 	other-pkgs = import ./build_pksg.nix { inherit pkgs; };
 	proton-gw = pkgs.fetchurl {
-		url = "https://dawn.wine/dawn-winery/dwproton/releases/download/dwproton-11.0-1/dwproton-11.0-1-x86_64.tar.xz";
-		sha256 = "sha256-5RjicnGSmlXHL/eEdTY+1aTHpkt2PcLo7FFRYBHPx2s=";
+		url = "https://dawn.wine/dawn-winery/dwproton/releases/download/dwproton-11.0-2/dwproton-11.0-2-x86_64.tar.xz";
+		sha256 = "sha256-h8agHudNEYccm55l2M2TN6YvRvQHEqnEdj+NVxUXlds=";
 	};
 in
 {

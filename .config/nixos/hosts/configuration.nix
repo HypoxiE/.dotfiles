@@ -1,3 +1,4 @@
+
 # Edit this configuration file to define what should be installed on
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
@@ -151,9 +152,9 @@ in
 		# default = "socks5h://10.245.48.119:65000";
 		# httpProxy = "http://10.245.48.119:65001";
 		# httpsProxy = "http://10.245.48.119:65001";
-		default = "socks5://127.0.0.1:10808";
-		httpProxy = "http://127.0.0.1:10808";
-		httpsProxy = "http://127.0.0.1:10808";
+		default = "socks5://127.0.0.1:10800";
+		httpProxy = "http://127.0.0.1:10800";
+		httpsProxy = "http://127.0.0.1:10800";
 		noProxy = "127.0.0.1,localhost,internal.domain";
 	};
 
@@ -166,10 +167,10 @@ in
 		pulse.enable = true;
 	};
 	
-	services.xray = {
-		enable = true;
-		settingsFile = "/etc/xray/config.json";
-	};
+	# services.xray = {
+	#   enable = true;
+	# 	settingsFile = "/etc/xray/config.json";
+	# };
 	services.printing = { 
 		enable = true;
 		drivers = [ pkgs.pantum-driver ];
@@ -358,7 +359,10 @@ in
 		gcc
 
 		stow
+        OVMF
 		udiskie
+        mangohud
+        qbittorrent
 	];
 
 	fonts.packages = with pkgs; [
@@ -487,13 +491,14 @@ in
 	# List services that you want to enable:
 
 	# Enable the OpenSSH daemon.
-	# services.openssh.enable = true;
+	services.openssh.enable = true;
 
 	# Open ports in the firewall.
 	networking.firewall = {
 		allowedTCPPorts = [
 			22000 #syncthing
 			4242 #lan mouse
+            22 #openssh
 		];
 		allowedUDPPorts = [
 			22000 21027 #syncthing
@@ -510,6 +515,19 @@ in
 
 	virtualisation.docker.enable = true;
 	virtualisation.docker.autoPrune.enable = true;
+    virtualisation.oci-containers = {
+        backend = "docker";
+        containers = {
+            s-ui = {
+                 image = "docker.io/alireza7/s-ui:v1.4.2";
+                 autoStart = true;
+                 extraOptions = [ "--network=host" ];
+                 volumes = [
+                     "/home/hypoxie/s-ui-data:/app/db"
+                 ];
+             };
+        };
+    };
 
 	virtualisation.libvirtd.enable = true;
 

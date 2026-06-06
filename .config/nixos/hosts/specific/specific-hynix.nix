@@ -9,6 +9,19 @@ lib.mkIf (host == "hynix") {
 			priority = -300;
 		}
 	];
+    # services.xserver.videoDrivers = [ ];
+    # boot.initrd.kernelModules = [ "vfio_pci" "vfio" "vfio_iommu_type1" ];
+    # boot.kernelParams = [
+    #     "iommu=pt"
+    #     "pcie_acs_override=downstream"
+    #     "vfio-pci.ids=10de:1f0a,10de:10f9"
+    # ];
+    # boot.blacklistedKernelModules = [
+    #     "nouveau"
+    #     "nvidia"
+    #     "nvidia_drm"
+    #     "nvidia_modset"
+    # ];
 
 	boot.extraModulePackages = [ config.boot.kernelPackages.nvidia_x11 ];
 	hardware.graphics.enable = true;
