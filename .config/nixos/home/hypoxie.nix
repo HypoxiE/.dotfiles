@@ -63,6 +63,8 @@ in
 	    	DisableTelemetry = true;
             DisableFirefoxAccounts = true;
             DisableAccounts = true;
+            PasswordManagerEnabled = false;
+            OfferToSaveLogins = false;
 
             ExtensionSettings = {
                 "uBlock0@raymondhill.net" = {
@@ -81,6 +83,10 @@ in
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
                     installation_mode = "force_installed";
                 };
+                "keepassxc-browser@keepassxc.org" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+                    installation_mode = "force_installed";
+                };
                 preferences = {
 
                 };
@@ -96,6 +102,9 @@ in
                 "browser.startup.page" = 3;
             };
 		};
+        nativeMessagingHosts = [
+            pkgs.keepassxc
+        ];
 	};
 
 	programs.zsh = {
