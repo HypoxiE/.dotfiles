@@ -115,6 +115,13 @@ in
 		extraPackages = epkgs: [
 			      epkgs.doom-themes
 			      epkgs.use-package
+				  epkgs.editorconfig
+                  epkgs.orderless
+				  epkgs.vertico
+				  epkgs.yaml-mode
+				  epkgs.consult
+				  epkgs.marginalia
+				  epkgs.corfu
 		];
 	};
 
@@ -249,6 +256,7 @@ in
 		jq # for system monitor
 		ncdu # disk analiser
 		kdePackages.dolphin # file manager
+        keepassxc # password manager
 		unzip
 		calc
 		libreoffice

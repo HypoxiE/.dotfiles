@@ -6,4 +6,38 @@
 (load-theme 'doom-one t)
 
 (setq-default tab-width 4)
+(defun my/fix-tabs ()
+  (setq tab-width 4))
+(add-hook 'prog-mode-hook #'my/fix-tabs)
 (setq-default indent-tabs-mode nil)
+
+(require 'editorconfig)
+(editorconfig-mode 1)
+
+(add-hook 'python-mode-hook
+          (lambda ()
+            (setq python-indent-offset 4)
+            (setq python-indent-guess-indent-offset nil)
+            ))
+
+(add-hook 'yaml-mode-hook
+          (lambda ()
+            (setq tab-width 2)
+            (setq indent-tabs-mode nil)))
+
+(vertico-mode 1)
+(marginalia-mode 1)
+(corfu-mode 1)
+
+(require 'orderless)
+(setq completion-styles
+      '(basic partial-completion orderless))
+(setq completion-category-overrides
+      '((file (styles basic partial-completion orderless))))
+(setq orderless-matching-styles
+      '(orderless-literal
+        orderless-prefixes
+        orderless-initialism
+        orderless-regexp))
+
+
