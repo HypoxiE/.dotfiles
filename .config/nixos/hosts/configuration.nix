@@ -149,6 +149,10 @@ in
     networking.firewall.interfaces.whonix-br.allowedTCPPorts = [ ];
     networking.firewall.interfaces.whonix-br.allowedUDPPorts = [ ];
 
+    boot.kernel.sysctl = {
+        "net.ipv6.conf.whonix-br.disable_ipv6" = 1;
+    };
+
 	# Set your time zone.
 	time.timeZone = "Europe/Moscow"; #Asia/Jakarta
 
@@ -510,7 +514,7 @@ in
 			22000 21027 #syncthing
 			4242 #lan mouse
 		];
-		trustedInterfaces = [ "virbr*" ];
+		trustedInterfaces = [ "virbr*" "whonix-br" ];
 	};
 	
 	# Or disable the firewall altogether.
