@@ -97,10 +97,6 @@ in
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
                     installation_mode = "force_installed";
                 };
-                "{69ef9498-0139-43e4-97b8-942982ac9158}" = {
-                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepasshelper/latest.xpi";
-                    installation_mode = "force_installed";
-                };
                 preferences = {
 
                 };
