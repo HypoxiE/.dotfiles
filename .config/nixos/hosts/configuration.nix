@@ -144,6 +144,11 @@ in
 		};
 	};
 
+    networking.bridges.whonix-br.interfaces = [ ];
+    networking.interfaces.whonix-br.useDHCP = false;
+    networking.firewall.interfaces.whonix-br.allowedTCPPorts = [ ];
+    networking.firewall.interfaces.whonix-br.allowedUDPPorts = [ ];
+
 	# Set your time zone.
 	time.timeZone = "Europe/Moscow"; #Asia/Jakarta
 
