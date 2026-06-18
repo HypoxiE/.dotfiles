@@ -151,6 +151,8 @@ in
 
     boot.kernel.sysctl = {
         "net.ipv6.conf.whonix-br.disable_ipv6" = 1;
+        "net.bridge.bridge-nf-call-iptables" = 0;
+        "net.bridge.bridge-nf-call-ip6tables" = 0;
     };
 
 	# Set your time zone.
@@ -514,7 +516,7 @@ in
 			22000 21027 #syncthing
 			4242 #lan mouse
 		];
-		trustedInterfaces = [ "virbr*" "whonix-br" ];
+		trustedInterfaces = [ "virbr*" ];
 	};
 	
 	# Or disable the firewall altogether.
