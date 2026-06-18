@@ -505,7 +505,7 @@ in
 			22000 21027 #syncthing
 			4242 #lan mouse
 		];
-		trustedInterfaces = [ "virbr0" ];
+		trustedInterfaces = [ "virbr*" ];
 	};
 	
 	# Or disable the firewall altogether.

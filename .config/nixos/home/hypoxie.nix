@@ -9,6 +9,10 @@ let
 		url = "https://dawn.wine/dawn-winery/dwproton/releases/download/dwproton-11.0-2/dwproton-11.0-2-x86_64.tar.xz";
 		sha256 = "sha256-h8agHudNEYccm55l2M2TN6YvRvQHEqnEdj+NVxUXlds=";
 	};
+	proton-ge = pkgs.fetchurl {
+		url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz";
+		sha256 = "sha256-UcWAtmqDPHOZj+APBxfurFcZdlQECi8u1RiePuaNdz0=";
+	};
 in
 {
 	imports = [
@@ -20,11 +24,12 @@ in
 
 	home.stateVersion = "25.11";
 
-	home.activation.installProtonGW = config.lib.dag.entryAfter ["writeBoundary"] ''
+	home.activation.installProtonGWGE = config.lib.dag.entryAfter ["writeBoundary"] ''
 		export PATH=${pkgs.lib.makeBinPath [ pkgs.gnutar pkgs.gzip pkgs.xz ]}:$PATH
 
 		mkdir -p $HOME/.steam/root/compatibilitytools.d
 		tar -xvJf ${proton-gw} -C $HOME/.steam/root/compatibilitytools.d
+		tar -xvf ${proton-ge} -C $HOME/.steam/root/compatibilitytools.d
 	'';
 
 	programs.git = {
@@ -90,6 +95,10 @@ in
                 };
                 "webextension@metamask.io" = {
                     install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
+                    installation_mode = "force_installed";
+                };
+                "{69ef9498-0139-43e4-97b8-942982ac9158}" = {
+                    install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepasshelper/latest.xpi";
                     installation_mode = "force_installed";
                 };
                 preferences = {
