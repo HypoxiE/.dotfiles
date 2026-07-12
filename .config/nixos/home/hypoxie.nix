@@ -265,6 +265,7 @@ in
 		hevel
 		neuswc
 		neuwld
+        nixos-generators
 
 		my-pkgs.input.hyprmodify
 		my-pkgs.input.go-colors-picker

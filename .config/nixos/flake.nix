@@ -47,19 +47,19 @@
 					disko.nixosModules.disko
 					nixvim.nixosModules.nixvim
 					home-manager.nixosModules.home-manager
-
+                    
 					{
 						_module.args.host = hostname;
 
 						home-manager.useUserPackages = true;
 
 						home-manager.sharedModules = [
-						spicetify-nix.homeManagerModules.default
+						    spicetify-nix.homeManagerModules.default
 						];
 
 						home-manager.extraSpecialArgs = {
-						inherit pkgs hostname;
-						host = hostname;
+                        	inherit pkgs hostname;
+						    host = hostname;
 						};
 
 						home-manager.users.hypoxie =

@@ -120,6 +120,8 @@ in
 
 	imports = [ ./specific/specific-hynix.nix ./specific/specific-laptop.nix ];
 
+    services.flatpak.enable = true;
+
 	# Configure network connections interactively with nmcli or nmtui.
 	#networking = {
 	#	wireless.iwd.enable = true;
