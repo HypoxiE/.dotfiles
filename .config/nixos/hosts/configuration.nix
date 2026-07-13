@@ -219,7 +219,7 @@ in
 		isNormalUser = true;
 		shell = pkgs.zsh;
 		home = "/home/hypoxie";
-		extraGroups = [ "libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" ];
+		extraGroups = [ "libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark" ];
 		password = "12345678";
 	};
 
@@ -328,6 +328,11 @@ in
 
 	};
 	programs.neovim.defaultEditor = true;
+
+    programs.wireshark = {
+      enable = true;
+      package = pkgs.wireshark-qt;
+    };
 
 	hardware.bluetooth.enable = true;
 	hardware.bluetooth.powerOnBoot = true;
