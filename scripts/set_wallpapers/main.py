@@ -114,7 +114,7 @@ def pick_random_image() -> Path:
 
 def wait_for_swww():
 	while True:
-		result = subprocess.run(["swww", "query"], capture_output=True)
+		result = subprocess.run(["awww", "query"], capture_output=True)
 		if result.returncode == 0:
 			break
 		time.sleep(0.1)
@@ -166,7 +166,7 @@ def main():
 		screen_width = mon["width"]
 		screen_height = mon["height"]
 
-		cmd = ["swww", "img", str(img_path), "--transition-type", "grow", "--transition-pos", f"{x},{screen_height-y}", "--transition-duration", "0.5", "--transition-fps", "100"]
+		cmd = ["awww", "img", str(img_path), "--transition-type", "grow", "--transition-pos", f"{x},{screen_height-y}", "--transition-duration", "0.5", "--transition-fps", "100"]
 		result = subprocess.run(cmd, capture_output=True, text=True)
 		logging.info(f"wallpaper set: {result}")
 
@@ -182,7 +182,7 @@ def main():
 
 	if args.instant:
 		wait_for_swww()
-		cmd = ["swww", "img", str(img_path), "--transition-type", "none", "--transition-duration", "0"]#, "--outputs", "eDP-1,HDMI-A-1"
+		cmd = ["awww", "img", str(img_path), "--transition-type", "none", "--transition-duration", "0"]#, "--outputs", "eDP-1,HDMI-A-1"
 		result = subprocess.run(cmd, capture_output=True, text=True)
 		logging.info(f"wallpaper set: {result}")
 

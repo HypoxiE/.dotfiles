@@ -331,7 +331,6 @@ in
 
     programs.wireshark = {
       enable = true;
-      package = pkgs.wireshark-qt;
     };
 
 	hardware.bluetooth.enable = true;
@@ -366,7 +365,7 @@ in
 		wget # для web запросов
 		gtk3 # Необходимо для запуска gui приложений
 		wev # Для получения кейкодов клавиш
-		neofetch
+		hyfetch
 		git
 		zoxide fzf # для поиска
 		xray
@@ -573,7 +572,7 @@ in
 	# and migrated your data accordingly.
 	#
 	# For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-	system.stateVersion = "25.11"; # Did you read the comment?
+	system.stateVersion = "26.05"; # Did you read the comment?
 
 }
 

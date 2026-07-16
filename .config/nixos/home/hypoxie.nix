@@ -22,7 +22,7 @@ in
 	home.username = "hypoxie";
 	home.homeDirectory = "/home/hypoxie";
 
-	home.stateVersion = "25.11";
+	home.stateVersion = "26.05";
 
 	home.activation.installProtonGWGE = config.lib.dag.entryAfter ["writeBoundary"] ''
 		export PATH=${pkgs.lib.makeBinPath [ pkgs.gnutar pkgs.gzip pkgs.xz ]}:$PATH
@@ -294,7 +294,7 @@ in
 		wl-clip-persist
 		clipse
 		hyprland
-		hyprlock hyprpicker eww swww
+		hyprlock hyprpicker eww awww
 		wayland wayland-protocols
 		kitty
 		wofi
