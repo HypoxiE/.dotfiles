@@ -1,12 +1,10 @@
 { config, pkgs, host, lib, ... }:
 
 let
-	# Вспомогательная функция для генерации чисел от 1 до n
 	range = start: end: builtins.genList (n: start + n) (end - start + 1);
 	mod10 = n: if n == 10 then 0 else n;
 	
-	# Список классов для workspace 9
-	workspace9Classes = [
+	communicationClasses = [
 		"org.telegram.desktop"
 		"com.ayugram.desktop"
 		"discord-canary"
@@ -16,13 +14,11 @@ let
 		"electron"
 	];
 	
-	# Список браузеров для workspace 2
 	browserClasses = [
 		"firefox"
 		"vivaldi-stable"
 	];
 	
-	# Список редакторов кода для workspace 3
 	editorClasses = [
 		"code-oss"
 		"code"
@@ -30,39 +26,8 @@ let
 		"Emacs"
 	];
 	
-	# Цифры для workspace bindings
 	workspaceNumbers = range 1 10;
 	
-	# Коды клавиш
-	# keyCodes = {
-	# 	A = "code:38";
-	# 	B = "code:56";
-	# 	C = "code:54";
-	# 	D = "code:40";
-	# 	E = "code:26";
-	# 	F = "code:41";
-	# 	G = "code:42";
-	# 	H = "code:43";
-	# 	I = "code:31";
-	# 	J = "code:44";
-	# 	K = "code:45";
-	# 	L = "code:46";
-	# 	M = "code:58";
-	# 	N = "code:57";
-	# 	O = "code:32";
-	# 	P = "code:33";
-	# 	Q = "code:24";
-	# 	R = "code:27";
-	# 	S = "code:39";
-	# 	T = "code:28";
-	# 	U = "code:30";
-	# 	V = "code:55";
-	# 	W = "code:25";
-	# 	X = "code:53";
-	# 	Y = "code:29";
-	# 	Z = "code:52";
-	# };
-
     A = "code:38";
     B = "code:56";
     C = "code:54";
@@ -99,16 +64,7 @@ let
 	bottomGap = "10";
     rightGap = "10";
 	leftGap = "10";
-
-	# Функция для создания переменных клавиш
-	# mkKeyVar = key: code: "$KEY_${key} = ${code}";
-	
-	# Преобразуем в формат для settings
-	#keyVars = builtins.listToAttrs (map (key: {
-	#	name = "$KEY_${key}";
-	#	value = keyCodes.${key};
-	#}) (builtins.attrNames keyCodes));
-	
+    
 in {
 	wayland.windowManager.hyprland = {
 		enable = true;
@@ -127,6 +83,13 @@ in {
         # '';
 		
 		settings = {
+            currentWorkspace = {
+                _var = 1;
+            };
+            previousWorkspace = {
+                _var = 1;
+            };
+            
 			# source = "~/.config/hypr/colors.conf";
 			
 			################
@@ -159,24 +122,40 @@ in {
 			# 		["GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_pc_bar && eww open time_bar"]
 			# );
 
-            on = {
-                _args = [
-                    "hyprland.start"
-                    (lib.generators.mkLuaInline ''
-                        function()
-                            hl.exec_cmd("awww-daemon --no-cache")
-                            hl.exec_cmd("python3 ~/scripts/set_wallpapers/main.py --instant")
-                            hl.exec_cmd("swaync")
-                            hl.exec_cmd("hyprmodify")
-                            hl.exec_cmd("${
-                                if host == "hypoxlaptop"
-                                then "GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_laptop_bar && eww open time_bar"
-                                else "GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_pc_bar && eww open time_bar"
-                            }")
-                        end
-                    '')
-                ];
-            };
+            on = [
+                {
+                    _args = [
+                        "hyprland.start"
+                        (lib.generators.mkLuaInline ''
+                            function()
+                                hl.exec_cmd("clipse -listen")
+                                hl.exec_cmd("wl-clip-persist --clipboard regular")
+                                hl.exec_cmd("awww-daemon --no-cache")
+                                hl.exec_cmd("python3 ~/scripts/set_wallpapers/main.py --instant")
+                                hl.exec_cmd("swaync")
+                                hl.exec_cmd("udiskie")
+                                hl.exec_cmd("${
+                                    if host == "hypoxlaptop"
+                                    then "GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_laptop_bar && eww open time_bar"
+                                    else "GDK_BACKEND=wayland eww daemon && eww open workspaces_bar && eww open metrics_pc_bar && eww open time_bar"
+                                }")
+                            end
+                        '')
+                    ];
+                }
+                {
+                    _args = [
+                        "workspace.active"
+                        (lib.generators.mkLuaInline ''
+                            function(event)
+                                previousWorkspace = currentWorkspace
+                                currentWorkspace = event.id
+                                hl.exec_cmd("eww update active_workspace=" .. currentWorkspace)
+                            end
+                        '')
+                    ];
+                }
+            ];
 
             config = {
                 general = {
@@ -213,6 +192,19 @@ in {
                 misc = {
                     force_default_wallpaper = -1;
                     disable_hyprland_logo   = true;
+                };
+                input = {
+                    kb_layout = "us,ru";
+                    kb_variant = "";
+                    kb_model = "";
+                    kb_options = "grp:win_space_toggle";
+                    kb_rules = "";
+                    numlock_by_default = true;
+                    follow_mouse = 1;
+                    sensitivity = 0;
+                    touchpad = {
+                        natural_scroll = true;
+                    };
                 };
             };
 
@@ -430,24 +422,6 @@ in {
 			# };
 			
 			
-			#############
-			### ВВОД ###
-			#############
-			# input = {
-			# 	kb_layout = "us,ru";
-			# 	kb_variant = "";
-			# 	kb_model = "";
-			# 	kb_options = "grp:win_space_toggle";
-			# 	kb_rules = "";
-			# 	numlock_by_default = true;
-			# 	follow_mouse = 1;
-			# 	sensitivity = 0;
-				
-			# 	touchpad = {
-			# 		natural_scroll = true;
-			# 	};
-			# };
-			
 			# gesture  = "3, horizontal, workspace";
 			
 			# device = {
@@ -455,11 +429,6 @@ in {
 			# 	sensitivity = -0.3;
 			# };
 			
-			###################
-			### ГОРЯЧИЕ КЛАВИШИ ###
-			###################
-			
-			# Генерация bind для workspace переключений
 			bind = [
                 {
                     _args = [
@@ -520,10 +489,31 @@ in {
 				# "${mainMod}, mouse_up, workspace, e-1"
 				# "SUPER CTRL, left, workspace, -1"
 				# "SUPER CTRL, right, workspace, +1"
+
+                {
+                    _args = [
+                        "ALT + TAB"
+                        (lib.generators.mkLuaInline ''
+                            function()
+                                hl.exec_cmd("hyprctl dispatch 'hl.dsp.focus({workspace = " .. previousWorkspace .. "})' ")
+                            end
+                        '')
+                    ];
+                }
 				# "ALT_L, TAB, exec, echo \"prev_tag\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
 				# "${mainMod}, ${H}, exec, echo \"hide_bar\" | socat - UNIX-CONNECT:/tmp/hyprmodify/hypr_read.sock"
-				# ",Print, exec, screenland"
-				# "SUPER, ${V}, exec, $terminal --class clipse -e 'clipse'"
+                {
+                    _args = [
+                        "Print"
+                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"screenland\")")
+                    ];
+                }
+                {
+                    _args = [
+                        "SUPER + ${V}"
+                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"${terminal} --class clipse -e 'clipse'\")")
+                    ];
+                }
 				# "ALT_R, ${C}, exec, hyprpicker --autocopy"
 				# ",Scroll_Lock, exec, hyprlock"
                 {
@@ -583,78 +573,6 @@ in {
                 }
                 {
                     _args = [
-                        "XF86MonBrightnessDown"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl -e4 -n2 set 2%-\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86AudioNext"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl next\")")
-                        { locked = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86AudioPause"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl play-pause\")")
-                        { locked = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "{
-                    _args = [
-                        "${mainMod} + mouse:272"
-                        (lib.generators.mkLuaInline "hl.dsp.window.drag()")
-                        { mouse = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "${mainMod} + mouse:273"
-                        (lib.generators.mkLuaInline "hl.dsp.window.resize()")
-                        { mouse = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86AudioRaiseVolume"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"pactl set-sink-volume 0 +2%\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86AudioLowerVolume"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"pactl set-sink-volume 0 -2%\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86MonBrightnessUp"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl -e4 -n2 set 2%+\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86MonBrightnessDown"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl -e4 -n2 set 2%-\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
-                        "XF86MonBrightnessDown"
-                        (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"brightnessctl -e4 -n2 set 2%-\")")
-                        { locked = true; repeating = true; }
-                    ];
-                }
-                {
-                    _args = [
                         "XF86AudioNext"
                         (lib.generators.mkLuaInline "hl.dsp.exec_cmd(\"playerctl next\")")
                         { locked = true; }
@@ -697,6 +615,67 @@ in {
                     (lib.generators.mkLuaInline "hl.dsp.window.move({ workspace = ${toString n} })")
                 ];
             }) workspaceNumbers);
+
+            window_rule = [
+                # {
+                #     name = "silent open";
+                    
+                # }
+                {
+                    name = "clipboard";
+                    match = {
+                        class = "^(clipse)$";
+                    };
+                    float = true;
+                    no_anim = true;
+                    size = ["monitor_w * 0.4" "monitor_h * 0.6"];
+                    stay_focused = true;
+                    opacity = 1;
+                }
+                {
+                    name = "save as";
+                    match = {
+                        title = "Save As";
+                    };
+                    float = true;
+                }
+                {
+                    name = "opacity ${terminal}";
+                    match = {
+                        class = "${terminal}";
+                    };
+                    opacity = 0.85;
+                }
+                {
+                    name = "browsers on workspace";
+                    match = {
+                        class = "^(${lib.concatStringsSep "|" browserClasses})$";
+                    };
+                    workspace = "2 silent";
+                }
+                {
+                    name = "editors on workspace";
+                    match = {
+                        class = "^(${lib.concatStringsSep "|" editorClasses})$";
+                    };
+                    workspace = "3 silent";
+                }
+                {
+                    name = "messagers on workspace";
+                    match = {
+                        class = "^(${lib.concatStringsSep "|" communicationClasses})$";
+                    };
+                    workspace = "9 silent";
+                }
+                {
+                    name = "fix ayugram media viewer";
+                    match = {
+                        class = "^(com.ayugram.desktop)$";
+                        title = "^(Media viewer)$";
+                    };
+                    fullscreen = true;
+                }
+            ];
 			
 			##############################
 			### ОКНА И РАБОЧИЕ СТОЛЫ ###
@@ -707,27 +686,13 @@ in {
 			# windowrule = ["workspace silent current, class:.*"]++[
 			# 	#"monitor HDMI-A-1, match:title screenland-HDMI-A-1"
 			# 	#"monitor DP-1, match:title screenland-DP-1"
-			# 	#"float on, match:class screenland"
-			# 	#"no_anim on, match:class screenland"
-			# 	#"float on, match:title Save As"
 
 			# 	"suppressevent maximize, class:.*"
 			# 	"nofocus,class:^$,title:^$,xwayland:1,floating:1,fullscreen:0,pinned:0"
-			# 	"opacity 0.85, class:$terminal"
-			# 	"float,class:(clipse)"
-			# 	"size 622 652,class:(clipse)"
-			# 	"stayfocused, class:(clipse)"
 			# ]
-			# # Генерация правил для workspace 2 (браузеры)
-			# ++ (map (class: "workspace 2 silent,class:${class}") browserClasses)
-			
-			# # Генерация правил для workspace 3 (редакторы)
-			# ++ (map (class: "workspace 3 silent,class:${class}") editorClasses)
-			
 			# # Генерация правил для workspace 8 (steam)
 			# ++ [ "workspace 8 silent,class:steam" ]
 			
-			# # Генерация правил для workspace 9 (мессенджеры)
 			# ++ (map (class: "workspace 9 silent,class:${class}") workspace9Classes)
 			# ++ [
 			# 	"float, class:^(com.ayugram.desktop)$, title:^(Media viewer)$"
