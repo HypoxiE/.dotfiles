@@ -25,6 +25,24 @@
             (setq tab-width 2)
             (setq indent-tabs-mode nil)))
 
+(use-package nix-mode
+  :mode "\\.nix\\'")
+(use-package lsp-mode
+  :hook
+  (nix-mode . lsp-deferred))
+(setq lsp-nix-nixd-server-path "nixd")
+(use-package apheleia
+  :config
+  (setf (alist-get 'nix-mode apheleia-mode-alist)
+        '(alejandra))
+
+  (setf (alist-get 'alejandra apheleia-formatters)
+        '("alejandra" "-"))
+
+  :hook
+  (nix-mode . apheleia-mode))
+
+
 (vertico-mode 1)
 (marginalia-mode 1)
 (corfu-mode 1)
