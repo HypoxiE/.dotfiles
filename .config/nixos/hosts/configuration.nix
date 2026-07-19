@@ -40,6 +40,9 @@
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  boot.binfmt.emulatedSystems = [
+    "aarch64-linux"
+  ];
 
   environment.etc = builtins.listToAttrs (map (name: {
       name = name;
