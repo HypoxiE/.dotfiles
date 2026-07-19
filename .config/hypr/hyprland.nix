@@ -55,8 +55,9 @@ in {
       previousWorkspace = {
         _var = 1;
       };
-
-      # source = "~/.config/hypr/colors.conf";
+      colors = {
+        _var = lib.generators.mkLuaInline "dofile(\"/home/hypoxie/.config/hypr/colors.lua\")";
+      };
 
       # monitor = [
       # 	"eDP-1,1920x1080@60.01,0x0,1"
@@ -124,6 +125,20 @@ in {
             bottom = bottomGap;
             left = leftGap;
           };
+          resize_on_border = false;
+          allow_tearing = false;
+          layout = "dwindle";
+          border_size = 4;
+          col = {
+            active_border = lib.generators.mkLuaInline "{colors = {colors.active_border_color_1, colors.active_border_color_2}, angle = 45}";
+            inactive_border = lib.generators.mkLuaInline "{colors = {colors.inactive_border_color_1, colors.inactive_border_color_2}, angle = 45}";
+          };
+        };
+        xwayland = {
+          force_zero_scaling = true;
+        };
+        master = {
+          new_status = "master";
         };
         decoration = {
           rounding = 10;
@@ -328,30 +343,6 @@ in {
         {_args = ["XCURSOR_SIZE" "24"];}
         {_args = ["HYPRCURSOR_SIZE" "24"];}
       ];
-
-      # general = {
-      # 	border_size = 5;
-      # 	"col.active_border" = "$active_border_color_1 $active_border_color_2 45deg";
-      # 	"col.inactive_border" = "$inactive_border_color_1 $inactive_border_color_2 45deg";
-      # 	resize_on_border = false;
-      # 	allow_tearing = false;
-      # 	layout = "dwindle";
-      # };
-
-      # xwayland = {
-      # 	force_zero_scaling = true;
-      # };
-
-      # dwindle = {
-      # 	pseudotile = true;
-      # 	preserve_split = true;
-      # };
-
-      # master = {
-      # 	new_status = "master";
-      # };
-
-      # gesture  = "3, horizontal, workspace";
 
       bind =
         (map (n: {
