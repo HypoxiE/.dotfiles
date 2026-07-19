@@ -2,7 +2,7 @@
   config,
   pkgs,
   spicetify-nix,
-  host,
+  #host,
   ...
 }: let
   spicetify = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
@@ -74,6 +74,21 @@ in {
       PasswordManagerEnabled = false;
       OfferToSaveLogins = false;
 
+      Preferences = {
+        "browser.tabs.closeWindowWithLastTab" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.newtabpage.activity-stream.default.sites" = {
+          Value = "";
+          Status = "locked";
+        };
+        "browser.startup.page" = {
+          Value = 3;
+          Status = "locked";
+        };
+      };
+
       ExtensionSettings = {
         "*".installation_mode = "blocked";
         "uBlock0@raymondhill.net" = {
@@ -100,19 +115,12 @@ in {
           install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
           installation_mode = "force_installed";
         };
-        preferences = {
-        };
       };
     };
     profiles.default = {
       id = 0;
       name = "default";
       isDefault = true;
-      settings = {
-        "browser.tabs.closeWindowWithLastTab" = false;
-        "browser.newtabpage.activity-stream.default.sites" = "";
-        "browser.startup.page" = 3;
-      };
     };
     nativeMessagingHosts = [
       pkgs.keepassxc
