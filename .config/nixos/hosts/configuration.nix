@@ -3,48 +3,39 @@
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 {
   config,
-  lib,
   pkgs,
   host ? "default",
   ...
 }: let
-  go-login = pkgs.buildGoModule {
-    pname = "go-login";
-    version = "0.0.0";
-
-    src = pkgs.fetchgit {
-      url = "https://github.com/HypoxiE/go-login-system.git";
-      rev = "de035b15e75a7c52dd915375f64f7c095184f432";
-      hash = "sha256-ZbockZFesNu+l6QY3SV+50xB6WVnQdd7iTDEDf7xx8k=";
-    };
-
-    vendorHash = "sha256-ith7A1fSk42DWQQiFItynpO2fKAfQm+tesAPILszwDs=";
-
-    buildInputs = with pkgs; [
-      pam
-    ];
-
-    nativeBuildInputs = with pkgs; [
-      pkg-config
-      makeWrapper
-    ];
-
-    env = {
-      CGO_ENABLED = 1;
-    };
-
-    postFixup = ''
-      wrapProgram $out/bin/go-login \
-      	--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [pkgs.pam]}
-    '';
-
-    meta = with pkgs.lib; {
-      description = "Console login program for system";
-      license = licenses.mit;
-      platforms = platforms.linux;
-    };
-  };
-
+  # go-login = pkgs.buildGoModule {
+  #   pname = "go-login";
+  #   version = "0.0.0";
+  #   src = pkgs.fetchgit {
+  #     url = "https://github.com/HypoxiE/go-login-system.git";
+  #     rev = "de035b15e75a7c52dd915375f64f7c095184f432";
+  #     hash = "sha256-ZbockZFesNu+l6QY3SV+50xB6WVnQdd7iTDEDf7xx8k=";
+  #   };
+  #   vendorHash = "sha256-ith7A1fSk42DWQQiFItynpO2fKAfQm+tesAPILszwDs=";
+  #   buildInputs = with pkgs; [
+  #     pam
+  #   ];
+  #   nativeBuildInputs = with pkgs; [
+  #     pkg-config
+  #     makeWrapper
+  #   ];
+  #   env = {
+  #     CGO_ENABLED = 1;
+  #   };
+  #   postFixup = ''
+  #     wrapProgram $out/bin/go-login \
+  #     	--prefix LD_LIBRARY_PATH : ${pkgs.lib.makeLibraryPath [pkgs.pam]}
+  #   '';
+  #   meta = with pkgs.lib; {
+  #     description = "Console login program for system";
+  #     license = licenses.mit;
+  #     platforms = platforms.linux;
+  #   };
+  # };
   scriptsDir = ../../../scripts;
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in {
@@ -461,6 +452,8 @@ in {
     };
 
     interactiveShellInit = ''
+      bindkey -e
+      bindkey "^[[3~" delete-char
       tabs -4
       eval "$(${pkgs.zoxide}/bin/zoxide init zsh)"
 
