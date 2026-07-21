@@ -40,6 +40,7 @@
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in {
   nix.settings.experimental-features = ["nix-command" "flakes"];
+  nix.settings.trusted-users = ["root" "hypoxie"];
   boot.binfmt.emulatedSystems = [
     "aarch64-linux"
   ];
@@ -334,6 +335,8 @@ in {
     #go-login
 
     #libs
+    qemu
+    qemu-user
     pkg-config
 
     socat
