@@ -106,6 +106,7 @@ in {
         install -Dm644 ${../grub_textures/progress_highlight_c.png} $out/images/progress_highlight_c.png
       '';
   };
+  boot.loader.grub.memtest86.enable = true;
   boot.tmp.useTmpfs = true;
   boot.tmp.zramSettings.zram-size = "min(ram / 2, 512)";
 
