@@ -112,8 +112,20 @@ in {
 
   networking.hostName = host;
 
+  fileSystems."/shared" = {
+    device = "192.168.1.100:/data/shared";
+    fsType = "nfs";
+
+    options = [
+      "nfsvers=4.2"
+      "x-systemd.automount"
+      "noatime"
+    ];
+  };
+
   systemd.tmpfiles.rules = [
     "d /swap 0755 root root -"
+    "d /shared 2775 root shared -"
   ];
 
   imports = [./specific/specific-hynix.nix ./specific/specific-laptop.nix];
@@ -209,11 +221,15 @@ in {
   # services.libinput.enable = true;
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
+  users.groups.shared = {
+    gid = 987;
+  };
+
   users.users.hypoxie = {
     isNormalUser = true;
     shell = pkgs.zsh;
     home = "/home/hypoxie";
-    extraGroups = ["libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark"];
+    extraGroups = ["libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark" "shared"];
     password = "12345678";
   };
 
