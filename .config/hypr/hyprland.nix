@@ -22,6 +22,7 @@
   browserClasses = [
     "firefox"
     "vivaldi-stable"
+    "zen-beta"
   ];
 
   editorClasses = [

@@ -7,6 +7,8 @@
 }: let
   spicetify = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
+  firefox-addons = pkgs.nur.repos.rycee.firefox-addons;
+
   my-pkgs = import ./build_my_pksg.nix {inherit pkgs;};
   other-pkgs = import ./build_pksg.nix {inherit pkgs;};
   proton-gw = pkgs.fetchurl {
@@ -61,6 +63,125 @@ in {
     enabledExtensions = with spicetify.extensions; [
       adblock
       hidePodcasts
+    ];
+  };
+
+  programs.zen-browser = {
+    enable = true;
+    policies = {
+      DisableTelemetry = true;
+      DisableFirefoxAccounts = true;
+      DisableAccounts = true;
+      PasswordManagerEnabled = false;
+      OfferToSaveLogins = false;
+
+      Preferences = {
+        "browser.tabs.closeWindowWithLastTab" = {
+          Value = false;
+          Status = "locked";
+        };
+        "browser.newtabpage.activity-stream.default.sites" = {
+          Value = "";
+          Status = "locked";
+        };
+        "browser.startup.page" = {
+          Value = 3;
+          Status = "locked";
+        };
+        "browser.aboutwelcome.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+        "zen.welcome-screen.seen" = {
+          Value = true;
+          Status = "locked";
+        };
+        "zen.welcome-screen.completed" = {
+          Value = true;
+          Status = "locked";
+        };
+        "zen.welcome-screen.enabled" = {
+          Value = false;
+          Status = "locked";
+        };
+      };
+      ExtensionSettings = {
+        "*".installation_mode = "blocked";
+        "uBlock0@raymondhill.net" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ublock-origin/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "simple-translate@sienori" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/simple-translate/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "jid0-bnmfwWw2w2w4e4edvcdDbnMhdVg@jetpack" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/tab-reloader/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "keepassxc-browser@keepassxc.org" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/keepassxc-browser/latest.xpi";
+          installation_mode = "force_installed";
+        };
+        "webextension@metamask.io" = {
+          install_url = "https://addons.mozilla.org/firefox/downloads/latest/ether-metamask/latest.xpi";
+          installation_mode = "force_installed";
+        };
+      };
+      Permissions = {
+        Camera = {
+          Default = "block";
+        };
+
+        Microphone = {
+          Default = "block";
+        };
+
+        Notifications = {
+          Default = "block";
+        };
+
+        Location = {
+          Default = "block";
+        };
+      };
+    };
+    profiles = {
+      default = {
+        isDefault = true;
+        id = 0;
+        name = "default";
+
+        settings = {
+          "zen.view.compact.enable" = true;
+        };
+        containers = {
+          Personal = {
+            id = 1;
+            color = "green";
+            icon = "fingerprint";
+          };
+          University = {
+            id = 2;
+            color = "blue";
+            icon = "briefcase";
+          };
+        };
+        spaces = {
+          Personal = {
+            id = "1";
+            container = 1;
+          };
+
+          University = {
+            id = "2";
+            container = 2;
+          };
+        };
+      };
+    };
+    nativeMessagingHosts = [
+      pkgs.keepassxc
     ];
   };
 
@@ -247,8 +368,12 @@ in {
   xdg.mimeApps = {
     enable = true;
     defaultApplications = {
+      "text/html" = ["zen-beta.desktop"];
+      "application/xhtml+xml" = ["zen-beta.desktop"];
+      "x-scheme-handler/http" = ["zen-beta.desktop"];
+      "x-scheme-handler/https" = ["zen-beta.desktop"];
       "application/pdf" = ["firefox.desktop"];
-      "text/plain" = ["code.desktop"];
+      "text/plain" = ["emacsclient.desktop"];
     };
   };
 

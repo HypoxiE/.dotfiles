@@ -1,84 +1,100 @@
-
 {
-	description = "NixOS + Home Manager flake";
+  description = "NixOS + Home Manager flake";
 
-	inputs = {
-		nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
-		
-		home-manager = {
-			url = "github:nix-community/home-manager/release-26.05";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-		nur.url = "github:nix-community/NUR";
+  inputs = {
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-26.05";
 
-		spicetify-nix.url = "github:Gerg-L/spicetify-nix";
+    home-manager = {
+      url = "github:nix-community/home-manager/release-26.05";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nur.url = "github:nix-community/NUR";
 
-		neu-nix.url = "github:ricardomaps/neu-nix";
-		nixvim.url = "github:nix-community/nixvim";
+    spicetify-nix.url = "github:Gerg-L/spicetify-nix";
 
-		disko = {
-			url = "github:nix-community/disko";
-			inputs.nixpkgs.follows = "nixpkgs";
-		};
-	};
+    neu-nix.url = "github:ricardomaps/neu-nix";
+    nixvim.url = "github:nix-community/nixvim";
 
-	outputs = { self, nixpkgs, home-manager, nur, spicetify-nix, neu-nix, nixvim, disko, ... }:
+    disko = {
+      url = "github:nix-community/disko";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
 
-	let
-		system = "x86_64-linux";
-		pkgs = import nixpkgs {
-			inherit system;
-			overlays = [ nur.overlays.default neu-nix.overlays.default ];
-			config = {
-				allowUnfree = true;
-			};
-		};
-		
-		mkHost = { hostname }:
-			nixpkgs.lib.nixosSystem {
-				inherit system pkgs;
+    zen-browser = {
+      url = "github:0xc000022070/zen-browser-flake";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+  };
 
-				modules = [
+  outputs = {
+    #self,
+    nixpkgs,
+    home-manager,
+    nur,
+    spicetify-nix,
+    neu-nix,
+    nixvim,
+    disko,
+    zen-browser,
+    ...
+  }: let
+    system = "x86_64-linux";
+    pkgs = import nixpkgs {
+      inherit system;
+      overlays = [nur.overlays.default neu-nix.overlays.default];
+      config = {
+        allowUnfree = true;
+      };
+    };
 
-					./hosts/hardware-configuration.nix
-					./hosts/configuration.nix
-					./disko.nix
+    mkHost = {hostname}:
+      nixpkgs.lib.nixosSystem {
+        inherit system pkgs;
 
-					disko.nixosModules.disko
-					nixvim.nixosModules.nixvim
-					home-manager.nixosModules.home-manager
-                    
-					{
-						_module.args.host = hostname;
+        modules = [
+          ./hosts/hardware-configuration.nix
+          ./hosts/configuration.nix
+          ./disko.nix
 
-						home-manager.useUserPackages = true;
+          disko.nixosModules.disko
+          nixvim.nixosModules.nixvim
+          home-manager.nixosModules.home-manager
 
-						home-manager.sharedModules = [
-						    spicetify-nix.homeManagerModules.default
-						];
+          {
+            _module.args.host = hostname;
 
-						home-manager.extraSpecialArgs = {
-                        	inherit pkgs hostname;
-						    host = hostname;
-						};
+            home-manager.useUserPackages = true;
 
-						home-manager.users.hypoxie =
-						{ config, pkgs, host, ... }:
-						import ./home/hypoxie.nix {
-							inherit config pkgs host spicetify-nix;
-						};
-					}
-				];
-			};
-	in
-	{
-		nixosConfigurations = {
-			laptop = mkHost {
-				hostname = "hypoxlaptop";
-			};
-			pc = mkHost {
-				hostname = "hynix";
-			};
-		};
-	};
+            home-manager.sharedModules = [
+              spicetify-nix.homeManagerModules.default
+              zen-browser.homeModules.beta
+            ];
+
+            home-manager.extraSpecialArgs = {
+              inherit pkgs hostname;
+              host = hostname;
+            };
+
+            home-manager.users.hypoxie = {
+              config,
+              pkgs,
+              host,
+              ...
+            }:
+              import ./home/hypoxie.nix {
+                inherit config pkgs host spicetify-nix zen-browser;
+              };
+          }
+        ];
+      };
+  in {
+    nixosConfigurations = {
+      laptop = mkHost {
+        hostname = "hypoxlaptop";
+      };
+      pc = mkHost {
+        hostname = "hynix";
+      };
+    };
+  };
 }
