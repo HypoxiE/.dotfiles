@@ -6,6 +6,7 @@ import sys
 
 import generate_hypr_config as ghc
 import generate_eww_config as gec
+import generate_fuzzel_config as gfc
 
 if __name__ == "__main__":
 	assert len(sys.argv) >= 2
@@ -19,6 +20,7 @@ if __name__ == "__main__":
 
 	with open(str(config_path), 'r') as fp:
 		conf = json.load(fp)
-	
+	    
 	ghc.gen(conf["hyprland"])
 	gec.gen(conf["eww"])
+	gfc.gen(conf["eww"])

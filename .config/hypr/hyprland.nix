@@ -37,7 +37,7 @@
   mainMod = "SUPER";
 
   terminal = "kitty";
-  menu = "wofi --show drun --gtk-dark --style ~/.config/wofi/style.css";
+  menu = "fuzzel";
 
   topGap = "60";
   bottomGap = "10";

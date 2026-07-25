@@ -437,7 +437,7 @@ in {
     wayland
     wayland-protocols
     kitty
-    wofi
+    fuzzel
     swaynotificationcenter
     libnotify
     remmina # Для подключения к виртуалке винды
