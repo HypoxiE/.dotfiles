@@ -26,10 +26,10 @@ QListWidget::item:selected {{
     color: {selected_text};
 }}
 
-#ClipboardItem {{
+#ClipboardText {{
     color: {text};
 }}
 
-#ClipboardItem[selected="true"] QLabel {{
+#ClipboardText[selected="true"] {{
     color: {selected_text};
 }}

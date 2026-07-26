@@ -102,6 +102,7 @@ class ClipboardItem(QWidget):
 
         if text:
             label = QLabel(text)
+            label.setObjectName("ClipboardText")
             layout.addWidget(label)
     
 class ClipboardList(QListWidget):
@@ -163,11 +164,18 @@ class ClipboardList(QListWidget):
         for i in range(self.count()):
             item = self.item(i)
             widget = self.itemWidget(item)
+
             if widget:
-                selected = item.isSelected()
-                widget.setProperty("selected", selected)
-                widget.style().unpolish(widget)
-                widget.style().polish(widget)
+                selected = "true" if item.isSelected() else "false"
+
+                label = widget.findChild(QLabel, "ClipboardText")
+
+                if label:
+                    label.setProperty("selected", selected)
+
+                    label.style().unpolish(label)
+                    label.style().polish(label)
+                    label.update()
 
     def keyPressEvent(self, event):
         if event.key() == Qt.Key_Return:
