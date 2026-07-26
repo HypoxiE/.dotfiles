@@ -7,8 +7,6 @@
 }: let
   spicetify = spicetify-nix.legacyPackages.${pkgs.stdenv.hostPlatform.system};
 
-  firefox-addons = pkgs.nur.repos.rycee.firefox-addons;
-
   my-pkgs = import ./build_my_pksg.nix {inherit pkgs;};
   other-pkgs = import ./build_pksg.nix {inherit pkgs;};
   proton-gw = pkgs.fetchurl {
@@ -426,9 +424,10 @@ in {
     qemu
 
     #wayland
+    grim
     wl-clipboard
     wl-clip-persist
-    clipse
+    cliphist
     hyprland
     hyprlock
     hyprpicker
@@ -468,13 +467,18 @@ in {
     android-tools
     mtkclient
     bruno # http requests
-    gcc
+    # gcc
     gdb
     cmake
     fmt
     ninja
     alejandra
     nixd
+
+    godot_4
+    pkg-config
+    clang
+    llvm
 
     #vtubing
     inochi-session

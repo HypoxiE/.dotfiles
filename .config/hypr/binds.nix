@@ -124,11 +124,17 @@ in [
   }
   {
     key = "SUPER + ${codeV}";
-    action = "hl.dsp.exec_cmd(\"${terminal} --class clipse -e 'clipse'\")";
+    # action = "hl.dsp.exec_cmd(\"${terminal} --class clipse -e 'clipse'\")";
+    # action = "hl.dsp.exec_cmd(\"cliphist list | fuzzel --dmenu --width 100 --lines 30 | cliphist decode | wl-copy\")";
+    action = "hl.dsp.exec_cmd(\"~/scripts/clipboard_manager/main.py\")";
   }
   {
     key = "Print";
     action = "hl.dsp.exec_cmd(\"screenland\")";
+  }
+  {
+    key = "${mainMod} + Print";
+    action = "hl.dsp.exec_cmd(\"grim - | wl-copy\")";
   }
   {
     key = "SUPER + SHIFT + Return";

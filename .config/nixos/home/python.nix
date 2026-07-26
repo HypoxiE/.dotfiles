@@ -1,10 +1,11 @@
-{ pkgs ? import <nixpkgs> {} }:
-
-pkgs.python313.withPackages (ps: with ps; [
-	numpy
-	pandas
-	requests
-	json5
-	typer #arguments
-	textual
-])
+{pkgs ? import <nixpkgs> {}}:
+pkgs.python313.withPackages (ps:
+    with ps; [
+      numpy
+      pandas
+      requests
+      json5
+      typer #arguments
+      textual
+      pyside6
+    ])

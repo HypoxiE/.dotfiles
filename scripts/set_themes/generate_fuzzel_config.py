@@ -10,8 +10,8 @@ def gen(config: dict):
     result += f"text={config['text_color'][1:]}ff\n"
     result += f"match={config['secondary_color'][1:]}ff\n"
     result += f"selection={config['secondary_color'][1:]}ff\n"
-    result += f"selection-text={config['text_color'][1:]}ff\n"
-    result += f"border={config['icons_color'][1:]}ff\n"
+    result += f"selection-text={config['icons_color'][1:]}ff\n"
+    result += f"border={config['text_color'][1:]}ff\n"
 
     with open(CONFIG_PATH, "w") as file:
         file.write(result)

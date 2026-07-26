@@ -60,18 +60,14 @@ in {
         _var = lib.generators.mkLuaInline "dofile(\"/home/hypoxie/.config/hypr/colors.lua\")";
       };
 
-      # monitor = [
-      # 	"eDP-1,1920x1080@60.01,0x0,1"
-      # 	"HDMI-A-1,1920x1080@74.97,0x0,1,mirror,eDP-1"#
-      # ];
-
       on = [
         {
           _args = [
             "hyprland.start"
             (lib.generators.mkLuaInline ''
               function()
-                  hl.exec_cmd("clipse -listen")
+                  hl.exec_cmd("wl-paste --type text --watch cliphist store")
+                  hl.exec_cmd("wl-paste --type image --watch cliphist store")
                   hl.exec_cmd("wl-clip-persist --clipboard regular")
                   hl.exec_cmd("awww-daemon --no-cache")
                   hl.exec_cmd("python3 ~/scripts/set_wallpapers/main.py --instant")
@@ -424,7 +420,7 @@ in {
         {
           name = "clipboard";
           match = {
-            class = "^(clipse)$";
+            class = "^(clipboard-manager)$";
           };
           float = true;
           no_anim = true;
