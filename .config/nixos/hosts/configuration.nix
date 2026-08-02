@@ -112,16 +112,37 @@ in {
 
   networking.hostName = host;
 
-  fileSystems."/shared" = {
-    device = "192.168.1.100:/data/shared";
-    fsType = "nfs";
+  # systemd.mounts = [
+  #   {
+  #     what = "192.168.1.100:/data/shared";
+  #     where = "/shared";
+  #     type = "nfs";
+  #     options = "nfsvers=4.2,noatime";
+  #   }
+  # ];
 
-    options = [
-      "nfsvers=4.2"
-      "x-systemd.automount"
-      "noatime"
-    ];
-  };
+  # systemd.automounts = [
+  #   {
+  #     where = "/shared";
+  #     wantedBy = ["multi-user.target"];
+  #   }
+  # ];
+
+  # fileSystems."/shared" = {
+  #   device = "192.168.1.100:/data/shared";
+  #   fsType = "nfs";
+
+  #   options = [
+  #     "nfsvers=4.2"
+  #     "x-systemd.automount"
+  #     "noatime"
+  #     "nofail"
+  #     "noauto"
+
+  #     "x-systemd.mount-timeout=5s"
+  #     "x-systemd.idle-timeout=60"
+  #   ];
+  # };
 
   systemd.tmpfiles.rules = [
     "d /swap 0755 root root -"

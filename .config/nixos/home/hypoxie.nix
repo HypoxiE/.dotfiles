@@ -44,7 +44,7 @@ in {
       };
       init.defaultBranch = "main";
       credential.helper = "store";
-      credential.useHttpPath = true;
+      credential.useHttpPath = false;
     };
   };
 
@@ -474,6 +474,7 @@ in {
     ninja
     alejandra
     nixd
+    ansible
 
     godot_4
     pkg-config
