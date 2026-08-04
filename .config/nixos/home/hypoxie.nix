@@ -400,6 +400,8 @@ in {
     neuswc
     neuwld
     nixos-generators
+    deploy-rs
+    nixos-anywhere
 
     my-pkgs.input.go-colors-picker
     my-pkgs.input.screenland
