@@ -259,14 +259,71 @@ in {
     isNormalUser = true;
     shell = pkgs.zsh;
     home = "/home/hypoxie";
+    uid = 1000;
     extraGroups = ["libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark" "shared" "davfs2"];
     password = "12345678";
   };
 
   sops = {
-    defaultSopsFile = ./secrets/secrets.yaml;
+    defaultSopsFile = ../secrets/secrets.yaml;
     age.keyFile = "/home/hypoxie/passwords-sync/sops-key";
     secrets."yandex/password" = {};
+    secrets."yandex/username" = {};
+    secrets."yandex/encryption_password" = {};
+    secrets."yandex/encryption_password_names" = {};
+    templates."rclone.conf" = {
+      content = ''
+        [yandex]
+        type = webdav
+        url = https://webdav.yandex.ru
+        vendor = other
+        user = ${config.sops.placeholder."yandex/username"}
+        pass = ${config.sops.placeholder."yandex/password"}
+
+        [yandex-crypt]
+        type = crypt
+        remote = yandex:encrypted
+        password = ${config.sops.placeholder."yandex/encryption_password"}
+        password2 = ${config.sops.placeholder."yandex/encryption_password_names"}
+      '';
+
+      owner = "hypoxie";
+      group = "users";
+
+      mode = "0600";
+    };
+  };
+
+  systemd.user.services.rclone-yandex = {
+    description = "Encrypted Yandex Disk";
+
+    after = ["sops-nix.service"];
+    wants = ["sops-nix.service"];
+
+    serviceConfig = {
+      Type = "notify";
+
+      Environment = [
+        "PATH=/run/wrappers/bin:/run/current-system/sw/bin"
+      ];
+
+      ExecStartPre = "${pkgs.rclone}/bin/rclone mkdir yandex:encrypted --config /run/secrets/rendered/rclone.conf";
+
+      ExecStart = ''
+        ${pkgs.rclone}/bin/rclone mount \
+          yandex-crypt: \
+          %h/yandex \
+          --config /run/secrets/rendered/rclone.conf \
+          --vfs-cache-mode writes
+      '';
+
+      ExecStop = "/run/wrappers/bin/fusermount3 -u %h/yandex";
+
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+
+    wantedBy = ["default.target"];
   };
 
   services.udev.extraRules = ''
@@ -391,7 +448,10 @@ in {
     qemu
     qemu-user
     pkg-config
-    davfs2
+
+    rclone
+    sops
+    age
 
     socat
     gnumake
