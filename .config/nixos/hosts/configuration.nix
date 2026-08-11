@@ -65,15 +65,17 @@ in {
   powerManagement.enable = true;
   #boot.initrd.enable = true;
   #boot.loader.systemd-boot.useUnifiedKernelImages = true;
-  boot.extraModprobeConfig = ''
-    # Intel 7265 фиксы
-    options iwlwifi power_save=0
-    options iwlwifi power_scheme=1
-    options iwlwifi uapsd_disable=1
-
-    # если будут зависания — раскомментируй:
-    options iwlwifi disable_11n=1
-  '';
+  ##############################################
+  # boot.extraModprobeConfig = ''              #
+  #   # Intel 7265 фиксы                       #
+  #   options iwlwifi power_save=0             #
+  #   options iwlwifi power_scheme=1           #
+  #   options iwlwifi uapsd_disable=1          #
+  #                                            #
+  #   # если будут зависания — раскомментируй: #
+  #   options iwlwifi disable_11n=1            #
+  # '';                                        #
+  ##############################################
   boot.loader.grub = {
     enable = true;
     configurationLimit = 5;
@@ -246,13 +248,25 @@ in {
   users.groups.shared = {
     gid = 987;
   };
+  users.groups.davfs2 = {};
+
+  users.users.davfs2 = {
+    isSystemUser = true;
+    group = "davfs2";
+  };
 
   users.users.hypoxie = {
     isNormalUser = true;
     shell = pkgs.zsh;
     home = "/home/hypoxie";
-    extraGroups = ["libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark" "shared"];
+    extraGroups = ["libvirtd" "kvm" "wheel" "video" "input" "networkmanager" "dialout" "uucp" "wireshark" "shared" "davfs2"];
     password = "12345678";
+  };
+
+  sops = {
+    defaultSopsFile = ./secrets/secrets.yaml;
+    age.keyFile = "/home/hypoxie/passwords-sync/sops-key";
+    secrets."yandex/password" = {};
   };
 
   services.udev.extraRules = ''
@@ -377,6 +391,7 @@ in {
     qemu
     qemu-user
     pkg-config
+    davfs2
 
     socat
     gnumake
@@ -398,7 +413,7 @@ in {
     wget # для web запросов
     gtk3 # Необходимо для запуска gui приложений
     wev # Для получения кейкодов клавиш
-    hyfetch
+    fastfetch
     git
     zoxide
     fzf # для поиска

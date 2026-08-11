@@ -24,6 +24,11 @@
       url = "github:0xc000022070/zen-browser-flake";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+
+    sops-nix = {
+      url = "github:Mic92/sops-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
   outputs = {
@@ -36,6 +41,7 @@
     nixvim,
     disko,
     zen-browser,
+    sops-nix,
     ...
   }: let
     system = "x86_64-linux";
@@ -59,6 +65,7 @@
           disko.nixosModules.disko
           nixvim.nixosModules.nixvim
           home-manager.nixosModules.home-manager
+          sops-nix.nixosModules.sops
 
           {
             _module.args.host = hostname;

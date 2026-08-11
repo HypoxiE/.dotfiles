@@ -59,3 +59,6 @@
         orderless-regexp))
 
 
+(use-package markdown-mode
+  :hook
+  (markdown-mode . visual-line-mode))
