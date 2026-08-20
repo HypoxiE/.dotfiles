@@ -75,6 +75,7 @@
             home-manager.sharedModules = [
               spicetify-nix.homeManagerModules.default
               zen-browser.homeModules.beta
+              sops-nix.homeManagerModules.sops
             ];
 
             home-manager.extraSpecialArgs = {

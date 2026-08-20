@@ -27,6 +27,73 @@ in {
 
   home.stateVersion = "26.05";
 
+  sops = {
+    defaultSopsFile = ../secrets/secrets.yaml;
+
+    age.keyFile = "${config.home.homeDirectory}/passwords-sync/sops-key";
+
+    secrets."yandex/username" = {};
+    secrets."yandex/password" = {};
+    secrets."yandex/encryption_password" = {};
+    secrets."yandex/encryption_password_names" = {};
+
+    templates."rclone.conf" = {
+      content = ''
+        [yandex]
+        type = webdav
+        url = https://webdav.yandex.ru
+        vendor = other
+        user = ${config.sops.placeholder."yandex/username"}
+        pass = ${config.sops.placeholder."yandex/password"}
+
+        [yandex-crypt]
+        type = crypt
+        remote = yandex:encrypted
+        password = ${config.sops.placeholder."yandex/encryption_password"}
+        password2 = ${config.sops.placeholder."yandex/encryption_password_names"}
+      '';
+
+      mode = "0600";
+    };
+  };
+
+  systemd.user.services.rclone-yandex = {
+    Unit = {
+      Description = "Encrypted Yandex Disk";
+      After = ["sops-nix.service" "network-online.target"];
+      Wants = ["network-online.target"];
+    };
+
+    Service = {
+      Type = "simple";
+
+      ExecStartPre = [
+        "${pkgs.coreutils}/bin/mkdir -p %h/yandex"
+
+        "${pkgs.rclone}/bin/rclone mkdir yandex:encrypted --config ${config.sops.templates."rclone.conf".path}"
+      ];
+
+      ExecStart = ''
+        ${pkgs.rclone}/bin/rclone mount \
+          --config ${config.sops.templates."rclone.conf".path} \
+          yandex-crypt: \
+          %h/yandex \
+          --vfs-cache-mode writes \
+          --log-level INFO \
+          --log-file /tmp/rclone-yandex.log
+      '';
+
+      ExecStop = "${pkgs.util-linux}/bin/umount %h/yandex";
+
+      Restart = "on-failure";
+      RestartSec = 5;
+    };
+
+    Install = {
+      WantedBy = ["default.target"];
+    };
+  };
+
   home.activation.installProtonGWGE = config.lib.dag.entryAfter ["writeBoundary"] ''
     export PATH=${pkgs.lib.makeBinPath [pkgs.gnutar pkgs.gzip pkgs.xz]}:$PATH
 
