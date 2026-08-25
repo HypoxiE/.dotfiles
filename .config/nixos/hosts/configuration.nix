@@ -424,6 +424,7 @@ in {
 
     stow
     OVMF
+    virtiofsd
     udiskie
     mangohud
     qbittorrent
