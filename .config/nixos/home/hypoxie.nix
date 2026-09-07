@@ -338,6 +338,11 @@ in {
       epkgs.marginalia
       epkgs.corfu
 
+      epkgs.rust-mode
+      epkgs.cargo
+      epkgs.toml-mode
+      epkgs.treesit-auto
+
       epkgs.nix-mode
       epkgs.apheleia
       epkgs.lsp-mode
