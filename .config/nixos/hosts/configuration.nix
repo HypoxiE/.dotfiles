@@ -191,8 +191,8 @@ in {
   };
 
   # Set your time zone.
-  # time.timeZone = "Europe/Moscow";
-  time.timeZone = "Asia/Jakarta";
+  time.timeZone = "Europe/Moscow";
+  # time.timeZone = "Asia/Jakarta";
 
   # Configure network proxy if necessary
   networking.proxy = {

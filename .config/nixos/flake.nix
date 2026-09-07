@@ -84,13 +84,14 @@
             };
 
             home-manager.users.hypoxie = {
+              lib,
               config,
               pkgs,
               host,
               ...
             }:
               import ./home/hypoxie.nix {
-                inherit config pkgs host spicetify-nix zen-browser;
+                inherit lib config pkgs host spicetify-nix zen-browser;
               };
           }
         ];

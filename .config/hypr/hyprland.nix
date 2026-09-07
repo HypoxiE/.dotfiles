@@ -350,7 +350,7 @@ in {
         }
         {
           output = "HDMI-A-1";
-          mode = "1920x1080@74.97";
+          mode = "1366x768@74.97";
           mirror = "eDP-1";
         }
       ];

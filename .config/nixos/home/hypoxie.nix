@@ -1,4 +1,5 @@
 {
+  lib,
   config,
   pkgs,
   spicetify-nix,
@@ -220,6 +221,7 @@ in {
         settings = {
           "zen.view.compact.enable" = true;
         };
+        containersForce = true;
         containers = {
           Personal = {
             id = 1;
