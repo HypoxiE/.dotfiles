@@ -350,6 +350,10 @@ in {
       epkgs.lsp-mode
       epkgs.lsp-ui
       epkgs.nix-ts-mode
+
+      epkgs.typst-ts-mode
+      epkgs.websocket
+      epkgs.typst-preview
     ];
   };
 
@@ -552,6 +556,8 @@ in {
     nixd
     ansible
     jdk
+    typst
+    tinymist
 
     godot_4
     pkg-config
