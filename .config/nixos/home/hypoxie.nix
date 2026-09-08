@@ -551,6 +551,7 @@ in {
     alejandra
     nixd
     ansible
+    jdk
 
     godot_4
     pkg-config
