@@ -29,7 +29,7 @@ def index(fileurl):
         if not path.exists():
             return "Bad Gateway", 502
 
-    return send_file(path)
+    return send_file(path, download_name=Path(fileurl).name)
 
 
 if __name__ == "__main__":
