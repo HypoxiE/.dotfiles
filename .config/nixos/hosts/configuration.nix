@@ -287,6 +287,21 @@ in {
       upower = {
         wantedBy = ["graphical.target"];
       };
+      file_caching_server = {
+        description = "File Caching Server";
+        wantedBy = ["multi-user.target"];
+
+        serviceConfig = {
+          ExecStart = "${pkgs.python3.withPackages (ps:
+            with ps; [
+              flask
+              requests
+            ])}/bin/python /etc/file_caching_server/main.py";
+
+          Restart = "always";
+          RestartSec = 5;
+        };
+      };
     };
   };
   services.power-profiles-daemon.enable = true;
