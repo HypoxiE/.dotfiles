@@ -39,6 +39,10 @@
   scriptsDir = ../../../scripts;
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
 in {
+  nix.settings = {
+    keep-outputs = true;
+    keep-derivations = true;
+  };
   nix.settings.experimental-features = ["nix-command" "flakes"];
   nix.settings.trusted-users = ["root" "hypoxie"];
   boot.binfmt.emulatedSystems = [
@@ -580,6 +584,7 @@ in {
       22000 #syncthing
       2095 #sing-box
       10801 #tor socks proxy
+      5081 #file caching server
       8000 #base opened
       22 #openssh
     ];
@@ -605,7 +610,11 @@ in {
       s-ui = {
         image = "docker.io/alireza7/s-ui:v1.4.2";
         autoStart = true;
-        extraOptions = ["--network=host"];
+        ports = [
+          "10800:10800"
+          "10801:10801"
+          "2095:2095"
+        ];
         volumes = [
           "/home/hypoxie/s-ui-data:/app/db"
         ];

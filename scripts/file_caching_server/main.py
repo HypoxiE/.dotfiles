@@ -17,6 +17,8 @@ def download_to_cache(url, path):
 @app.route("/<path:fileurl>")
 def index(fileurl):
     CACHE_PATH.mkdir(parents=True, exist_ok=True)
+
+    outputname = fileurl.split("/")[-1]
  
     filename = hashlib.sha256(fileurl.encode()).hexdigest()
     fileurl = f"https://{fileurl}"
@@ -29,8 +31,8 @@ def index(fileurl):
         if not path.exists():
             return "Bad Gateway", 502
 
-    return send_file(path, download_name=Path(fileurl).name)
+    return send_file(path, as_attachment=True, download_name = outputname)
 
 
 if __name__ == "__main__":
-    app.run(host="0.0.0.0", port=8080, debug=True)
+    app.run(host="0.0.0.0", port=5081, debug=True)
