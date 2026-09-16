@@ -354,6 +354,8 @@ in {
       epkgs.typst-ts-mode
       epkgs.websocket
       epkgs.typst-preview
+
+      epkgs.go-mode
     ];
   };
 
@@ -558,6 +560,8 @@ in {
     jdk
     typst
     tinymist
+    gopls
+    go
 
     godot_4
     pkg-config
