@@ -57,6 +57,8 @@
           (lambda ()
             (add-hook 'before-save-hook #'eglot-format-buffer nil t)))
 
+(add-to-list 'eglot-stay-out-of 'imenu)
+
 
 (vertico-mode 1)
 (marginalia-mode 1)
