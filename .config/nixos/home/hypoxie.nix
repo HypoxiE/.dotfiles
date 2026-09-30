@@ -19,8 +19,8 @@
     sha256 = "sha256-UcWAtmqDPHOZj+APBxfurFcZdlQECi8u1RiePuaNdz0=";
   };
   fastfetchLogo = builtins.path {
-    name = "fastfetch-logo.svg";
-    path = ../assets/nwixowos.svg;
+    name = "fastfetch-logo.png";
+    path = ../assets/nwixowos.png;
   };
 in {
   imports = [
