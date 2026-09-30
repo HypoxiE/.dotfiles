@@ -454,6 +454,10 @@ in {
       "text/plain" = ["emacsclient.desktop"];
     };
   };
+  xdg.configFile."udiskie/config.yml".text = ''
+    mount_options:
+      - options: sync
+  '';
 
   systemd.user.services.ydotoold = {
     Unit = {

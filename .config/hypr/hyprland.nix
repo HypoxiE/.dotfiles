@@ -72,7 +72,7 @@ in {
                   hl.exec_cmd("awww-daemon --no-cache")
                   hl.exec_cmd("python3 ~/scripts/set_wallpapers/main.py --instant")
                   hl.exec_cmd("swaync")
-                  hl.exec_cmd("udiskie")
+                  hl.exec_cmd("udiskie --config ~/.config/udiskie/config.yml")
                   hl.exec_cmd("legcord")
                   hl.exec_cmd("env DESKTOPINTEGRATION=1 AyuGram --")
                   hl.exec_cmd("${
