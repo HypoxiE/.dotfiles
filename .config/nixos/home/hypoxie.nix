@@ -335,6 +335,29 @@ in {
         type = "kitty";
         source = "${fastfetchLogo}";
       };
+      modules = [
+        "title"
+        "separator"
+        "os"
+        "host"
+        "kernel"
+        "uptime"
+        "shell"
+        "display"
+        "de"
+        "wm"
+        "wmtheme"
+        "theme"
+        "icons"
+        "terminal"
+        "terminalfont"
+        "cpu"
+        "gpu"
+        "memory"
+        "disk"
+        "localip"
+        "battery"
+      ];
     };
   };
 
