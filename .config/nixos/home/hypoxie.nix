@@ -18,6 +18,10 @@
     url = "https://github.com/GloriousEggroll/proton-ge-custom/releases/download/GE-Proton10-34/GE-Proton10-34.tar.gz";
     sha256 = "sha256-UcWAtmqDPHOZj+APBxfurFcZdlQECi8u1RiePuaNdz0=";
   };
+  fastfetchLogo = builtins.path {
+    name = "fastfetch-logo.svg";
+    path = ../assets/nwixowos.svg;
+  };
 in {
   imports = [
     ../../hypr/hyprland.nix
@@ -320,6 +324,17 @@ in {
     shellAliases = {
       img = "chafa";
       hevel = "swc-launch hevel";
+    };
+  };
+
+  programs.fastfetch = {
+    enable = true;
+
+    settings = {
+      logo = {
+        type = "kitty";
+        source = "${fastfetchLogo}";
+      };
     };
   };
 

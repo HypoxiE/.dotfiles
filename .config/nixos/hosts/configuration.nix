@@ -38,10 +38,6 @@
   # };
   scriptsDir = ../../../scripts;
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
-  fastfetchLogo = builtins.path {
-    name = "fastfetch-logo.svg";
-    path = ../assets/nwixowos.svg;
-  };
 in {
   nix.settings = {
     keep-outputs = true;
@@ -478,17 +474,6 @@ in {
 
     XCURSOR_THEME = "Adwaita";
     XCURSOR_SIZE = "24";
-  };
-
-  programs.fastfetch = {
-    enable = true;
-
-    settings = {
-      logo = {
-        type = "kitty";
-        source = "${fastfetchLogo}";
-      };
-    };
   };
 
   programs.bash = {
