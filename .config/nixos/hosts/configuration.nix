@@ -38,6 +38,10 @@
   # };
   scriptsDir = ../../../scripts;
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
+  fastfetchLogo = builtins.path {
+    name = "fastfetch-logo.svg";
+    path = ../assets/nwixowos.svg;
+  };
 in {
   nix.settings = {
     keep-outputs = true;
@@ -476,6 +480,17 @@ in {
     XCURSOR_SIZE = "24";
   };
 
+  programs.fastfetch = {
+    enable = true;
+
+    settings = {
+      logo = {
+        type = "kitty";
+        source = "${fastfetchLogo}";
+      };
+    };
+  };
+
   programs.bash = {
     shellAliases = {
       scol = "${config.environment.etc."set_themes".source}/main.py";
@@ -528,6 +543,10 @@ in {
       off = "poweroff";
       hb = "sudo systemctl hibernate";
     };
+
+    shellInit = ''
+      fastfetch
+    '';
 
     interactiveShellInit = ''
       bindkey -e
