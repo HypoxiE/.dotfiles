@@ -532,6 +532,11 @@ in {
     chafa
     jq # for system monitor
     ncdu # disk analiser
+    dnsutils # dig
+    qrencode # qr codes
+    ffmpeg
+    zip
+    p7zip
     kdePackages.dolphin # file manager
     keepassxc # password manager
     unzip
@@ -605,6 +610,7 @@ in {
     gopls
     go
 
+    blender
     godot_4
     pkg-config
     clang
