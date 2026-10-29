@@ -389,6 +389,7 @@ in {
 
   programs.wireshark = {
     enable = true;
+    package = pkgs.wireshark;
   };
 
   hardware.bluetooth.enable = true;
