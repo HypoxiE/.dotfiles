@@ -488,7 +488,7 @@ in {
       "application/xhtml+xml" = ["zen-beta.desktop"];
       "x-scheme-handler/http" = ["zen-beta.desktop"];
       "x-scheme-handler/https" = ["zen-beta.desktop"];
-      "application/pdf" = ["firefox.desktop"];
+      "application/pdf" = ["zen-beta.desktop"];
       "text/plain" = ["emacsclient.desktop"];
     };
   };
