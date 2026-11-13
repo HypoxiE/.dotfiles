@@ -153,6 +153,10 @@ in {
   systemd.tmpfiles.rules = [
     "d /swap 0755 root root -"
     "d /shared 2775 root shared -"
+
+    "d /var/lib/lucx-ui 0750 root root -"
+    "d /var/lib/lucx-ui/cert 0750 root root -"
+    "d /var/lib/lucx-ui/acme 0750 root root -"
   ];
 
   imports = [./specific/specific-hynix.nix ./specific/specific-laptop.nix];
@@ -203,10 +207,10 @@ in {
     # default = "socks5h://10.245.48.119:65000";
     # httpProxy = "http://10.245.48.119:65001";
     # httpsProxy = "http://10.245.48.119:65001";
-    default = "socks5://127.0.0.1:10800";
-    httpProxy = "http://127.0.0.1:10800";
-    httpsProxy = "http://127.0.0.1:10800";
-    noProxy = "127.0.0.1,localhost,internal.domain";
+    # default = "socks5://127.0.0.1:10800";
+    # httpProxy = "http://127.0.0.1:10800";
+    # httpsProxy = "http://127.0.0.1:10800";
+    # noProxy = "127.0.0.1,localhost,internal.domain";
   };
 
   # Select internationalisation properties.
@@ -589,6 +593,7 @@ in {
       22000 #syncthing
       2095 #sing-box
       10801 #tor socks proxy
+      2053
       5081 #file caching server
       8000 #base opened
       22 #openssh
@@ -609,20 +614,120 @@ in {
 
   virtualisation.docker.enable = true;
   virtualisation.docker.autoPrune.enable = true;
+  # virtualisation.oci-containers = {
+  #   backend = "docker";
+  #   containers = {
+  #     s-ui = {
+  #       image = "docker.io/alireza7/s-ui:v1.4.2";
+  #       autoStart = true;
+  #       ports = [
+  #         "10800:10800"
+  #         "10801:10801"
+  #         "2095:2095"
+  #       ];
+  #       volumes = [
+  #         "/home/hypoxie/s-ui-data:/app/db"
+  #       ];
+  #     };
+  #   };
+  # };
   virtualisation.oci-containers = {
     backend = "docker";
-    containers = {
-      s-ui = {
-        image = "docker.io/alireza7/s-ui:v1.4.2";
-        autoStart = true;
-        ports = [
-          "10800:10800"
-          "10801:10801"
-          "2095:2095"
+
+    containers.lucx-ui = {
+      image = "ghcr.io/alexeylcp/lucx-ui:latest";
+      autoStart = true;
+
+      ports = [
+        "10800:10800"
+        "10801:10801"
+        "2053:2053"
+      ];
+
+      volumes = [
+        "/var/lib/lucx-ui:/etc/x-ui"
+        "/var/lib/lucx-ui/cert:/root/cert"
+        "/var/lib/lucx-ui/acme:/root/.acme.sh"
+      ];
+
+      environment = {
+        XRAY_VMESS_AEAD_FORCED = "false";
+        XUI_ENABLE_FAIL2BAN = "true";
+        XUI_LOG_LEVEL = "info";
+      };
+
+      extraOptions = [
+        "--cap-add=NET_ADMIN"
+        "--cap-add=NET_RAW"
+      ];
+    };
+  };
+
+  services.sing-box = {
+    enable = true;
+    settings = {
+      log.level = "warn";
+      dns = {
+        servers = [
+          {
+            type = "https";
+            tag = "dns-proxy";
+            server = "1.1.1.1";
+            server_port = 443;
+            path = "/dns-query";
+            detour = "socks-out";
+          }
         ];
-        volumes = [
-          "/home/hypoxie/s-ui-data:/app/db"
+        final = "dns-proxy";
+      };
+      inbounds = [
+        {
+          type = "socks";
+          tag = "socks-in";
+          listen = "127.0.0.1";
+          listen_port = 1080;
+        }
+        {
+          type = "tun";
+          tag = "tun-in";
+          interface_name = "singbox-tun0";
+          address = ["172.19.0.1/30"];
+          auto_route = true;
+          auto_redirect = true;
+          stack = "gvisor";
+          #route_exclude_address = ["172.17.0.0/16"];
+          exclude_interface = ["docker0"];
+        }
+      ];
+      outbounds = [
+        {
+          type = "socks";
+          tag = "socks-out";
+          server = "127.0.0.1";
+          server_port = 10800;
+          udp_over_tcp = true;
+        }
+        {
+          type = "direct";
+          tag = "direct";
+        }
+      ];
+      route = {
+        rules = [
+          {
+            action = "sniff";
+            inbound = "tun-in";
+          }
+          {
+            protocol = "dns";
+            action = "hijack-dns";
+          }
+          {
+            source_ip_cidr = ["172.17.0.0/16"];
+            outbound = "direct";
+          }
         ];
+        final = "socks-out";
       };
     };
   };
