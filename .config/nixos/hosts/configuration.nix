@@ -38,6 +38,8 @@
   # };
   scriptsDir = ../../../scripts;
   scripts = builtins.attrNames (builtins.readDir scriptsDir);
+  proxyAddress = "127.0.0.1:10800";
+  tunDevice = "tun0";
 in {
   nix.settings = {
     keep-outputs = true;
@@ -603,7 +605,8 @@ in {
       21027 #syncthing
       8000 # base opened
     ];
-    trustedInterfaces = ["virbr*"];
+    checkReversePath = "loose";
+    trustedInterfaces = ["virbr*" "Mihomo"];
   };
 
   # Or disable the firewall altogether.
@@ -666,7 +669,7 @@ in {
   services.sing-box = {
     enable = true;
     settings = {
-      log.level = "warn";
+      log.level = "debug";
       dns = {
         servers = [
           {
@@ -694,8 +697,11 @@ in {
           address = ["172.19.0.1/30"];
           auto_route = true;
           auto_redirect = true;
+          strict_route = true;
           stack = "gvisor";
           #route_exclude_address = ["172.17.0.0/16"];
+          route_address = ["0.0.0.0/0"];
+          route_exclude_address = [];
           exclude_interface = ["docker0"];
         }
       ];
@@ -722,6 +728,16 @@ in {
             protocol = "dns";
             action = "hijack-dns";
           }
+          # {
+          #   inbound = ["tun-in"];
+          #   ip_is_private = true;
+          #   action = "route";
+          #   outbound = "direct";
+          # }
+          # {
+          #   ip_cidr = ["192.168.1.200/32"];
+          #   outbound = "direct";
+          # }
           {
             source_ip_cidr = ["172.17.0.0/16"];
             outbound = "direct";
@@ -730,6 +746,74 @@ in {
         final = "socks-out";
       };
     };
+  };
+
+  systemd.services.sing-box-lan-routing = {
+    description = "Route LAN traffic from user applications through sing-box";
+    wantedBy = ["multi-user.target"];
+    after = ["sing-box.service"];
+    requires = ["sing-box.service"];
+
+    serviceConfig = {
+      Type = "oneshot";
+      RemainAfterExit = true;
+    };
+
+    script = ''
+      IP=${pkgs.iproute2}/bin/ip
+      USER_ID=${toString config.users.users.hypoxie.uid}
+
+      while $IP -4 rule del priority 100 \
+        uidrange "$USER_ID-$USER_ID" \
+        to 192.168.1.0/24 \
+        lookup 2022 2>/dev/null; do
+        :
+      done
+
+      PRIORITY=100
+
+      for CIDR in \
+        10.0.0.0/8 \
+        172.16.0.0/12 \
+        192.168.0.0/16
+      do
+        while $IP -4 rule del priority "$PRIORITY" \
+          uidrange "$USER_ID-$USER_ID" \
+          to "$CIDR" \
+          lookup 2022 2>/dev/null; do
+          :
+        done
+
+        $IP -4 rule add priority "$PRIORITY" \
+          uidrange "$USER_ID-$USER_ID" \
+          to "$CIDR" \
+          lookup 2022
+
+        PRIORITY=$((PRIORITY + 1))
+      done
+    '';
+
+    preStop = ''
+      IP=${pkgs.iproute2}/bin/ip
+      USER_ID=${toString config.users.users.hypoxie.uid}
+
+      PRIORITY=100
+
+      for CIDR in \
+        10.0.0.0/8 \
+        172.16.0.0/12 \
+        192.168.0.0/16
+      do
+        while $IP -4 rule del priority "$PRIORITY" \
+          uidrange "$USER_ID-$USER_ID" \
+          to "$CIDR" \
+          lookup 2022 2>/dev/null; do
+          :
+        done
+
+        PRIORITY=$((PRIORITY + 1))
+      done
+    '';
   };
 
   virtualisation.libvirtd = {

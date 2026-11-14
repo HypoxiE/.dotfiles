@@ -1,0 +1,54 @@
+tun:
+  enable: true
+  stack: gvisor
+  auto-route: true
+  auto-detect-interface: true
+  auto-redirect: true
+  # Явно указываем, какие подсети должны попадать в TUN (включая локальные)
+  route-address:
+    - 10.0.0.0/8
+    - 192.168.0.0/16
+  exclude-interface:
+    - docker0
+  # Исключаем Docker-сеть из перехвата, чтобы не ломать контейнеры
+  route-exclude-address:
+    - 172.17.0.0/16
+  dns-hijack:
+    - any:53
+    - tcp://any:53
+
+dns:
+  enable: true
+  # Используем DoH, чтобы DNS-запросы шли по TCP через ваш SOCKS5
+  nameserver:
+    - 'https://1.1.1.1/dns-query'
+  proxy-server-nameserver:
+    - 'https://223.5.5.5/dns-query'
+  direct-nameserver:
+    - 'https://223.5.5.5/dns-query'
+  # fake-ip обычно лучше для TUN-режима: приложения получают "фейковый" IP,
+  # а mihomo сам решает, куда идти, на основе домена
+  enhanced-mode: redir-host
+    
+proxies:
+  - name: "local-socks"
+    type: socks5
+    server: 127.0.0.1
+    port: 10800
+    udp: true
+
+proxy-groups:
+  - name: "PROXY"
+    type: select
+    proxies: ["local-socks", "DIRECT"]
+    
+mode: rule
+
+rules:
+  # Docker-трафик идёт напрямую (уже исключён из TUN, но правило — страховка)
+  - IP-CIDR,172.17.0.0/16,DIRECT,no-resolve
+  # Локальные подсети — в прокси
+  - IP-CIDR,10.0.0.0/8,PROXY,no-resolve
+  - IP-CIDR,192.168.0.0/16,PROXY,no-resolve
+  # Всё остальное — в прокси
+  - MATCH,PROXY
