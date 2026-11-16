@@ -452,6 +452,11 @@ in {
           match = {class = "^(Matplotlib)$";};
           fullscreen = true;
         }
+        {
+          name = "fix scene engine";
+          match = {class = "^(scene_engine)$";};
+          fullscreen = true;
+        }
 
         {
           name = "browsers on workspace";

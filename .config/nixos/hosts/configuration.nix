@@ -593,15 +593,14 @@ in {
   networking.firewall = {
     allowedTCPPorts = [
       22000 #syncthing
-      2095 #sing-box
       10801 #tor socks proxy
-      2053
+      2017 #v2raya
       5081 #file caching server
       8000 #base opened
       22 #openssh
     ];
     allowedUDPPorts = [
-      22000
+      22000 #syncthing
       21027 #syncthing
       8000 # base opened
     ];
@@ -637,32 +636,47 @@ in {
   virtualisation.oci-containers = {
     backend = "docker";
 
-    containers.lucx-ui = {
-      image = "ghcr.io/alexeylcp/lucx-ui:latest";
+    # containers.lucx-ui = {
+    #   image = "ghcr.io/alexeylcp/lucx-ui:latest";
+    #   autoStart = true;
+
+    #   ports = [
+    #     "10800:10800"
+    #     "10801:10801"
+    #     "2053:2053"
+    #   ];
+
+    #   volumes = [
+    #     "/var/lib/lucx-ui:/etc/x-ui"
+    #     "/var/lib/lucx-ui/cert:/root/cert"
+    #     "/var/lib/lucx-ui/acme:/root/.acme.sh"
+    #   ];
+
+    #   environment = {
+    #     XRAY_VMESS_AEAD_FORCED = "false";
+    #     XUI_ENABLE_FAIL2BAN = "true";
+    #     XUI_LOG_LEVEL = "info";
+    #   };
+
+    #   extraOptions = [
+    #     "--cap-add=NET_ADMIN"
+    #     "--cap-add=NET_RAW"
+    #   ];
+    # };
+    containers.v2raya = {
+      image = "mzz2017/v2raya:latest";
       autoStart = true;
-
       ports = [
+        "2017:2017"
         "10800:10800"
-        "10801:10801"
-        "2053:2053"
       ];
-
       volumes = [
-        "/var/lib/lucx-ui:/etc/x-ui"
-        "/var/lib/lucx-ui/cert:/root/cert"
-        "/var/lib/lucx-ui/acme:/root/.acme.sh"
+        "/var/lib/v2raya:/etc/v2raya"
       ];
-
       environment = {
-        XRAY_VMESS_AEAD_FORCED = "false";
-        XUI_ENABLE_FAIL2BAN = "true";
-        XUI_LOG_LEVEL = "info";
+        V2RAYA_LOG_FILE = "/tmp/v2raya.log";
+        V2RAYA_ADDRESS = "0.0.0.0:2017";
       };
-
-      extraOptions = [
-        "--cap-add=NET_ADMIN"
-        "--cap-add=NET_RAW"
-      ];
     };
   };
 
